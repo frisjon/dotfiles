@@ -25,4 +25,4 @@ if [ -x /usr/bin/dircolors ]; then
     #alias egrep='egrep --color=auto'
 fi
 
-alias win='cd /mnt/c/Users/39466831/'
+alias win='cd /mnt/c/Users/$NID/'
