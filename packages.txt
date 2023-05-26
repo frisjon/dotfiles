@@ -1,0 +1,5 @@
+trash-cli
+bash
+git
+neovim
+tmux
