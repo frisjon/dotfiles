@@ -152,3 +152,6 @@ my_pwd() {
     echo "$PWDPATH"
   fi
 }
+
+# set keyboard layout
+setxkbmap customo
