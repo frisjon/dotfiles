@@ -21,7 +21,7 @@ fi
 cmd="cp $INTERACTIVE .local/bin/* $HOME/.local/bin"
 eval $cmd
 
-dfiles=".inputrc .bashrc .aliases .profile .xinitrc .gitconfig"
+dfiles=".inputrc .bashrc .aliases .profile .xinitrc .gitconfig .Xresources"
 
 for f in $dfiles;do
   cmd="ln -s $INTERACTIVE $(pwd)/$f $HOME"
