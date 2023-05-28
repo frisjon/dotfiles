@@ -5,6 +5,8 @@ alias ll='ls -l'
 alias la='ls -la'
 alias lt='ls -lt'
 
+alias vim='nvim'
+
 # Color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
