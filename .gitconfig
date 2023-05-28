@@ -3,3 +3,6 @@
 	email = frisjon0@gmail.com
 [pull]
 	rebase = true
+[alias]
+	st = status
+	co = commit
