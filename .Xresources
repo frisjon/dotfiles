@@ -135,30 +135,38 @@ XTerm*color14:              #00FFFF
 XTerm*color7:               #C0C0C0
 XTerm*color15:              #ffffff
 
-!  XTerm Translations, i.e. keyboard remapping.
-!
-! Notes:
-!   ~       means that that modifier must not be asserted.
-!   !       means that the listed modifiers must be in the correct state and
-!               no other modifiers can be asserted.
-!   None    means no modifiers can be asserted.
-!   :       directs the Intrinsics to apply any standard modifiers in the event.
-!   ^       is an abbreviation for the Control modifier.
-!   $       is an abbreviation for Meta
-!
-! Example:
-!   No modifiers:                          None <event> detail
-!   Any modifiers:                              <event> detail
-!   Only these modifiers:           ! mod1 mod2 <event> detail
-!   These modifiers and any others:   mod1 mod2 <event> detail
 
-! Below:
-!
-! - I have some old apps that use Alt-F4, but thats sometimes difficult to
-!       press so Ctrl-Shift-F4 does the same thing.
-! - Ctrl-MouseWheel can be used to increase and descrease font size.
-! - Ctrl-I is totally useless, because it is literally impossible for
-!       applications to differentiate it from Tab. You can remap it to some
-!       other harder-to-press keybinding here, I use it for Italics in
-!       wordperfect.
+st.bold_font:			0
+st.background:			#131415
+st.foreground:			#ffffff
+st.cursorColor:			#ff9b53
+st.termname:			st-256color
+st.shell:			/bin/bash
+st.bellvolume:			0
+st.tabspaces:			4
+st.chscale:			1.0
+st.cwscale:			1.0
 
+st.color0:			#353540
+st.color8:			#545466
+st.color1:			#8c5760
+st.color9:			#b26f7a
+st.color2:			#7b8c58
+st.color10:			#9db270
+st.color3:			#8c6e43
+st.color11:			#b28c55
+st.color4:			#58698c
+st.color12:			#7086b2
+st.color5:			#7b5e7d
+st.color13:			#9c77b2
+st.color6:			#66808c
+st.color14:			#82a2b2
+st.color7:			#8c8b8b
+st.color15:			#b8b8c8
+
+dwm.normbordercolor: #444444
+dwm.normbgcolor:     #222222
+dwm.normfgcolor:     #bbbbbb
+dwm.selbordercolor:  #005577     
+dwm.selbgcolor:      #005577      
+dwm.selcfgolor:      #eeeeee      
