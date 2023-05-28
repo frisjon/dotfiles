@@ -22,7 +22,7 @@ static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3] = {
 	/*             fg       bg        border*/
 	[SchemeNorm] = {OPAQUE, baralpha, borderalpha},
-	[SchemeSel] = {OPAQUE, baralpha, borderalpha},
+	[SchemeSel]  = {OPAQUE, baralpha, borderalpha},
 };
 
 /* tagging */
@@ -51,6 +51,7 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
  	{ "TTT",      bstack },
  	{ "===",      bstackhoriz },
+	{ NULL,      NULL },
 };
 
 /* key definitions */
@@ -80,7 +81,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_k,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_l,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_j,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_ntilde, setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_minus, setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
@@ -97,6 +98,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,         {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,         {.i = +1 } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
