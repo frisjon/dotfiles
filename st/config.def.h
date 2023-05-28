@@ -16,7 +16,7 @@ static int borderpx = 2;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/bash";
 char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
 char *scroll = NULL;
@@ -91,7 +91,7 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -171,12 +171,48 @@ static unsigned int defaultattr = 11;
 static uint forcemousemod = ShiftMask;
 
 /*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+    { "font",         STRING,  &font },
+    { "color0",       STRING,  &colorname[0] },
+    { "color1",       STRING,  &colorname[1] },
+    { "color2",       STRING,  &colorname[2] },
+    { "color3",       STRING,  &colorname[3] },
+    { "color4",       STRING,  &colorname[4] },
+    { "color5",       STRING,  &colorname[5] },
+    { "color6",       STRING,  &colorname[6] },
+    { "color7",       STRING,  &colorname[7] },
+    { "color8",       STRING,  &colorname[8] },
+    { "color9",       STRING,  &colorname[9] },
+    { "color10",      STRING,  &colorname[10] },
+    { "color11",      STRING,  &colorname[11] },
+    { "color12",      STRING,  &colorname[12] },
+    { "color13",      STRING,  &colorname[13] },
+    { "color14",      STRING,  &colorname[14] },
+    { "color15",      STRING,  &colorname[15] },
+    { "background",   STRING,  &colorname[256] },
+    { "foreground",   STRING,  &colorname[257] },
+    { "cursorColor",  STRING,  &colorname[258] },
+    { "termname",     STRING,  &termname },
+    { "shell",        STRING,  &shell },
+    { "minlatency",   INTEGER, &minlatency },
+    { "maxlatency",   INTEGER, &maxlatency },
+    { "blinktimeout", INTEGER, &blinktimeout },
+    { "bellvolume",   INTEGER, &bellvolume },
+    { "tabspaces",    INTEGER, &tabspaces },
+    { "borderpx",     INTEGER, &borderpx },
+    { "cwscale",      FLOAT,   &cwscale },
+    { "chscale",      FLOAT,   &chscale },
+};
+
+/*
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+	{ XK_ANY_MOD,           Button3, selpaste,       {.i = 0},      1 },
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
