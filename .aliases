@@ -6,6 +6,7 @@ alias la='ls -la'
 alias lt='ls -lt'
 
 alias vim='nvim'
+alias n='nvim'
 
 # Color support
 if [ -x /usr/bin/dircolors ]; then
