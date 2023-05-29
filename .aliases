@@ -22,13 +22,13 @@ fi
 alias q='exit'
 alias mkdir='mkdir -p'
 alias cp='cp -i'
+alias mv='mv -i'
 
 # jupyter notebook
 alias notebook="docker run -it --rm -p 8888:8888 --name jupyter -v $(pwd):/home/jovyan/work jupyter/tensorflow-notebook"
 
 # wsl
 alias win='cd /mnt/c/Users/$NID/'
-
 
 # navigation
 alias pd='pushd .'
