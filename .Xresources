@@ -1,3 +1,24 @@
+#if !defined(THEME)
+#define THEME DEFAULT
+#define COLOR0 #fE3440
+#define COLOR1 #fB4252
+#define COLOR2 #f34C5E
+#define COLOR3 #fC566A
+#define COLOR4 #f8DEE9
+#define COLOR5 #f5E9F0
+#define COLOR6 #fCEFF4
+#define COLOR7 #fFBCBB
+#define COLOR8 #f8C0D0
+#define COLOR9 #f1A1C1
+#define COLOR10 #fE81AC
+#define COLOR11 #fF616A
+#define COLOR12 #f08770
+#define COLOR13 #fBCB8B
+#define COLOR14 #f3BE8C
+#define COLOR15 #f48EAD
+#endif
+
+
 ! XTerm resources
 !
 ! Remember to run `xrdb < .Xresources` after changing anything.
@@ -147,24 +168,25 @@ st.tabspaces:			4
 st.chscale:			1.0
 st.cwscale:			1.0
 
-st.color0:			#353540
-st.color8:			#545466
-st.color1:			#8c5760
-st.color9:			#b26f7a
-st.color2:			#7b8c58
-st.color10:			#9db270
-st.color3:			#8c6e43
-st.color11:			#b28c55
-st.color4:			#58698c
-st.color12:			#7086b2
-st.color5:			#7b5e7d
-st.color13:			#9c77b2
-st.color6:			#66808c
-st.color14:			#82a2b2
-st.color7:			#8c8b8b
-st.color15:			#b8b8c8
+st.color0:	COLOR0 		
+st.color8:	COLOR8 		
+st.color1:	COLOR1 		
+st.color9:	COLOR9 		
+st.color2:	COLOR2 		
+st.color10:	COLOR10		
+st.color3:	COLOR3 		
+st.color11:	COLOR11		
+st.color4:	COLOR4 		
+st.color12:	COLOR12		
+st.color5:	COLOR5 		
+st.color13:	COLOR13		
+st.color6:	COLOR6 		
+st.color14:	COLOR14		
+st.color7:	COLOR7 		
+st.color15:	COLOR15		
 
-dwm.normbordercolor: #444444
+
+dwm.normbordercolor: #ff0000
 dwm.normbgcolor:     #222222
 dwm.normfgcolor:     #bbbbbb
 dwm.selbordercolor:  #005577     
