@@ -1,0 +1,27 @@
+st.bold_font:	0
+st.background:	BACKGROUND
+st.foreground:	FOREGROUND
+st.cursorColor:	CURSOR
+st.termname:	st-256color
+st.shell:	/bin/bash
+st.bellvolume:	0
+st.tabspaces:	4
+st.chscale:	1.0
+st.cwscale:	1.0
+
+st.color0:	COLOR0	
+st.color8:	COLOR8 		
+st.color1:	COLOR1 		
+st.color9:	COLOR9 		
+st.color2:	COLOR2 		
+st.color10:	COLOR10		
+st.color3:	COLOR3 		
+st.color11:	COLOR11		
+st.color4:	COLOR4 		
+st.color12:	COLOR12		
+st.color5:	COLOR5 		
+st.color13:	COLOR13		
+st.color6:	COLOR6 		
+st.color14:	COLOR14		
+st.color7:	COLOR7 		
+st.color15:	COLOR15		

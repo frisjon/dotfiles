@@ -24,6 +24,16 @@ for f in $(pwd)/.local/bin/*;do
   echo " $f"
 done
 
+echo Linking ~/.local/share/dwm
+if [ ! -d $HOME/.local/share/dwm ]; then
+  mkdir $HOME/.local/share/dwm;
+fi
+
+for f in $(pwd)/.local/share/dwm/*;do
+  ln -s $INTERACTIVE $f $HOME/.local/share/dwm
+  echo " $f"
+done
+
 echo Linking ~/.config/xres/themes
 if [ ! -d $HOME/.config/xres/themes ]; then
   mkdir -p $HOME/.config/xres/themes
@@ -31,6 +41,11 @@ fi
 
 for f in $(pwd)/.config/xres/themes/*;do
   ln -s $INTERACTIVE $f $HOME/.config/xres/themes
+  echo " $f"
+done
+
+for f in $(pwd)/.config/xres/*;do
+  [ -f $f ] && ln -s $INTERACTIVE $f $HOME/.config/xres
   echo " $f"
 done
 
