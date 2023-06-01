@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "Liberation Mono:pixelsize=14:antialias=true:autohint=true";
+static int borderpx = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -211,11 +211,11 @@ ResourcePref resources[] = {
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
-    { ControlMask,          Button4, zoom,           {.f = 1} },
-    { XK_ANY_MOD,           Button4, kscrollup,      {.i = 1} },
-    { ControlMask,          Button5, zoom,           {.f = 1} },
-    { XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1} },
-	{ XK_ANY_MOD,           Button3, selpaste,       {.i = 0},      1 },
+	{ ControlMask,          Button4, zoom,           {.f = 1} },
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 1} },
+	{ ControlMask,          Button5, zoom,           {.f = 1} },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1} },
+ 	{ XK_ANY_MOD,           Button3, selpaste,       {.i = 0},      1 },
 	//{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	//{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	//{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
@@ -336,7 +336,7 @@ static Key key[] = {
 	{ XK_KP_7,          XK_ANY_MOD,     "\033Ow",       +2,    0},
 	{ XK_KP_8,          XK_ANY_MOD,     "\033Ox",       +2,    0},
 	{ XK_KP_9,          XK_ANY_MOD,     "\033Oy",       +2,    0},
-	{ XK_Up,            ShiftMask,      "\033[1;2A",     0,    0},
+	//{ XK_Up,            ShiftMask,      "\033[1;2A",     0,    0},
 	{ XK_Up,            Mod1Mask,       "\033[1;3A",     0,    0},
 	{ XK_Up,         ShiftMask|Mod1Mask,"\033[1;4A",     0,    0},
 	{ XK_Up,            ControlMask,    "\033[1;5A",     0,    0},
@@ -345,7 +345,7 @@ static Key key[] = {
 	{ XK_Up,ShiftMask|ControlMask|Mod1Mask,"\033[1;8A",  0,    0},
 	{ XK_Up,            XK_ANY_MOD,     "\033[A",        0,   -1},
 	{ XK_Up,            XK_ANY_MOD,     "\033OA",        0,   +1},
-	{ XK_Down,          ShiftMask,      "\033[1;2B",     0,    0},
+	//{ XK_Down,          ShiftMask,      "\033[1;2B",     0,    0},
 	{ XK_Down,          Mod1Mask,       "\033[1;3B",     0,    0},
 	{ XK_Down,       ShiftMask|Mod1Mask,"\033[1;4B",     0,    0},
 	{ XK_Down,          ControlMask,    "\033[1;5B",     0,    0},
@@ -354,7 +354,7 @@ static Key key[] = {
 	{ XK_Down,ShiftMask|ControlMask|Mod1Mask,"\033[1;8B",0,    0},
 	{ XK_Down,          XK_ANY_MOD,     "\033[B",        0,   -1},
 	{ XK_Down,          XK_ANY_MOD,     "\033OB",        0,   +1},
-	{ XK_Left,          ShiftMask,      "\033[1;2D",     0,    0},
+	//{ XK_Left,          ShiftMask,      "\033[1;2D",     0,    0},
 	{ XK_Left,          Mod1Mask,       "\033[1;3D",     0,    0},
 	{ XK_Left,       ShiftMask|Mod1Mask,"\033[1;4D",     0,    0},
 	{ XK_Left,          ControlMask,    "\033[1;5D",     0,    0},
@@ -363,7 +363,7 @@ static Key key[] = {
 	{ XK_Left,ShiftMask|ControlMask|Mod1Mask,"\033[1;8D",0,    0},
 	{ XK_Left,          XK_ANY_MOD,     "\033[D",        0,   -1},
 	{ XK_Left,          XK_ANY_MOD,     "\033OD",        0,   +1},
-	{ XK_Right,         ShiftMask,      "\033[1;2C",     0,    0},
+	//{ XK_Right,         ShiftMask,      "\033[1;2C",     0,    0},
 	{ XK_Right,         Mod1Mask,       "\033[1;3C",     0,    0},
 	{ XK_Right,      ShiftMask|Mod1Mask,"\033[1;4C",     0,    0},
 	{ XK_Right,         ControlMask,    "\033[1;5C",     0,    0},
