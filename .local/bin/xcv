@@ -1,5 +1,5 @@
 #!/bin/bash
-THEME_DIR=$HOME
+THEME_DIR=$HOME/.config/xres/themes
 
 if [ ! -d $THEME_DIR ] || [ ! -f $THEME_DIR/$1 ];then
 	echo no dir or not a file
