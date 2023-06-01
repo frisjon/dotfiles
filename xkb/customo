@@ -16,7 +16,7 @@ xkb_symbols "basic" {
     key <AE08> { [          8,    parenleft,     bracketleft                 ] };
     key <AE09> { [          9,   parenright,    bracketright                 ] };
     key <AE10> { [          0,        equal,      braceright                 ] };
-    key <AE11> { [ asciitilde,   underscore,        question,   questiondown ] };
+    key <AE11> { [ asciitilde,       ntilde,        question,   questiondown ] };
     key <AE12> { [  Caps_Lock                                                ] };
 
     key <AD01> { [          q,            Q,              at                 ] };
