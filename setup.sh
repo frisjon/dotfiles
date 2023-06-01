@@ -21,6 +21,13 @@ fi
 cmd="cp $INTERACTIVE .local/bin/* $HOME/.local/bin"
 eval $cmd
 
+if [ ! -d $HOME/.config ]; then
+  mkdir $HOME/.config
+fi
+
+cmd="cp $INTERACTIVE -r .config/* $HOME/.config"
+eval $cmd
+
 dfiles=".inputrc .bashrc .aliases .profile .xinitrc .gitconfig .Xresources"
 
 for f in $dfiles;do

@@ -1,0 +1,35 @@
+#define BACKGROUND #1E1E2E
+#define FOREGROUND #CDD6F4
+#define CURSOR #ff0000
+
+// black
+#define COLOR0 #45475A
+#define COLOR8 #585B70
+
+// red
+#define COLOR1 #F38BA8
+#define COLOR9 #F38BA8
+
+// green
+#define COLOR2 #A6E3A1
+#define COLOR10 #A6E3A1
+
+// yellow
+#define COLOR3 #F9E2AF
+#define COLOR11 #F9E2AF
+
+// blue
+#define COLOR4 #89B4FA
+#define COLOR12 #89B4FA
+
+// magenta
+#define COLOR5 #F5C2E7
+#define COLOR13 #F5C2E7
+
+// cyan
+#define COLOR6 #94E2D5
+#define COLOR14 #94E2D5
+
+// white
+#define COLOR7 #BAC2DE
+#define COLOR15 #A6ADC8
