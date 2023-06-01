@@ -1,6 +1,6 @@
 #define BACKGROUND #1E1E2E
 #define FOREGROUND #CDD6F4
-#define CURSOR #ff0000
+#define CURSOR #CDD6F4
 
 // black
 #define COLOR0 #45475A
