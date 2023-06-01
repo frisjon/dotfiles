@@ -3,7 +3,5 @@ dwm/dwm
 st/*.o
 st/st
 dmenu/*o
-dmenu/dmenu_run
-dmenu/dmenu_path
 dmenu/dmenu
 dmenu/stest
