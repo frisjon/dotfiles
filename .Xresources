@@ -1,23 +1,7 @@
-#if !defined(THEME)
-#define THEME DEFAULT
-#define COLOR0 #fE3440
-#define COLOR1 #fB4252
-#define COLOR2 #f34C5E
-#define COLOR3 #fC566A
-#define COLOR4 #f8DEE9
-#define COLOR5 #f5E9F0
-#define COLOR6 #fCEFF4
-#define COLOR7 #fFBCBB
-#define COLOR8 #f8C0D0
-#define COLOR9 #f1A1C1
-#define COLOR10 #fE81AC
-#define COLOR11 #fF616A
-#define COLOR12 #f08770
-#define COLOR13 #fBCB8B
-#define COLOR14 #f3BE8C
-#define COLOR15 #f48EAD
+#ifdef THEME
+#include THEME
+#else
 #endif
-
 
 ! XTerm resources
 !
@@ -139,36 +123,38 @@ XTerm*decTerminalID:        vt382
 ! Color Scheme
 ! 0-7:  Black, Red, Green, Yellow, Blue, Purple, Cyan, White
 ! 8-15: Bright Black, Bright Red, ...
-XTerm*color0:               #212121
-XTerm*color8:               #7f7f7f
-XTerm*color1:               #A00000
-XTerm*color9:               #FF0000
-XTerm*color2:               #00A000
-XTerm*color10:              #00FF00
-XTerm*color3:               #A0A000
-XTerm*color11:              #FFFF00
-XTerm*color4:               #0000A0
-XTerm*color12:              #5C5CFF
-XTerm*color5:               #A000A0
-XTerm*color13:              #FF00FF
-XTerm*color6:               #00A0A0
-XTerm*color14:              #00FFFF
-XTerm*color7:               #C0C0C0
-XTerm*color15:              #ffffff
+XTerm*color0:       COLOR0	 
+XTerm*color8:       COLOR8 	 
+XTerm*color1:       COLOR1 	 
+XTerm*color9:       COLOR9 	 
+XTerm*color2:       COLOR2 	 
+XTerm*color10:      COLOR10	 
+XTerm*color3:       COLOR3 	 
+XTerm*color11:      COLOR11	 
+XTerm*color4:       COLOR4 	 
+XTerm*color12:      COLOR12	 
+XTerm*color5:       COLOR5 	 
+XTerm*color13:      COLOR13	 
+XTerm*color6:       COLOR6 	 
+XTerm*color14:      COLOR14	 
+XTerm*color7:       COLOR7 	 
+XTerm*color15:      COLOR15	 
 
 
-st.bold_font:			0
-st.background:			#131415
-st.foreground:			#ffffff
-st.cursorColor:			#ff9b53
-st.termname:			st-256color
-st.shell:			/bin/bash
-st.bellvolume:			0
-st.tabspaces:			4
-st.chscale:			1.0
-st.cwscale:			1.0
+theme: THEME
 
-st.color0:	COLOR0 		
+st.bold_font:	0
+st.background:	BACKGROUND
+st.foreground:	FOREGROUND
+st.cursorColor:	CURSOR
+st.termname:	st-256color
+st.shell:	/bin/bash
+st.bellvolume:	0
+st.tabspaces:	4
+st.chscale:	1.0
+st.cwscale:	1.0
+
+st.color0:	COLOR0	
 st.color8:	COLOR8 		
 st.color1:	COLOR1 		
 st.color9:	COLOR9 		
@@ -184,7 +170,6 @@ st.color6:	COLOR6
 st.color14:	COLOR14		
 st.color7:	COLOR7 		
 st.color15:	COLOR15		
-
 
 dwm.normbordercolor: #ff0000
 dwm.normbgcolor:     #222222

@@ -1,0 +1,10 @@
+#!/bin/bash
+THEME_DIR=$HOME
+
+if [ ! -d $THEME_DIR ] || [ ! -f $THEME_DIR/$1 ];then
+	echo no dir or not a file
+	exit 1
+fi
+
+
+xrdb -DTHEME="<$THEME_DIR/$1>" -merge ~/.Xresources
