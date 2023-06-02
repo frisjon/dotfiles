@@ -1,6 +1,16 @@
-dwm.normbordercolor: #ff0000
-dwm.normbgcolor:     #222222
-dwm.normfgcolor:     #bbbbbb
-dwm.selbordercolor:  #005577     
-dwm.selbgcolor:      #005577      
-dwm.selcfgolor:      #eeeeee      
+dwm.normbordercolor:COLOR0
+dwm.normbgcolor:BACKGROUND
+dwm.normfgcolor:FOREGROUND
+dwm.selbordercolor:COLOR1
+dwm.selbgcolor:COLOR1
+dwm.selfgcolor:COLOR0
+
+dwm.font:SourceCodePro:size=14
+dwm.dmenufont:SourceCodePro:size=14
+dwm.borderpx:5
+dwm.snap:32
+dwm.showbar:1
+dwm.topbar:0
+dwm.nmaster:1
+dwm.resizehints:1
+dwm.mfact:0.5
