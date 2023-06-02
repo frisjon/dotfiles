@@ -1,14 +1,15 @@
-st.bold_font:	0
-st.background:	BACKGROUND
-st.foreground:	FOREGROUND
-st.cursorColor:	CURSOR
+st.font:    SourceCodePro:pixelsize=14
 st.termname:	st-256color
 st.shell:	/bin/bash
 st.bellvolume:	0
 st.tabspaces:	4
+st.borderpx: 0
 st.chscale:	1.0
 st.cwscale:	1.0
 
+st.background:	BACKGROUND
+st.foreground:	FOREGROUND
+st.cursorColor:	CURSOR
 st.color0:	COLOR0	
 st.color8:	COLOR8 		
 st.color1:	COLOR1 		

@@ -5,8 +5,8 @@
 #define COLOR0 #ff0000
 #endif
 
+#include ".config/xres/xterm.xres"
 #include ".config/xres/dwm.xres"
 #include ".config/xres/st.xres"
-#include ".config/xres/xterm.xres"
 
 theme: THEME
