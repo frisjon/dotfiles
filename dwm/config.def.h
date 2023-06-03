@@ -105,7 +105,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = +1 } },
-        { MODKEY|ShiftMask,             XK_l,      rotatestack,    {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_l,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_j,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_minus,  setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_z,      zoom,           {0} },
@@ -118,7 +118,7 @@ static const Key keys[] = {
  	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-    {MODKEY,                        XK_s,      togglecanfocusfloating,{0}},
+    { MODKEY,                       XK_s,      togglecanfocusfloating,{0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -157,3 +157,10 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signum>"` */
+static Signal signals[] = {
+    /* signum   function    argument */
+    { 1,        xrdb,       {.v = NULL} },
+};
