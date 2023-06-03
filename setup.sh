@@ -2,56 +2,27 @@
 
 INTERACTIVE="-i"
 
-while getopts 'oh' opt;do
+while getopts 'fh' opt;do
   case "$opt" in
-    o) INTERACTIVE="-f"
+    f) INTERACTIVE="-f"
     ;;
-    ?|h) echo "Usage: $(basename $0) [-o]"
-         echo " -o    no interactive mode"
+    ?|h) echo "Usage: $(basename $0) [-f]"
+         echo " -f    force"
          exit 1
     ;;
   esac
 done
 shift "$(($OPTIND-1))"
 
-echo Linking ~/.local/bin
-if [ ! -d $HOME/.local/bin ]; then
-  mkdir $HOME/.local/bin;
-fi
-
-for f in $(pwd)/.local/bin/*;do
-  ln -s $INTERACTIVE $f $HOME/.local/bin
-  echo " $f"
+IGNORE="/st\|/dwm\|/dmenu\|/.git\|/.gitignore\|readme\|/xkb\|packages.txt\|setup.sh"
+direcs=$(find -type d | grep -iv $IGNORE | cut -c3-)
+for d in $direcs;do
+  [ ! -d $HOME/$d ] && mkdir -p $HOME/$d && echo Create dir $HOME/$d
 done
 
-echo Linking ~/.local/share/dwm
-if [ ! -d $HOME/.local/share/dwm ]; then
-  mkdir $HOME/.local/share/dwm;
-fi
-
-for f in $(pwd)/.local/share/dwm/*;do
-  ln -s $INTERACTIVE $f $HOME/.local/share/dwm
-  echo " $f"
-done
-
-echo Linking ~/.config/xres/themes
-if [ ! -d $HOME/.config/xres/themes ]; then
-  mkdir -p $HOME/.config/xres/themes
-fi
-
-for f in $(pwd)/.config/xres/themes/*;do
-  ln -s $INTERACTIVE $f $HOME/.config/xres/themes
-  echo " $f"
-done
-
-for f in $(pwd)/.config/xres/*;do
-  [ -f $f ] && ln -s $INTERACTIVE $f $HOME/.config/xres
-  echo " $f"
-done
-
-echo Linking dotfiles
-dfiles=".inputrc .bashrc .aliases .profile .xinitrc .gitconfig .Xresources"
-for f in $dfiles;do
-  ln -s $INTERACTIVE $(pwd)/$f $HOME
-  echo " $f"
+files=$(find . -type f | grep -iv $IGNORE | cut -c3-)
+for f in $files;do
+  echo -n "Linking $f"
+  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f
+  [ $? -eq "0" ] && echo " OK"
 done
