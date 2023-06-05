@@ -8,5 +8,6 @@
 #include ".config/xres/xterm.xres"
 #include ".config/xres/dwm.xres"
 #include ".config/xres/st.xres"
+#include ".config/xres/dmenu.xres"
 
 theme: THEME
