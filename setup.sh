@@ -22,5 +22,5 @@ done
 
 files=$(find . -type f | grep -iv $IGNORE | cut -c3-)
 for f in $files;do
-  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f && [ $? -eq "0" ] && echo "OK"
+  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f && [ $? -eq "0" ] && echo "$f OK"
 done
