@@ -5,3 +5,6 @@ bash
 git
 neovim
 tmux
+dunst
+sxhkd
+bspwm
