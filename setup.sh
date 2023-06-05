@@ -14,7 +14,7 @@ while getopts 'fh' opt;do
 done
 shift "$(($OPTIND-1))"
 
-IGNORE="/st\|/dwm\|/dmenu\|/.git\|/.gitignore\|readme\|/xkb\|packages.txt\|setup.sh"
+IGNORE="\./st\|\./dwm\|\./dmenu\|/.git\|/.gitignore\|readme\|\./xkb\|packages.txt\|setup.sh"
 direcs=$(find -type d | grep -iv $IGNORE | cut -c3-)
 for d in $direcs;do
   [ ! -d $HOME/$d ] && mkdir -p $HOME/$d && echo Create dir $HOME/$d
@@ -22,7 +22,5 @@ done
 
 files=$(find . -type f | grep -iv $IGNORE | cut -c3-)
 for f in $files;do
-  echo -n "Linking $f"
-  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f
-  [ $? -eq "0" ] && echo " OK"
+  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f && [ $? -eq "0" ] && echo "OK"
 done
