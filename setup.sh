@@ -2,9 +2,17 @@
 
 INTERACTIVE="-i"
 
-while getopts 'fh' opt;do
+while getopts 'fbh' opt;do
   case "$opt" in
     f) INTERACTIVE="-f"
+    ;;
+    b) BPATH=$(pwd)
+       cd   dwm && sudo make clean install &> $BPATH/.tmp && [ $? -eq "0" ] && echo "dwm   OK" && cd ..
+       cd    st && sudo make clean install &> $BPATH/.tmp && [ $? -eq "0" ] && echo "st    OK" && cd ..
+       cd dmenu && sudo make clean install &> $BPATH/.tmp && [ $? -eq "0" ] && echo "dmenu OK" && cd ..
+       rm $BPATH/.tmp
+       echo Build OK
+       exit 0
     ;;
     ?|h) echo "Usage: $(basename $0) [-f]"
          echo " -f    force"
