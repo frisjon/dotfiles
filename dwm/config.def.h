@@ -17,6 +17,8 @@ static char selbordercolor[]  = "#005577";
 static char selbgcolor[]      = "#005577";
 static const int startwithgaps[] = { 0 };   /* 1 means gaps are used by default, this can be customized for each tag */
 static const unsigned int gappx[] = { 10 }; /* default gap between windows in pixels, this can be customized for each tag */
+static const int vertpad      = 0;
+static const int sidepad      = 0;
 static char *colors[][3]      = {
        /*               fg           bg           border */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -31,7 +33,7 @@ static const unsigned int alphas[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "A", "B", "C", "D", "E", "F", "X", "Y", "Z" };
 
 static const Rule rules[] = {
 	/* xprop(1):
