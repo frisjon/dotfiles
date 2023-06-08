@@ -3,7 +3,7 @@ st.termname:	st-256color
 st.shell:	/bin/bash
 st.bellvolume:	0
 st.tabspaces:	4
-st.borderpx: 0
+st.borderpx: 20
 st.chscale:	1.0
 st.cwscale:	1.0
 
