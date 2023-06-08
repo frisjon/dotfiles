@@ -15,6 +15,8 @@ static char normfgcolor[]     = "#bbbbbb";
 static char selfgcolor[]      = "#eeeeee";
 static char selbordercolor[]  = "#005577";
 static char selbgcolor[]      = "#005577";
+static const int startwithgaps[] = { 0 };   /* 1 means gaps are used by default, this can be customized for each tag */
+static const unsigned int gappx[] = { 10 }; /* default gap between windows in pixels, this can be customized for each tag */
 static char *colors[][3]      = {
        /*               fg           bg           border */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -114,8 +116,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
- 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
- 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
+ 	//{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
+ 	//{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
     { MODKEY,                       XK_s,      togglecanfocusfloating,{0} },
@@ -128,6 +130,10 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
+	{ MODKEY,                       XK_i,      setgaps,        {.i = -5 } },
+	{ MODKEY,                       XK_o,      setgaps,        {.i = +5 } },
+	{ MODKEY|ShiftMask,             XK_i,      setgaps,        {.i = GAP_RESET } },
+	{ MODKEY|ShiftMask,             XK_o,      setgaps,        {.i = GAP_TOGGLE } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -163,4 +169,7 @@ static const Button buttons[] = {
 static Signal signals[] = {
     /* signum   function    argument */
     { 1,        xrdb,       {.v = NULL} },
+    { 2,        setgaps,    {.i = -5} },
+    { 3,        setgaps,    {.i = +5} },
+    { 4,        setgaps,    {.i = GAP_RESET} },
 };
