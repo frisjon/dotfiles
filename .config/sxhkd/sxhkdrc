@@ -110,3 +110,9 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+{F1,XF86AudioPrev}
+    $HOME/.local/bin/bspwm_status.sh
+
+{F2}
+    $HOME/.local/bin/dunst_clock.sh
