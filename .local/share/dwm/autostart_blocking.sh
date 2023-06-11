@@ -1,4 +1,3 @@
 #!/bin/bash
-~/.local/bin/xcv mocha
-xsetroot -solid "#333"
+~/.local/bin/autostart.sh
 xsetroot -name "fsignal:1"
