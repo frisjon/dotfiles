@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exec dwm
+exec bspwm
+#exec dwm
