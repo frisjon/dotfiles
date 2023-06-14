@@ -1,10 +1,18 @@
 #!/bin/bash
 THEME_DIR=$HOME/.config/xres/themes
 
-if [ ! -d $THEME_DIR ] || [ ! -f $THEME_DIR/$1 ];then
-	echo no dir or not a file
-	exit 1
+if [ ! -d $THEME_DIR ]; then
+	echo directory  ~/.config/xres/themes/ does not exist
 fi
 
+if [ -f $THEME_DIR/$1 ]; then
+	xrdb -DTHEME="<$THEME_DIR/$1>" -merge ~/.Xresources
+fi
 
-xrdb -DTHEME="<$THEME_DIR/$1>" -merge ~/.Xresources
+if [ -f $1 ]; then
+	xrdb -DTHEME="<$1>" -merge ~/.Xresources
+fi
+
+echo theme not found
+exit 1
+
