@@ -7,10 +7,12 @@ fi
 
 if [ -f $THEME_DIR/$1 ]; then
 	xrdb -DTHEME="<$THEME_DIR/$1>" -merge ~/.Xresources
+	exit 0
 fi
 
 if [ -f $1 ]; then
-	xrdb -DTHEME="<$1>" -merge ~/.Xresources
+	xrdb -DTHEME="<$(pwd)/$1>" -merge ~/.Xresources
+	exit 0
 fi
 
 echo theme not found

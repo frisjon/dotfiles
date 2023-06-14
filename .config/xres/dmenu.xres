@@ -1,5 +1,5 @@
 dmenu.font: SourceCodePro:size=12
 dmenu.background: BACKGROUND
 dmenu.foreground: FOREGROUND
-dmenu.selbackground: FOREGROUND
+dmenu.selbackground: CURSOR
 dmenu.selforeground: BACKGROUND
