@@ -8,6 +8,8 @@ alias lt='ls -lt'
 alias vim='nvim'
 alias n='nvim'
 
+alias feh='feh -g 800x600 --scale-down'
+
 # Color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
