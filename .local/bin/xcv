@@ -5,16 +5,10 @@ if [ ! -d $THEME_DIR ]; then
 	echo directory  ~/.config/xres/themes/ does not exist
 fi
 
-if [ -f $THEME_DIR/$1 ]; then
-	xrdb -DTHEME="<$THEME_DIR/$1>" -merge ~/.Xresources
-	exit 0
-fi
-
-if [ -f $1 ]; then
-	xrdb -DTHEME="<$(pwd)/$1>" -merge ~/.Xresources
-	exit 0
-fi
+SEARCH="$THEME_DIR/$1 $(pwd)/$1"
+for f in $SEARCH; do
+    [ -f $f ] && xrdb -DTHEME="<$f>" -merge ~/.Xresources && [ $? -eq "0" ] && exit 0
+done
 
 echo theme not found
 exit 1
-
