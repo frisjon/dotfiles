@@ -1,6 +1,6 @@
 #!/bin/bash
 $HOME/.local/bin/xcv mocha
-xsetroot -solid "#fa0"
+xsetroot -solid "#111222"
 dunst &
 
 [ ! -z $(pgrep -x bspwm) ] && $HOME/.local/bin/bspwm_bar.sh &
