@@ -31,7 +31,7 @@ static const unsigned int alphas[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "home", "www", "docs", " fs ", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "~", "www", "doc", "fs", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -41,6 +41,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "st_float", NULL,       "st_float", 0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -95,19 +96,21 @@ ResourcePref resources[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termcmdfloat[]  = { "st", "-c", "st_float", "-t", "st_float", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_a,      spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_a,      spawn,          {.v = termcmdfloat } },
+	//{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = termcmdfloat } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_l,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_l,      rotatestack,    {.i = -1 } },
+        { MODKEY|ShiftMask,             XK_l,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_j,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_minus,  setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_z,      zoom,           {0} },
@@ -120,7 +123,7 @@ static const Key keys[] = {
  	//{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-    { MODKEY,                       XK_s,      togglecanfocusfloating,{0} },
+        { MODKEY,                       XK_s,      togglecanfocusfloating,{0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -134,6 +137,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_o,      setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_i,      setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_o,      setgaps,        {.i = GAP_TOGGLE } },
+	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -143,7 +147,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 };
 
 /* button definitions */
