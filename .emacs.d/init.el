@@ -235,3 +235,33 @@
 
 (setq org-support-shift-select t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+
+(defun xah/new-empty-buffer ()
+  "Create a new empty buffer.
+Returns the buffer object.
+New buffer is named untitled, untitled<2>, etc.
+
+Warning: new buffer is not prompted for save when killed, see `kill-buffer'.
+Or manually `save-buffer'
+
+URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+Version: 2017-11-01 2022-04-05"
+  (interactive)
+  (let ((xbuf (generate-new-buffer "untitled")))
+    (switch-to-buffer xbuf)
+    (funcall initial-major-mode)
+    xbuf))
+
+(global-set-key (kbd "C-c n") 'xah/new-empty-buffer)
+
+(defun fris/bepis ()
+
+(let
+  (height width)
+  (setq height (frame-height))
+  (setq width (frame-width))
+  (if (> height width)
+      (split-window-right)
+      (split-window-below))
+(balance-windows) ))
