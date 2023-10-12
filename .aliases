@@ -30,7 +30,7 @@ alias mv='mv -i'
 alias notebook="docker run -it --rm -p 8888:8888 --name jupyter -v $(pwd):/home/jovyan/work jupyter/tensorflow-notebook"
 
 # wsl
-alias win='cd /mnt/c/Users/$NID/'
+alias win='cd $(wslpath $(wslvar USERPROFILE))'
 
 # navigation
 alias pd='pushd .'
