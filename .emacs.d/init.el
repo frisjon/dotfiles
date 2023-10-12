@@ -184,14 +184,34 @@
 (global-set-key (kbd "C-S-<tab>") (lambda () (interactive) (other-window -1)))
 
 ;;http://xahlee.info/emacs/emacs/emacs_dired_tips.html
-(use-package dired)
-(if (< emacs-major-version 28)
+(use-package dired
+  :config
+  (if (< emacs-major-version 28)
+      (progn
+        (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
+        (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory
+        )
     (progn
-      (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
-      (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory
-      )
-  (progn
-    (setq dired-kill-when-opening-new-dired-buffer t)))
+      (setq dired-kill-when-opening-new-dired-buffer t)))
+  
+  )
+
+(defun fris/xah-new-empty-buffer ()
+  "Create a new empty buffer.
+Returns the buffer object.
+New buffer is named untitled, untitled<2>, etc.
+
+Warning: new buffer is not prompted for save when killed, see `kill-buffer'.
+Or manually `save-buffer'
+
+URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
+Version: 2017-11-01 2022-04-05"
+  (interactive)
+  (let ((xbuf (generate-new-buffer "untitled")))
+    (switch-to-buffer xbuf)
+    (funcall initial-major-mode)
+    xbuf))
+(global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 
 (use-package eglot
   :ensure t
