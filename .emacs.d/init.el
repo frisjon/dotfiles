@@ -1,5 +1,12 @@
 ;; -*- lexical-binding: t; -*-
 
+(make-directory "~/.emacs.d/backups/" t)
+(make-directory "~/.emacs.d/autosave/" t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t)))
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq backup-by-copying t)
+;;(setq auto-save-default nil)
+
 (setq default-directory "~/")
 
 ;; The default is 800 kilobytes.  Measured in bytes.
@@ -113,8 +120,13 @@
   :config
   (ido-mode t))
 
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
 (electric-indent-mode t)
-(whitespace-mode t)
+;;(whitespace-mode t)
+(setq show-trailing-whitespace t)
 (delete-selection-mode t)
 (electric-pair-mode t)
 (show-paren-mode t)
@@ -127,9 +139,9 @@
 
 (setq electric-pair-pairs
       '(
-        (?\" . ?\") 
-        (?\' . ?\') 
-        (?< . ?>) 
+        (?\" . ?\")
+        (?\' . ?\')
+        (?< . ?>)
         (?\{ . ?\})))
 
 (use-package which-key
@@ -159,7 +171,7 @@
 (defun fris/backward-kill-char-or-word ()
   "https://emacs.stackexchange.com/questions/30401/backward-kill-word-kills-too-much-how-to-make-it-more-intelligent"
   (interactive)
-  (cond 
+  (cond
    ((looking-back (rx (char word)) 1)
     (backward-kill-word 1))
    ((looking-back (rx (char blank)) 1)
@@ -180,9 +192,6 @@
       )
   (progn
     (setq dired-kill-when-opening-new-dired-buffer t)))
-
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-(setq auto-save-default nil)
 
 (use-package eglot
   :ensure t
@@ -211,18 +220,14 @@
   (global-set-key [remap kill-whole-line] #'crux-kill-whole-line))
 
 (defun fris/find-file-wsl ()
-  (interactive)  
+  (interactive)
   (find-file "/plinkx:local_wsl:~/"))
 
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)
 
-
-
 (use-package project)
 
 (put 'dired-find-alternate-file 'disabled nil)
-
-(global-set-key (kbd "C-c l") 'goto-line)
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;;https://www.emacswiki.org/emacs/YesOrNoP
 (defalias 'l 'eshell/ls)
@@ -236,32 +241,7 @@
 (setq org-support-shift-select t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-
-(defun xah/new-empty-buffer ()
-  "Create a new empty buffer.
-Returns the buffer object.
-New buffer is named untitled, untitled<2>, etc.
-
-Warning: new buffer is not prompted for save when killed, see `kill-buffer'.
-Or manually `save-buffer'
-
-URL `http://xahlee.info/emacs/emacs/emacs_new_empty_buffer.html'
-Version: 2017-11-01 2022-04-05"
-  (interactive)
-  (let ((xbuf (generate-new-buffer "untitled")))
-    (switch-to-buffer xbuf)
-    (funcall initial-major-mode)
-    xbuf))
-
-(global-set-key (kbd "C-c n") 'xah/new-empty-buffer)
-
-(defun fris/bepis ()
-
-(let
-  (height width)
-  (setq height (frame-height))
-  (setq width (frame-width))
-  (if (> height width)
-      (split-window-right)
-      (split-window-below))
-(balance-windows) ))
+(global-set-key (kbd "C-c w") 'whitespace-cleanup)
+(global-set-key (kbd "C-c r") 'remember)
+(global-set-key (kbd "C-c b") 'bookmark-bmenu-list)
+(global-set-key (kbd "C-c l") 'goto-line)
