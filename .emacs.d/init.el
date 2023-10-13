@@ -19,9 +19,6 @@
                      (emacs-init-time "%.2f")
                      gcs-done)))
 
-
-
-;(push "C:/Users/39466831/AppData/Roaming/.emacs.d/lisp" load-path)
 (push "~/.emacs.d/lisp" load-path)
 
 (set-default-coding-systems 'utf-8)
