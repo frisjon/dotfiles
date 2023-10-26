@@ -26,3 +26,4 @@
 
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)
 
+(global-set-key (kbd "C-S-k") 'custom/kill-this-buffer)
