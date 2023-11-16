@@ -65,7 +65,23 @@
   (global-set-key [remap kill-whole-line] #'crux-kill-whole-line))
 
 (use-package elfeed
-;;  :ensure t
+  ;;  :ensure t
+  
+  :config
+  ;; Mark all YouTube entries
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url "youtube\\.com"
+                                :add '(video yt)))
+  ;; Entries older than 2 weeks are marked as read
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :before "2 months ago"
+                                :remove 'unread))
+  
+  ;;(add-hook 'elfeed-new-entry-hook
+  ;;        (elfeed-make-tagger :feed-url "example\\.com"
+  ;;                            :entry-title '(not "something interesting")
+  ;;                            :add 'junk
+  ;;                            :remove 'unread))
   )
 
 (use-package project

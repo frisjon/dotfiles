@@ -22,3 +22,5 @@
 (load-file "~/.emacs.d/lisp/functions.el")
 (load-file "~/.emacs.d/config/packages.el")
 (load-file "~/.emacs.d/config/bindings.el")
+(load-file "~/.emacs.d/feeds.el")
+
