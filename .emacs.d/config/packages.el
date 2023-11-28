@@ -112,3 +112,8 @@
   ;; `global-corfu-modes' to exclude certain modes.
   :init
   (global-corfu-mode))
+
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
