@@ -43,7 +43,7 @@
 
 
 (use-package eglot
-  :ensure t
+;;  :ensure t
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-hook 'c-mode-hook 'eglot-ensure)
@@ -65,37 +65,28 @@
   (global-set-key [remap kill-whole-line] #'crux-kill-whole-line))
 
 (use-package elfeed
-  :ensure t
+  ;;  :ensure t
+  
   :config
   ;; Mark all YouTube entries
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-url "youtube\\.com"
-                                :add '(yt)))
+                                :add '(video yt)))
   ;; Entries older than 2 weeks are marked as read
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :before "2 months ago"
                                 :remove 'unread))
-
+  
   ;;(add-hook 'elfeed-new-entry-hook
   ;;        (elfeed-make-tagger :feed-url "example\\.com"
   ;;                            :entry-title '(not "something interesting")
   ;;                            :add 'junk
   ;;                            :remove 'unread))
-  (defun elfeed-mark-all-as-read ()
-    "https://emacs.stackexchange.com/questions/2440/elfeed-mark-all-messages-as-read"
-      (interactive)
-      (mark-whole-buffer)
-      (elfeed-search-untag-all-unread))
-  (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
-  
-  (defun elfeed-search-browse-all-url ()
-      (interactive)
-      (mark-whole-buffer)
-      (elfeed-search-browse-url))
-  (define-key elfeed-search-mode-map (kbd "B") 'elfeed-search-browse-all-url))
+  )
 
 (use-package project
-  :ensure t)
+;;  :ensure t
+  )
 
 (use-package corfu
   :ensure t
@@ -121,3 +112,9 @@
   ;; `global-corfu-modes' to exclude certain modes.
   :init
   (global-corfu-mode))
+
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
