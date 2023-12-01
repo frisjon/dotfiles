@@ -46,7 +46,7 @@
 
 ;; theme
 ;; requires font source code pro to be installed
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
+(add-to-list 'default-frame-alist '(font . "Noto Sans Mono-12"))
 (when (require 'sanity nil 'noerror))
 (require 'ef-themes)
 (load-theme 'ef-trio-dark t)
@@ -111,3 +111,6 @@
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(add-to-list 'default-frame-alist '(height . 24))
+(add-to-list 'default-frame-alist '(width . 80))
