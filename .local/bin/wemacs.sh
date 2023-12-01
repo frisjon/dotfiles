@@ -4,6 +4,10 @@ DOTFILES_DIR=~/dotfiles/.emacs.d
 EMACS_DIR=$(wslpath "$(wslvar USERPROFILE)")/AppData/Roaming/.emacs.d
 SUBDIR_LIST="themes config lisp"
 
+_diff_only () {
+  /usr/bin/diff --color=auto $1 $2
+}
+
 _diff_and_copy_file_from_to () {
   echo "$2/$1 -> $3/$1"
   /usr/bin/diff $2/$1 $3/$1 &> /dev/null
@@ -43,6 +47,12 @@ case $1 in
         mkdir -p "$DOTFILES_DIR/$dir"
       fi
       _diff_and_copy "$EMACS_DIR/$dir" "$DOTFILES_DIR/$dir"
+    done
+  ;;
+  "diff")
+    echo "Local v Dotfiles"
+    for dir in $SUBDIR_LIST;do
+      _diff_only "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
     done
   ;;
   *)
