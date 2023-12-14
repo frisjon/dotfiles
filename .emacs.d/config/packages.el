@@ -41,9 +41,8 @@
     (progn
       (setq dired-kill-when-opening-new-dired-buffer t))))
 
-
+;;eglot-format
 (use-package eglot
-;;  :ensure t
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-hook 'c-mode-hook 'eglot-ensure)
@@ -65,13 +64,13 @@
   (global-set-key [remap kill-whole-line] #'crux-kill-whole-line))
 
 (use-package elfeed
-  ;;  :ensure t
+  :ensure t
   
   :config
   ;; Mark all YouTube entries
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-url "youtube\\.com"
-                                :add '(video yt)))
+                                :add '(yt)))
   ;; Entries older than 2 weeks are marked as read
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :before "2 months ago"
@@ -81,12 +80,18 @@
   ;;        (elfeed-make-tagger :feed-url "example\\.com"
   ;;                            :entry-title '(not "something interesting")
   ;;                            :add 'junk
-  ;;                            :remove 'unread))
-  )
+  ;;                            :remove 'unread)) 
+  (defun elfeed-search-browse-all-url ()
+    (interactive)
+    (if (< (count-lines (point-min) (point-max)) 20)
+        (progn
+          (mark-whole-buffer)
+          (elfeed-search-browse-url))
+      (message "More than 20 links to open. Not proceeding")))
+  (define-key elfeed-search-mode-map "B" 'elfeed-search-browse-all-url))
 
 (use-package project
-;;  :ensure t
-  )
+  :ensure t)
 
 (use-package corfu
   :ensure t
@@ -111,10 +116,18 @@
   ;; be used globally (M-/).  See also the customization variable
   ;; `global-corfu-modes' to exclude certain modes.
   :init
-  (global-corfu-mode))
+  (global-corfu-mode)
+  :config
+  (setq corfu-auto t))
 
 (use-package editorconfig
   :ensure t
   :config
   (editorconfig-mode 1))
 
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))
