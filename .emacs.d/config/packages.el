@@ -41,12 +41,29 @@
     (progn
       (setq dired-kill-when-opening-new-dired-buffer t))))
 
-;;eglot-format
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-hook 'c-mode-hook 'eglot-ensure)
   (add-hook 'c++-mode-hook 'eglot-ensure))
+
+(use-package corfu
+  ;; Optional customizations
+  :custom
+  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+  :hook ((prog-mode . corfu-mode)
+         (shell-mode . corfu-mode)
+         (eshell-mode . corfu-mode))
+  :init
+  (global-corfu-mode))
 
 (use-package move-text
   :ensure t
@@ -65,7 +82,6 @@
 
 (use-package elfeed
   :ensure t
-  
   :config
   ;; Mark all YouTube entries
   (add-hook 'elfeed-new-entry-hook
@@ -93,10 +109,19 @@
 (use-package project
   :ensure t)
 
-(use-package company
+;;(use-package company
+;;  :ensure t
+;;  :hook (after-init . global-company-mode))
+
+(use-package doom-modeline
   :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-support-imenu t
+        doom-modeline-time t))
 
 (use-package editorconfig
   :ensure t
   :config
   (editorconfig-mode 1))
+

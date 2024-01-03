@@ -2,6 +2,7 @@
 
 (make-directory "~/.emacs.d/config/" t)
 (push "~/.emacs.d/config" load-path)
+(push "~/.emacs.d/lisp" load-path)
 
 ;; Initialize package sources
 (require 'package)
