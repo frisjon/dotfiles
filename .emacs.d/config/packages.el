@@ -109,17 +109,6 @@
 (use-package project
   :ensure t)
 
-;;(use-package company
-;;  :ensure t
-;;  :hook (after-init . global-company-mode))
-
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-support-imenu t
-        doom-modeline-time t))
-
 (use-package editorconfig
   :ensure t
   :config
