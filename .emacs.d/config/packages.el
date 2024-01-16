@@ -1,15 +1,18 @@
 ;;https://emacs.stackexchange.com/questions/29096/how-to-sort-directories-first-in-dired
 (use-package ls-lisp
+  :ensure nil
   :config
-  (setq ls-lisp-dirs-first t)
-  (setq ls-lisp-use-insert-directory-program nil))
-(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+  (setq-default ls-lisp-dirs-first t)
+  (setq-default ls-lisp-use-insert-directory-program nil)
+  :hook (dired-mode . dired-hide-details-mode))
 
 (use-package rotate
+  :ensure nil
   :config
   (global-set-key (kbd "C-c w r") 'rotate-window))
 
 (use-package ido
+  :ensure nil
   :config
   (ido-mode t))
 
@@ -17,7 +20,7 @@
   :ensure t
   :config
   (which-key-mode)
-  (setq which-key-show-early-on-C-h t))
+  (setq-default which-key-show-early-on-C-h t))
 
 (use-package multiple-cursors
   :ensure t
@@ -28,7 +31,9 @@
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 
 (use-package windmove
-  :config (windmove-mode t))
+  :ensure nil
+  :config
+  (windmove-mode t))
 
 ;;http://xahlee.info/emacs/emacs/emacs_dired_tips.html
 (use-package dired
@@ -42,28 +47,15 @@
       (setq dired-kill-when-opening-new-dired-buffer t))))
 
 (use-package eglot
+  :ensure nil
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-hook 'c-mode-hook 'eglot-ensure)
   (add-hook 'c++-mode-hook 'eglot-ensure))
 
-(use-package corfu
-  ;; Optional customizations
-  :custom
-  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-separator ?\s)          ;; Orderless field separator
-  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
-  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
-  :init
-  (global-corfu-mode))
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode))
 
 (use-package move-text
   :ensure t
@@ -80,23 +72,13 @@
   ;;(global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
   (global-set-key [remap kill-whole-line] #'crux-kill-whole-line))
 
-(use-package elfeed
-  :ensure t
+(use-package uniquify
   :config
-  ;; Mark all YouTube entries
-  (add-hook 'elfeed-new-entry-hook
-            (elfeed-make-tagger :feed-url "youtube\\.com"
-                                :add '(yt)))
-  ;; Entries older than 2 weeks are marked as read
-  (add-hook 'elfeed-new-entry-hook
-            (elfeed-make-tagger :before "2 months ago"
-                                :remove 'unread))
-  
-  ;;(add-hook 'elfeed-new-entry-hook
-  ;;        (elfeed-make-tagger :feed-url "example\\.com"
-  ;;                            :entry-title '(not "something interesting")
-  ;;                            :add 'junk
-  ;;                            :remove 'unread)) 
+  (setq uniquify-buffer-name-style 'forward))
+
+(use-package elfeed
+  :ensure nil
+  :config
   (defun elfeed-search-browse-all-url ()
     (interactive)
     (if (< (count-lines (point-min) (point-max)) 20)
@@ -104,13 +86,130 @@
           (mark-whole-buffer)
           (elfeed-search-browse-url))
       (message "More than 20 links to open. Not proceeding")))
-  (define-key elfeed-search-mode-map "B" 'elfeed-search-browse-all-url))
+  (define-key elfeed-search-mode-map "B" 'elfeed-search-browse-all-url)
+  ;; Mark all YouTube entries
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url "youtube\\.com"
+                                :add '(video youtube)))
+  ;; Entries older than 2 weeks are marked as read
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :before "1 month ago"
+                                :remove 'unread))
+  )
 
 (use-package project
-  :ensure t)
+  :ensure nil)
 
 (use-package editorconfig
   :ensure t
   :config
   (editorconfig-mode 1))
 
+(use-package electric
+  :ensure nil
+  :config
+  (electric-indent-mode t))
+
+(use-package delsel
+  :ensure nil
+  :config
+  (delete-selection-mode t))
+
+(use-package elec-pair
+  :ensure nil
+  :config
+  (electric-pair-mode t)
+  (setq electric-pair-pairs
+        '(
+          (?\" . ?\")
+          (?\' . ?\')
+          (?< . ?>)
+          (?\{ . ?\}))))
+
+(use-package paren
+  :ensure t
+  :config
+  (show-paren-mode t))
+
+(use-package simple
+  :ensure nil
+  :config
+  (column-number-mode)
+  (setq-default indent-tabs-mode nil))
+
+(use-package cc-vars
+  :ensure nil
+  :config
+  (setq-default c-basic-offset 4)
+  (setq-default c-basic-offset 4))
+
+(use-package org
+  :ensure nil
+  :config
+  (setq-default org-support-shift-select t))
+
+(use-package tab-bar
+  :ensure nil
+  :config
+  (setq-default tab-bar-close-button-show nil)
+  (setq-default tab-bar-tab-hints t))
+
+(use-package window
+  :ensure nil
+  :config
+  (setq-default pop-up-windows nil))
+
+(use-package menu-bar
+  :ensure nil
+  :config
+  (menu-bar-mode -1))
+
+(use-package tool-bar
+  :ensure nil
+  :config
+  (tool-bar-mode -1))
+
+(use-package scroll-bar
+  :ensure nil
+  :config
+  (scroll-bar-mode 1))
+
+(use-package display-line-numbers
+  :ensure nil
+  :config
+  (global-display-line-numbers-mode t)
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0)))))
+
+(use-package hl-line
+  :ensure nil
+  :config (global-hl-line-mode 1))
+
+(use-package saveplace
+  :ensure nil
+  :config (save-place-mode 1))
+
+(use-package
+  :ensure nil
+  :config (savehist-mode 1))
+
+;; update buffers from disk
+(use-package autorevert
+ :ensure nil
+ :config
+ (global-auto-revert-mode 1)
+ (setq global-auto-revert-non-file-buffers t))
+
+;; Dont warn for following symlinked files
+(use-package vc-hooks
+ :ensure nil
+ :config
+ (setq vc-follow-symlinks t))
+
+(use-package time
+ :ensure nil
+ :config
+ (setq display-time-format "%l:%M %p %b %y"
+      display-time-default-load-average nil))

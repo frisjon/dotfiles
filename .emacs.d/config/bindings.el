@@ -21,6 +21,8 @@
 
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 
+(global-set-key (kbd "C-x k") 'fris/kill-this-buffer)
+
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)
 
 (global-set-key (kbd "C-S-k") 'custom/kill-this-buffer)

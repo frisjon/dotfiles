@@ -1,6 +1,7 @@
-
 (defun fris/backward-kill-char-or-word ()
-  "https://emacs.stackexchange.com/questions/30401/backward-kill-word-kills-too-much-how-to-make-it-more-intelligent"
+  "To replace default backward-kill-word
+Taken from https://emacs.stackexchange.com/questions/30401/backward-kill-word-kills-too-much-how-to-make-it-more-intelligent
+Bound to C-Backspace. See bindings.el"
   (interactive)
   (cond
    ((looking-back (rx (char word)) 1)
@@ -10,6 +11,8 @@
    (t
     (backward-delete-char 1))))
 
+(defun fris/kill-this-buffer ()
+  (interactive) (kill-buffer (current-buffer)))
 
 (defun fris/xah-new-empty-buffer ()
   "Create a new empty buffer.
@@ -28,5 +31,8 @@ Version: 2017-11-01 2022-04-05"
     xbuf))
 
 (defun fris/find-file-wsl ()
+  "find-file in remote location.
+Use on windows. Requires to have putty installed, with a remote location saved as local_wsl.
+In this case, the remote location is WSL running on windows. WSL must have ssh installed and running."
   (interactive)
   (find-file "/plinkx:local_wsl:~/"))

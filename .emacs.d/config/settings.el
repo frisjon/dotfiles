@@ -14,6 +14,7 @@
 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
+;;(setq gc-cons-threshold (* 100 1024 1024))
 
 ;; Profile emacs startup
 (add-hook 'emacs-startup-hook
@@ -22,71 +23,38 @@
                      (emacs-init-time "%.2f")
                      gcs-done)))
 
+(setq inhibit-startup-screen t
+      inhibit-startup-echo-area-message t
+      inhibit-startup-message t
+      initial-scratch-message nil)
+(setq-default tab-always-indent 'complete)
+(setq-default buffer-file-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8)
+(set-language-environment "UTF-8")
 
 ;; move customization to file
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
-(setq inhibit-startup-screen t)
 (setq visible-bell nil)
-
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode 1)
-
-;; line numbers
-(global-display-line-numbers-mode t)
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-(global-hl-line-mode 1)
 
 ;; theme
 ;; requires font source code pro to be installed
 (add-to-list 'default-frame-alist '(font . "Noto Sans Mono-12"))
-(when (require 'sanity nil 'noerror))
-(require 'ef-themes)
-(load-theme 'ef-trio-dark t)
+;;(when (require 'sanity nil 'noerror))
+
+;;(require 'ef-themes)
+;;(load-theme 'ef-trio-dark t)
 
 ;; command history
 (setq history-length 25)
-(savehist-mode 1)
 
 ;; supress dialog box
 (setq use-dialog-box nil)
 
-;; update buffers from disk
-(global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t)
-
-;; Dont warn for following symlinked files
-(setq vc-follow-symlinks t)
-
-(setq display-time-format "%l:%M %p %b %y"
-      display-time-default-load-average nil)
-
-(electric-indent-mode t)
 ;;(whitespace-mode t)
-(setq show-trailing-whitespace t)
-(delete-selection-mode t)
-(electric-pair-mode t)
-(show-paren-mode t)
-(column-number-mode)
-(setq-default tab-always-indent 'complete)
-(setq-default indent-tabs-mode nil)
+(setq-default show-trailing-whitespace t)
 (setq-default tab-width 4)
-(setq-default c-basic-offset 4)
-(setq c-basic-offset 4)
-
-(setq electric-pair-pairs
-      '(
-        (?\" . ?\")
-        (?\' . ?\')
-        (?< . ?>)
-        (?\{ . ?\})))
 
 ;;https://emacs.stackexchange.com/questions/28906/how-to-switch-off-the-sounds
 (setq ring-bell-function 'ignore)
@@ -100,8 +68,6 @@
 (defalias 'la (lambda () (eshell/ls "-la")))
 (defalias 'less (lambda (a) (view-file a)))
 
-(setq org-support-shift-select t)
-
 (setq delete-by-moving-to-trash t)
 
 ;;(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -114,8 +80,4 @@
 
 (add-to-list 'default-frame-alist '(height . 24))
 (add-to-list 'default-frame-alist '(width . 80))
-
-(setq tab-bar-close-button-show nil)
-(setq tab-bar-tab-hints t)
-
 
