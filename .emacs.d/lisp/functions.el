@@ -30,9 +30,31 @@ Version: 2017-11-01 2022-04-05"
     (funcall initial-major-mode)
     xbuf))
 
+(defun fris/new-empty-buffer-in-window ()
+  ""
+  (interactive)
+  (let ((xbuf (generate-new-buffer "untitled")))
+    (split-window-horizontally)
+    (switch-to-buffer xbuf)
+    (funcall initial-major-mode)
+    (rotate-layout)
+    xbuf))
+
+(defun fris/delete-window ()
+  (interactive)
+  (progn
+    (delete-window)
+    (rotate-layout)))
+
 (defun fris/find-file-wsl ()
   "find-file in remote location.
 Use on windows. Requires to have putty installed, with a remote location saved as local_wsl.
 In this case, the remote location is WSL running on windows. WSL must have ssh installed and running."
   (interactive)
   (find-file "/plinkx:local_wsl:~/"))
+
+(defun fris/kill-buffer-and-window ()
+  (interactive)
+  (kill-buffer-and-window)
+  (rotate-layout)
+  )

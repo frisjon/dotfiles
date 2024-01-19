@@ -2,14 +2,17 @@
 (use-package ls-lisp
   :ensure nil
   :config
-  (setq-default ls-lisp-dirs-first t)
-  (setq-default ls-lisp-use-insert-directory-program nil)
-  :hook (dired-mode . dired-hide-details-mode))
+  (setq-default ls-lisp-dirs-first t
+                ls-lisp-use-insert-directory-program nil)
+  :hook
+  (dired-mode . dired-hide-details-mode))
 
 (use-package rotate
   :ensure nil
   :config
-  (global-set-key (kbd "C-c w r") 'rotate-window))
+  (setq rotate-functions '(rotate:main-vertical))
+  :bind
+  ("C-c r" . rotate-window))
 
 (use-package ido
   :ensure nil
@@ -24,11 +27,11 @@
 
 (use-package multiple-cursors
   :ensure t
-  :config
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C-<") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C->") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+  :bind
+  (("C-S-c C-S-c" . mc/edit-lines)
+   ("C-<" . mc/mark-next-like-this)
+   ("C->" . mc/mark-previous-like-this)
+   ("C-c C-<" . mc/mark-all-like-this)))
 
 (use-package windmove
   :ensure nil
@@ -55,7 +58,8 @@
 
 (use-package company
   :ensure t
-  :hook (after-init . global-company-mode))
+  :hook
+  (after-init . global-company-mode))
 
 (use-package move-text
   :ensure t
@@ -135,12 +139,13 @@
   :ensure nil
   :config
   (column-number-mode)
-  (setq-default indent-tabs-mode nil))
+  (setq-default indent-tabs-mode nil)
+  :bind
+  ("C-c l" . goto-line))
 
 (use-package cc-vars
   :ensure nil
   :config
-  (setq-default c-basic-offset 4)
   (setq-default c-basic-offset 4))
 
 (use-package org
@@ -151,13 +156,22 @@
 (use-package tab-bar
   :ensure nil
   :config
-  (setq-default tab-bar-close-button-show nil)
-  (setq-default tab-bar-tab-hints t))
+  (setq-default tab-bar-close-button-show nil
+                tab-bar-tab-hints t))
 
 (use-package window
   :ensure nil
   :config
-  (setq-default pop-up-windows nil))
+  (setq-default pop-up-windows nil)
+  :bind
+  (("C-<tab>" . other-window)
+   ("C-S-<tab>" . (lambda () (interactive) other-window -1))))
+
+(use-package isearch
+  :ensure nil
+  :bind
+  (("C-s" . isearch-forward-regexp)
+   ("C-r" . replace-regexp)))
 
 (use-package menu-bar
   :ensure nil
@@ -172,7 +186,8 @@
 (use-package scroll-bar
   :ensure nil
   :config
-  (scroll-bar-mode 1))
+  (scroll-bar-mode -1)
+  (horizontal-scroll-bar-mode -1))
 
 (use-package display-line-numbers
   :ensure nil
@@ -185,31 +200,60 @@
 
 (use-package hl-line
   :ensure nil
-  :config (global-hl-line-mode 1))
+  :config
+  (global-hl-line-mode 1))
 
 (use-package saveplace
   :ensure nil
-  :config (save-place-mode 1))
+  :config
+  (save-place-mode 1))
 
 (use-package
   :ensure nil
-  :config (savehist-mode 1))
+  :config
+  (savehist-mode 1))
 
 ;; update buffers from disk
 (use-package autorevert
- :ensure nil
- :config
- (global-auto-revert-mode 1)
- (setq global-auto-revert-non-file-buffers t))
+  :ensure nil
+  :config
+  (global-auto-revert-mode 1)
+  (setq global-auto-revert-non-file-buffers t))
 
 ;; Dont warn for following symlinked files
 (use-package vc-hooks
- :ensure nil
- :config
- (setq vc-follow-symlinks t))
+  :ensure nil
+  :config
+  (setq vc-follow-symlinks t))
 
 (use-package time
- :ensure nil
- :config
- (setq display-time-format "%l:%M %p %b %y"
-      display-time-default-load-average nil))
+  :ensure nil
+  :config
+  (display-time-mode t)
+  (setq-default display-time-format "%Y-%m-%d %H:%M"
+                display-time-default-load-average nil))
+
+(use-package misc
+  :ensure nil
+  :bind
+  ("C-S-d" . duplicate-line))
+
+(use-package bookmark
+  :ensure nil
+  :bind
+  ("C-c b" . bookmark-bmenu-list))
+
+(use-package crux
+  :ensure nil
+  :bind
+  ("C-c c" . crux-cleanup-buffer-or-region))
+
+(use-package ibuffer
+  :ensure nil
+  :bind
+  ("C-x C-b" . ibuffer))
+
+(use-package whitespace
+  :ensure nil
+  :bind
+  ("C-c w" . whitespace-cleanup))
