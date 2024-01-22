@@ -33,12 +33,8 @@ Version: 2017-11-01 2022-04-05"
 (defun fris/new-empty-buffer-in-window ()
   ""
   (interactive)
-  (let ((xbuf (generate-new-buffer "untitled")))
-    (split-window-horizontally)
-    (switch-to-buffer xbuf)
-    (funcall initial-major-mode)
-    (rotate-layout)
-    xbuf))
+  (edwina-clone-window)
+  (fris/xah-new-empty-buffer))
 
 (defun fris/delete-window ()
   (interactive)

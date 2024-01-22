@@ -81,3 +81,9 @@
 (add-to-list 'default-frame-alist '(height . 24))
 (add-to-list 'default-frame-alist '(width . 80))
 
+(setq fill-column 80)
+;;(setq window-divider-default-right-width 24)
+;;(setq window-divider-default-places 'right-only)
+;;(window-divider-mode -1)
+
+(setq-default help-window-select t)
