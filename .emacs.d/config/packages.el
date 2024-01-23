@@ -230,8 +230,7 @@
   :ensure nil
   :config
   (display-time-mode t)
-  (setq-default display-time-format "%Y-%m-%d %H:%M"
-                display-time-default-load-average nil))
+  (setq-default display-time-format "%Y-%m-%d %H:%M"))
 
 (use-package misc
   :ensure nil
@@ -263,5 +262,7 @@
   :config
   (setq display-buffer-base-action '(display-buffer-below-selected))
   (edwina-setup-dwm-keys)
-  (edwina-mode 1))
-
+  (edwina-mode 1)
+  (defun edwina-mode-line-indicator ()
+    "redefining this func" "")
+  )

@@ -29,22 +29,11 @@ Version: 2017-11-01 2022-04-05"
     (funcall initial-major-mode)
     xbuf))
 
-(defun fris/new-window-on-left ()
-  (interactive)
-(split-window-horizontally)
-(rotate-layout))
-
-(defun fris/new-empty-buffer-in-window ()
+(defun fris/edwina-new-empty-buffer-in-window ()
   "open new empty buffer in new windows to the left. dwm style"
   (interactive)
   (edwina-clone-window)
   (fris/xah-new-empty-buffer))
-
-(defun fris/delete-window ()
-  (interactive)
-  (progn
-    (delete-window)
-    (rotate-layout)))
 
 (defun fris/find-file-wsl ()
   "find-file in remote location.
@@ -53,27 +42,20 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
   (interactive)
   (find-file "/plinkx:local_wsl:~/"))
 
-(defun fris/kill-buffer-and-window ()
+(defun fris/edwina-kill-buffer-and-window ()
   (interactive)
   (kill-buffer-and-window)
-  (rotate-layout))
+  (edwina-arrange))
 
-(defun fris/open-eshell-in-new-window()
+(defun fris/edwina-open-eshell-in-new-window()
   (interactive)
-  (fris/new-window-on-left)
+  (edwina-clone-window)
   (eshell))
 
 (defun fris/edwina-focus-master ()
   "select window with biggest area (presumably master)"
   (interactive)
-  (select-window
-   (cdr (seq-reduce #'(lambda (a b) (if (< (car a) (car b)) b a))
-                    (seq-mapn #'(lambda (area name) (cons area name))
-                              (seq-mapn
-                               #'*
-                               (mapcar 'window-total-width (window-list))
-                               (mapcar 'window-total-height (window-list)))
-                              (window-list)) '(0 nil)))))
+  (select-window (window-left-child (frame-root-window))))
 
 (defun fris/edwina-zoom ()
   (interactive)
@@ -87,17 +69,16 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
-(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
+;;(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
 (global-set-key (kbd "M-q") 'edwina-delete-window)
-(global-set-key (kbd "M-a") 'fris/new-empty-buffer-in-window)
-(global-set-key (kbd "M-t") 'fris/open-eshell-in-new-window)
-;;(global-set-key (kbd "M-k") 'fris/delete-window) ;;replaced by edwina-select-previous-window
-;;(global-set-key (kbd "M-r") 'rotate-window) ;; replaced by edwina-arrange
+(global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
+(global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
 
 (global-set-key (kbd "C-<backspace>") 'fris/backward-kill-char-or-word)
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "C-x k") 'fris/kill-this-buffer)
-(global-set-key (kbd "C-S-k") 'fris/kill-buffer-and-window)
+(global-set-key (kbd "C-S-k") 'fris/edwina-kill-buffer-and-window)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)

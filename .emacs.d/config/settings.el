@@ -5,10 +5,10 @@
 (setq backup-by-copying t)
 ;;(setq auto-save-default nil)
 
-(make-directory "~/.emacs.d/themes/" t)
+;;(make-directory "~/.emacs.d/themes/" t)
 (make-directory "~/.emacs.d/lisp/" t)
 (push "~/.emacs.d/lisp" load-path)
-(push "~/.emacs.d/themes" load-path)
+;;(push "~/.emacs.d/themes" load-path)
 
 (setq default-directory "~/")
 
@@ -42,9 +42,6 @@
 ;; requires font source code pro to be installed
 (add-to-list 'default-frame-alist '(font . "Noto Sans Mono-12"))
 ;;(when (require 'sanity nil 'noerror))
-
-;;(require 'ef-themes)
-;;(load-theme 'ef-trio-dark t)
 
 ;; command history
 (setq history-length 25)
@@ -82,8 +79,24 @@
 (add-to-list 'default-frame-alist '(width . 80))
 
 (setq fill-column 80)
-;;(setq window-divider-default-right-width 24)
-;;(setq window-divider-default-places 'right-only)
-;;(window-divider-mode -1)
 
+;; focus help window
 (setq-default help-window-select t)
+
+;; resuse help buffer
+(setq display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)))
+
+;;(setq
+;; mode-line-format
+;; `("%e"
+;;   ;;(:eval (propertize (if (buffer-modified-p) " *" " ") 'face 'hl-line))
+;;   (:eval (propertize (" " mode-line-mule-info mode-line-client mode-line-modified mode-line-remote) 'face 'hl-line))
+;;   (:eval (propertize (format " %s " (buffer-name)) 'face 'hl-line))
+;;   (:eval (propertize (format " %s " (capitalize (symbol-name major-mode))) 'face 'holiday))
+;;   ;;mode-line-front-space
+;;   " (%l,%C) %I"
+;;   " "
+;;   (vc-mode vc-mode)
+;;   mode-line-misc-info
+;;   mode-line-end-spaces
+;;   ))

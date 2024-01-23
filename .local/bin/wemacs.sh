@@ -2,7 +2,7 @@
 
 DOTFILES_DIR=~/dotfiles/.emacs.d
 EMACS_DIR=$(wslpath "$(wslvar USERPROFILE)")/AppData/Roaming/.emacs.d
-SUBDIR_LIST="themes config lisp"
+SUBDIR_LIST="config lisp"
 
 _diff_only () {
   /usr/bin/diff --color=auto $1 $2

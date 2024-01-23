@@ -9,7 +9,7 @@
  '(erc-nick "fris")
  '(erc-system-name "frispc")
  '(package-selected-packages
-   '(edwina exwm window cc-vars mule-cmds ef-themes company ni prot-modeline elfeed editorconfig wind-move crux move-text multiple-cursors which-key))
+   '(nov.el edwina exwm window cc-vars mule-cmds company ni prot-modeline elfeed editorconfig wind-move crux move-text multiple-cursors which-key))
  '(ring-bell-function 'ignore))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

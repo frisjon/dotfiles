@@ -20,8 +20,10 @@
    (package-install 'use-package))
 
 (load-file "~/.emacs.d/config/settings.el")
-(load-file "~/.emacs.d/lisp/functions.el")
 (load-file "~/.emacs.d/config/packages.el")
-(load-file "~/.emacs.d/config/bindings.el")
+(load-file "~/.emacs.d/config/functions_binding.el")
 (load-file "~/.emacs.d/feeds.el")
+
+(use-package all-the-icons
+  :if (display-graphic-p))
 
