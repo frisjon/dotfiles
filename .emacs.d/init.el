@@ -1,8 +1,6 @@
 ;; -*- lexical-binding: t; -*-
-
 (make-directory "~/.emacs.d/config/" t)
 (push "~/.emacs.d/config" load-path)
-(push "~/.emacs.d/lisp" load-path)
 
 ;; Initialize package sources
 (require 'package)
@@ -23,7 +21,4 @@
 (load-file "~/.emacs.d/config/packages.el")
 (load-file "~/.emacs.d/config/functions_binding.el")
 (load-file "~/.emacs.d/feeds.el")
-
-(use-package all-the-icons
-  :if (display-graphic-p))
 
