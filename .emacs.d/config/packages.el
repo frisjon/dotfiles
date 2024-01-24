@@ -101,8 +101,10 @@
                                 :remove 'unread))
   )
 
+
 (use-package project
-  :ensure nil)
+  :ensure nil
+  )
 
 (use-package editorconfig
   :ensure t
@@ -151,7 +153,20 @@
 (use-package org
   :ensure nil
   :config
-  (setq-default org-support-shift-select t))
+  (setq-default org-support-shift-select t)
+  (setq org-publish-project-alist
+    '(("orgblog_test"
+        :base-directory "/plinkx:local_wsl:~/orgblog_test/"
+        :publishing-function org-html-publish-to-html
+        :publishing-directory "/plinkx:local_wsl:~/orgblog_test/public/"
+        :section-numbers t
+        :recursive t
+        :with-toc t
+        :html-preamble t
+        :exclude "private.org"
+        :html-head "<link rel=\"stylesheet\"
+                    href=\"../../res/style.css\"
+                    type=\"text/css\"/>"))))
 
 (use-package tab-bar
   :ensure nil
