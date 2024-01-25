@@ -145,7 +145,7 @@
         ;; right
         (format-mode-line
          '("" fris-modeline--mule (vc-mode vc-mode)
-           "" fris-modeline--time)))))
+           " " fris-modeline--time)))))
 
     ;; Hook to update faces in modeline ---------------------------------------
     (add-hook 'ef-themes-post-load-hook
