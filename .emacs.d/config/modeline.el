@@ -1,11 +1,31 @@
-;;(set-face-attribute
-;; 'mode-line nil
-;; :background (fris/color "")
-;; :foreground (fris/color "")
-;; :box (modus-themes-color 'bg-main))
+;; modeline
+
+(when 'ef-themes-with-colors
+  (defun fris-modeline/reeval-faces-on-theme-change ()
+    (interactive)
+    (set-face-attribute 'fris-modeline--major-mode-face nil
+                        :background (ef-themes-with-colors bg-red-intense)
+                        :foreground (ef-themes-with-colors fg-mode-line))
+
+    (set-face-attribute 'fris-modeline--major-mode-face-inactive nil
+                        :background (ef-themes-with-colors bg-tab-bar)
+                        :foreground (ef-themes-with-colors fg-mode-line))
+
+    (set-face-attribute 'fris-modeline--buffer-name-face nil
+                        :background (ef-themes-with-colors bg-green-intense)
+                        :foreground (ef-themes-with-colors fg-mode-line))
+
+    (set-face-attribute 'fris-modeline--buffer-name-face-inactive nil
+                        :background (ef-themes-with-colors bg-tab-bar)
+                        :foreground (ef-themes-with-colors fg-mode-line))
+
+    (set-face-attribute 'fris-modeline--mule-face nil
+                        :background (ef-themes-with-colors bg-blue-intense)
+                        :foreground (ef-themes-with-colors fg-mode-line))))
 
 (when 'ef-themes-with-colors
   (progn
+    ;; Faces ------------------------------------------------------------------
     (defface fris-modeline--major-mode-face
       `((t :background ,(ef-themes-with-colors bg-red-intense)
            :foreground ,(ef-themes-with-colors fg-mode-line)))
@@ -31,10 +51,31 @@
            :foreground ,(ef-themes-with-colors fg-mode-line)))
       "Face for custom modeline. Used for mule info")
 
+    ;; Functions --------------------------------------------------------------
     (defun fris-modeline/major-mode-string ()
       "Return string with major mode. To be used in custom modeline"
       (format " %s " (capitalize (symbol-name major-mode))))
 
+    (defun fris-modeline/buffer-name-string ()
+      "Return string with buffer name. To be used in custom modeline"
+      (format " %s "(buffer-name)))
+
+    (defun fris-modeline/eol-style-string (eol)
+      "Return string showing eol style. To be used in custom modeline"
+      (cond ((= eol 0) "LF")
+            ((= eol 1) "CRLF")
+            ((= eol 2) "CR")
+            (t "")))
+
+    (defun fris-modeline/mule-string ()
+      "Return string to display in modeline. Shows buffer encoding and eol style"
+      (let ((encoding (symbol-name buffer-file-coding-system))
+            (eol (coding-system-eol-type buffer-file-coding-system)))
+        (format " %s %s "
+                (fris-modeline/buffer-coding-system-string encoding)
+                (fris-modeline/eol-style-string eol))))
+
+    ;; Variables --------------------------------------------------------------
     (defvar-local fris-modeline--major-mode
         '(:eval (if (mode-line-window-selected-p)
                     (propertize (fris-modeline/major-mode-string) 'face
@@ -42,10 +83,6 @@
                   (propertize (fris-modeline/major-mode-string) 'face
                               'fris-modeline--major-mode-face-inactive)))
       "Local variable to show major mode. To be used in custom modeline")
-
-    (defun fris-modeline/buffer-name-string ()
-      "Return string with buffer name. To be used in custom modeline"
-      (format " %s "(buffer-name)))
 
     (defvar-local fris-modeline--buffer-name
         '(:eval
@@ -68,21 +105,6 @@
       (cond ((string= encoding "utf-8-unix") "UTF-8")
             (t encoding)))
 
-    (defun fris-modeline/eol-style-string (eol)
-      "Return string showing eol style. To be used in custom modeline"
-      (cond ((= eol 0) "LF")
-            ((= eol 1) "CRLF")
-            ((= eol 2) "CR")
-            (t "")))
-
-    (defun fris-modeline/mule-string ()
-      "Return string to display in modeline. Shows buffer encoding and eol style"
-      (let ((encoding (symbol-name buffer-file-coding-system))
-            (eol (coding-system-eol-type buffer-file-coding-system)))
-        (format " %s %s "
-                (fris-modeline/buffer-coding-system-string encoding)
-                (fris-modeline/eol-style-string eol))))
-
     (defvar-local fris-modeline--mule
         '(:eval
           (when (mode-line-window-selected-p)
@@ -90,7 +112,7 @@
                         'face 'fris-modeline--mule-face)))
       "Local variable to mule info. To be used in custom modeline")
 
-    ;; add custom variables
+    ;; Add custom variables ---------------------------------------------------
     (dolist (var '(fris-modeline--buffer-name
                    fris-modeline--major-mode
                    fris-modeline--time
@@ -110,22 +132,23 @@
     ;;    (vc-mode vc-mode)
     ;;    fris-modeline--time))
 
+    ;; Modeline ---------------------------------------------------------------
     (setq-default
      mode-line-format
-     `("%e"
-       ,(fris/simple-mode-line-render
-         ;; left
-         (format-mode-line
-          `(,mode-line-modified
-            ,mode-line-remote
-            ,fris-modeline--buffer-name
-            ,fris-modeline--major-mode
-            " (%l,%C) %I "))
-         ;; right
-         (format-mode-line
-          `(,fris-modeline--mule
-            (vc-mode vc-mode)
-            " "
-            ,fris-modeline--time)))))
-    )
-  )
+     '(:eval
+       (fris/simple-mode-line-render
+        ;; left
+        (format-mode-line
+         '("%e" mode-line-modified mode-line-remote " "
+           fris-modeline--buffer-name fris-modeline--major-mode
+           " (%l,%C) %I "))
+        ;; right
+        (format-mode-line
+         '("" fris-modeline--mule (vc-mode vc-mode)
+           "" fris-modeline--time)))))
+
+    ;; Hook to update faces in modeline ---------------------------------------
+    (add-hook 'ef-themes-post-load-hook
+              'fris-modeline/reeval-faces-on-theme-change)
+    ;; warning. the hook is used by ef-themes-select. dont use load-theme
+))

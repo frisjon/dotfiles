@@ -226,7 +226,7 @@
 (use-package time
   :config
   (display-time-mode t)
-  (setq-default display-time-format " %a %d %b %H:%M"
+  (setq-default display-time-format "%a %d %b %H:%M"
                 display-time-default-load-average nil
                 display-time-load-average ""))
 

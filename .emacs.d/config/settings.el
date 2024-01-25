@@ -1,4 +1,4 @@
-(setq default-directory "~/")
+(setq default-directory "~/.emacs.d")
 
 (make-directory "~/.emacs.d/backups/" t)
 (make-directory "~/.emacs.d/autosave/" t)
@@ -91,4 +91,5 @@
 (push "~/.emacs.d/themes" load-path)
 (load-file "~/.emacs.d/themes/ef-themes.el")
 (when 'ef-kassio
-  (load-theme 'ef-kassio))
+  (ef-themes-select 'ef-kassio))
+
