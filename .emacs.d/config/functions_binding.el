@@ -82,6 +82,14 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 
 (defalias 'fris/color 'fris/color-name-string-to-hex-string)
 
+;; write a function to do the spacing
+(defun fris/simple-mode-line-render (left right)
+  "Return a string of `window-width' length containing LEFT, and RIGHT
+ aligned respectively.
+https://emacs.stackexchange.com/questions/5529/how-to-right-align-some-items-in-the-modeline"
+  (let* ((available-width (- (window-width) (length left) 2)))
+    (format (format " %%s %%%ds " available-width) left right)))
+
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
 (global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)

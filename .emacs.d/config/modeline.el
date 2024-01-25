@@ -98,21 +98,34 @@
       (put var 'risky-local-variable t))
 
     ;; set modeline
+    ;; (setq-default
+    ;;  mode-line-format
+    ;;  `("%e "
+    ;;    mode-line-modified
+    ;;    mode-line-remote
+    ;;    fris-modeline--buffer-name
+    ;;    fris-modeline--major-mode
+    ;;    fris-modeline--mule
+    ;;    " (%l,%C) %I "
+    ;;    (vc-mode vc-mode)
+    ;;    fris-modeline--time))
+
     (setq-default
      mode-line-format
-     `("%e "
-       mode-line-modified
-       mode-line-remote
-       fris-modeline--buffer-name
-       fris-modeline--major-mode
-       fris-modeline--mule
-       ;;mode-line-front-space
-       " (%l,%C) %I"
-       " "
-       (vc-mode vc-mode)
-       fris-modeline--time
-       ))
-
-
-
-    ))
+     `("%e"
+       ,(fris/simple-mode-line-render
+         ;; left
+         (format-mode-line
+          `(,mode-line-modified
+            ,mode-line-remote
+            ,fris-modeline--buffer-name
+            ,fris-modeline--major-mode
+            " (%l,%C) %I "))
+         ;; right
+         (format-mode-line
+          `(,fris-modeline--mule
+            (vc-mode vc-mode)
+            " "
+            ,fris-modeline--time)))))
+    )
+  )
