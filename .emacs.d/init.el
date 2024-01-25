@@ -18,7 +18,8 @@
    (package-install 'use-package))
 
 (load-file "~/.emacs.d/config/settings.el")
-(load-file "~/.emacs.d/config/packages.el")
 (load-file "~/.emacs.d/config/functions_binding.el")
+(load-file "~/.emacs.d/config/packages.el")
+(load-file "~/.emacs.d/config/modeline.el")
 (load-file "~/.emacs.d/feeds.el")
 

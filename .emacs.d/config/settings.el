@@ -1,24 +1,18 @@
+(setq default-directory "~/")
+
 (make-directory "~/.emacs.d/backups/" t)
 (make-directory "~/.emacs.d/autosave/" t)
 (make-directory "~/.emacs.d/lisp/" t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t)))
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-(setq backup-by-copying t)
+
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t))
+      backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      backup-by-copying t)
 ;;(setq auto-save-default nil)
 
-(setq default-directory "~/")
 (push "~/.emacs.d/lisp" load-path)
 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
-;;(setq gc-cons-threshold (* 100 1024 1024))
-
-;; Profile emacs startup
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "*** Emacs loaded in %s seconds with %d garbage collections."
-                     (emacs-init-time "%.2f")
-                     gcs-done)))
 
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message t
@@ -28,6 +22,9 @@
 (setq-default buffer-file-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8)
 (set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8-unix)
+(setq coding-system-for-read 'utf-8-unix)
+(setq coding-system-for-write 'utf-8-unix)
 
 ;; move customization to file
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
@@ -36,7 +33,14 @@
 (setq visible-bell nil)
 
 ;; font
-(add-to-list 'default-frame-alist '(font . "Noto Sans Mono-12"))
+;;(add-to-list 'default-frame-alist '(font . "Noto Sans Mono-12"))
+;; https://www.youtube.com/watch?v=qR8JRYr4BKE
+(set-face-attribute 'default nil
+                    :family "Noto Sans Mono"
+                    :height 120)
+(set-face-attribute 'fixed-pitch nil
+                    :family "Noto Sans Mono"
+                    :height 120)
 
 ;; command history
 (setq history-length 25)
@@ -80,17 +84,11 @@
 ;; resuse help buffer
 (setq display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)))
 
-(setq-default
-  mode-line-format
-  `("%e "
-     ;;(:eval (propertize (if (buffer-modified-p) " *" " ") 'face 'hl-line))
-     (:propertize
-       ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote))
-     (:eval (propertize (format " %s " (buffer-name)) 'face 'hl-line))
-     (:eval (propertize (format " %s " (capitalize (symbol-name major-mode))) 'face 'holiday))
-     ;;mode-line-front-space
-     " (%l,%C) %I"
-     " "
-     (vc-mode vc-mode)
-     mode-line-misc-info
-     mode-line-end-spaces))
+(setq system-time-locale "C")
+(setq system-name "jon")
+
+;; themes
+(push "~/.emacs.d/themes" load-path)
+(load-file "~/.emacs.d/themes/ef-themes.el")
+(when 'ef-kassio
+  (load-theme 'ef-kassio))

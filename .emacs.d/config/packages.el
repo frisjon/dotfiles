@@ -1,6 +1,9 @@
 ;;https://emacs.stackexchange.com/questions/29096/how-to-sort-directories-first-in-dired
+(use-package startup
+  :hook
+  (emacs-startup . fris/emacs-startup-time))
+
 (use-package ls-lisp
-  :ensure nil
   :config
   (setq-default ls-lisp-dirs-first t
                 ls-lisp-use-insert-directory-program nil)
@@ -8,14 +11,12 @@
   (dired-mode . dired-hide-details-mode))
 
 (use-package rotate
-  :ensure nil
   :config
   (setq rotate-functions '(rotate:main-vertical))
   :bind
   ("C-c r" . rotate-window))
 
 (use-package ido
-  :ensure nil
   :config
   (ido-mode t))
 
@@ -34,7 +35,6 @@
    ("C-c C-<" . mc/mark-all-like-this)))
 
 (use-package windmove
-  :ensure nil
   :config
   (windmove-mode t))
 
@@ -43,18 +43,20 @@
   :config
   (if (< emacs-major-version 28)
       (progn
-        (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
-        (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory
-        )
-    (progn
-      (setq dired-kill-when-opening-new-dired-buffer t))))
+        ;; was dired-advertised-find-file
+        (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+        ;; was dired-up-directory
+        (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
+      (setq dired-kill-when-opening-new-dired-buffer t)))
 
 (use-package eglot
-  :ensure nil
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure))
+  :hook
+  (c-mode . eglot-ensure)
+  (c++-mode . eglot-ensure))
+  ;;(add-hook 'c-mode-hook 'eglot-ensure)
+  ;;(add-hook 'c++-mode-hook 'eglot-ensure))
 
 (use-package company
   :ensure t
@@ -81,7 +83,6 @@
   (setq uniquify-buffer-name-style 'forward))
 
 (use-package elfeed
-  :ensure nil
   :config
   (defun elfeed-search-browse-all-url ()
     (interactive)
@@ -102,9 +103,7 @@
   )
 
 
-(use-package project
-  :ensure nil
-  )
+(use-package project)
 
 (use-package editorconfig
   :ensure t
@@ -112,17 +111,14 @@
   (editorconfig-mode 1))
 
 (use-package electric
-  :ensure nil
   :config
   (electric-indent-mode t))
 
 (use-package delsel
-  :ensure nil
   :config
   (delete-selection-mode t))
 
 (use-package elec-pair
-  :ensure nil
   :config
   (electric-pair-mode t)
   (setq electric-pair-pairs
@@ -138,7 +134,6 @@
   (show-paren-mode t))
 
 (use-package simple
-  :ensure nil
   :config
   (column-number-mode)
   (setq-default indent-tabs-mode nil)
@@ -146,12 +141,10 @@
   ("C-c l" . goto-line))
 
 (use-package cc-vars
-  :ensure nil
   :config
   (setq-default c-basic-offset 4))
 
 (use-package org
-  :ensure nil
   :config
   (setq-default org-support-shift-select t)
   (setq org-publish-project-alist
@@ -169,13 +162,11 @@
                     type=\"text/css\"/>"))))
 
 (use-package tab-bar
-  :ensure nil
   :config
   (setq-default tab-bar-close-button-show nil
                 tab-bar-tab-hints t))
 
 (use-package window
-  :ensure nil
   :config
   (setq-default pop-up-windows nil)
   :bind
@@ -183,92 +174,81 @@
    ("C-S-<tab>" . (lambda () (interactive) other-window -1))))
 
 (use-package isearch
-  :ensure nil
   :bind
   (("C-s" . isearch-forward-regexp)
    ("C-r" . replace-regexp)))
 
 (use-package menu-bar
-  :ensure nil
   :config
   (menu-bar-mode -1))
 
 (use-package tool-bar
-  :ensure nil
   :config
   (tool-bar-mode -1))
 
 (use-package scroll-bar
-  :ensure nil
   :config
   (scroll-bar-mode -1)
   (horizontal-scroll-bar-mode -1))
 
 (use-package display-line-numbers
-  :ensure nil
   :config
   (global-display-line-numbers-mode t)
   (dolist (mode '(org-mode-hook
                   term-mode-hook
+                  help-mode-hook
                   eshell-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0)))))
 
 (use-package hl-line
-  :ensure nil
   :config
   (global-hl-line-mode 1))
 
 (use-package saveplace
-  :ensure nil
   :config
   (save-place-mode 1))
 
-(use-package
-  :ensure nil
+(use-package savehist
   :config
   (savehist-mode 1))
 
 ;; update buffers from disk
 (use-package autorevert
-  :ensure nil
   :config
   (global-auto-revert-mode 1)
   (setq global-auto-revert-non-file-buffers t))
 
 ;; Dont warn for following symlinked files
 (use-package vc-hooks
-  :ensure nil
   :config
   (setq vc-follow-symlinks t))
 
 (use-package time
-  :ensure nil
   :config
   (display-time-mode t)
-  (setq-default display-time-format "%Y-%m-%d %H:%M"))
+  (setq-default display-time-format "%a %d %b %H:%M"
+                display-time-default-load-average nil
+                display-time-load-average ""))
+
+;;(display-time-next-load-average)
 
 (use-package misc
-  :ensure nil
   :bind
   ("C-S-d" . duplicate-line))
 
 (use-package bookmark
-  :ensure nil
   :bind
   ("C-c b" . bookmark-bmenu-list))
 
 (use-package crux
-  :ensure nil
   :bind
   ("C-c c" . crux-cleanup-buffer-or-region))
 
 (use-package ibuffer
-  :ensure nil
   :bind
   ("C-x C-b" . ibuffer))
 
 (use-package whitespace
-  :ensure nil
   :bind
   ("C-c w" . whitespace-cleanup))
 
@@ -281,3 +261,8 @@
   (defun edwina-mode-line-indicator ()
     "redefining this func" "")
   )
+
+(use-package erc
+  :config
+  (setq erc-nick "fris"
+        erc-system-name "frispc"))

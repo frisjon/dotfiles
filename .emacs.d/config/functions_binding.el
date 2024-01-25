@@ -1,14 +1,18 @@
+(defun fris/emacs-startup-time ()
+    "Profile emacs startup"
+    (message "*** Emacs loaded in %s seconds with %d garbage collections."
+             (emacs-init-time "%.2f")
+             gcs-done))
+
 (defun fris/backward-kill-char-or-word ()
   "To replace default backward-kill-word
 Taken from https://emacs.stackexchange.com/questions/30401/backward-kill-word-kills-too-much-how-to-make-it-more-intelligent"
   (interactive)
-  (cond
-   ((looking-back (rx (char word)) 1)
-    (backward-kill-word 1))
-   ((looking-back (rx (char blank)) 1)
-    (delete-horizontal-space t))
-   (t
-    (backward-delete-char 1))))
+  (cond ((looking-back (rx (char word)) 1)
+         (backward-kill-word 1))
+        ((looking-back (rx (char blank)) 1)
+         (delete-horizontal-space t))
+        (t (backward-delete-char 1))))
 
 (defun fris/kill-this-buffer ()
   (interactive) (kill-buffer (current-buffer)))
@@ -29,9 +33,15 @@ Version: 2017-11-01 2022-04-05"
     (funcall initial-major-mode)
     xbuf))
 
+(defun fris/edwina-focus-master ()
+  "select window with biggest area (presumably master)"
+  (interactive)
+  (select-window (window-left-child (frame-root-window))))
+
 (defun fris/edwina-new-empty-buffer-in-window ()
   "open new empty buffer in new windows to the left. dwm style"
   (interactive)
+  (fris/edwina-focus-master)
   (edwina-clone-window)
   (fris/xah-new-empty-buffer))
 
@@ -52,11 +62,6 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
   (edwina-clone-window)
   (eshell))
 
-(defun fris/edwina-focus-master ()
-  "select window with biggest area (presumably master)"
-  (interactive)
-  (select-window (window-left-child (frame-root-window))))
-
 (defun fris/edwina-zoom ()
   (interactive)
   (edwina-zoom)
@@ -67,12 +72,20 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
   (edwina-delete-window)
   (fris/edwina-focus-master))
 
+(defun fris/color-name-string-to-hex-string (color)
+  "Takes in string color-name variable and returns its hex code as a string"
+  (apply 'format "#%02x%02x%02x"
+		 (mapcar (lambda (c) (ash c -8))
+				 (color-values color))))
+
+(defalias 'fris/color 'fris/color-name-string-to-hex-string)
+
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
 ;;(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
 (global-set-key (kbd "M-q") 'edwina-delete-window)
-(global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
 (global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
 (global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
 
 (global-set-key (kbd "C-<backspace>") 'fris/backward-kill-char-or-word)
