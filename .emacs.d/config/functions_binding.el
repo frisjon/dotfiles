@@ -36,7 +36,9 @@ Version: 2017-11-01 2022-04-05"
 (defun fris/edwina-focus-master ()
   "select window with biggest area (presumably master)"
   (interactive)
-  (select-window (window-left-child (frame-root-window))))
+  (if (window-left-child(frame-root-window))
+    (select-window(window-left-child(frame-root-window)))
+  (select-window (frame-root-window))))
 
 (defun fris/edwina-new-empty-buffer-in-window ()
   "open new empty buffer in new windows to the left. dwm style"
@@ -82,9 +84,10 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
-;;(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
-(global-set-key (kbd "M-q") 'edwina-delete-window)
+(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
+(global-set-key (kbd "M-q") 'fris/edwina-delete-window)
 (global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
 (global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
 
