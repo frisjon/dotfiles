@@ -1,4 +1,4 @@
-(setq default-directory "~/.emacs.d")
+(setq default-directory "~/")
 
 (make-directory "~/.emacs.d/backups/" t)
 (make-directory "~/.emacs.d/autosave/" t)
