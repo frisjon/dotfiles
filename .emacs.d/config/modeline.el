@@ -85,8 +85,8 @@ To be used in custom modeline"
     (defun fris-modeline/buffer-modified-string()
       "Return string showing if buffer was modified"
       (if (buffer-modified-p)
-          " modi "
-          " umod "))
+          " modif "
+          " unmod "))
 
     (defun fris-modeline/buffer-coding-system-string (encoding)
       "Return string showing buffer encoding. To be used in custom modeline"
@@ -97,6 +97,12 @@ To be used in custom modeline"
       (interactive)
       (with-selected-window (selected-window)
         (read-only-mode 'toggle)))
+
+    (defun fris-modeline/toggle-buffer-modified ()
+      (interactive)
+      (with-selected-window (selected-window)
+        (set-buffer-modified-p (not (buffer-modified-p)))
+        (force-mode-line-update)))
 
     (defun fris-modeline/switch-eol ()
       (interactive)
@@ -158,7 +164,11 @@ To be used in custom modeline"
     (defvar-local fris-modeline--buffer-modified
         '(:eval
           (propertize (fris-modeline/buffer-modified-string)
-                      'face 'bold))
+                      'face 'bold
+                      'local-map '(keymap
+                        (mode-line keymap
+                                   (mouse-1 . fris-modeline/toggle-buffer-modified)))
+                      ))
       "")
 
     ;; Add custom variables ---------------------------------------------------
