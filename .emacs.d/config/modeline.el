@@ -75,14 +75,42 @@
           (fris-modeline/buffer-coding-system-string encoding)
           (fris-modeline/eol-style-string eol))))
 
+    (defun fris-modeline/buffer-read-only-string()
+      "Return string showing if buffer is read-only.
+To be used in custom modeline"
+      (if (buffer-local-value 'buffer-read-only (current-buffer))
+          "readonly"
+          "writable"))
+
+    (defun fris-modeline/buffer-modified-string()
+      "Return string showing if buffer was modified"
+      (if (buffer-modified-p)
+          " modi "
+          " umod "))
+
+    (defun fris-modeline/buffer-coding-system-string (encoding)
+      "Return string showing buffer encoding. To be used in custom modeline"
+      (cond ((string= encoding "utf-8-unix") "UTF-8")
+            (t encoding)))
+
+    (defun fris-modeline/toggle-read-only ()
+      (interactive)
+      (with-selected-window (selected-window)
+        (read-only-mode 'toggle)))
+
+    (defun fris-modeline/switch-eol ()
+      (interactive)
+      (mode-line-change-eol
+       (make-sparse-keymap)))
+
     ;; Variables --------------------------------------------------------------
     (defvar-local fris-modeline--major-mode
       '(:eval (if (mode-line-window-selected-p)
                 (propertize (fris-modeline/major-mode-string)
                   'face 'fris-modeline--major-mode-face
                   'local-map '(keymap (mode-line keymap
-                                        (mouse-3  menu-item "menu bar")
-                                        (mouse-1 .  describe-mode)))
+                                        (mouse-3 menu-item "menu bar")
+                                        (mouse-1 . describe-mode)))
                   )
                 (propertize (fris-modeline/major-mode-string) 'face
                   'fris-modeline--major-mode-face-inactive)))
@@ -108,28 +136,38 @@
          (when (mode-line-window-selected-p) global-mode-string))
       "Local variable to show time. To be used in custom modeline")
 
-    (defun fris-modeline/buffer-coding-system-string (encoding)
-      "Return string showing buffer encoding. To be used in custom modeline"
-      (cond ((string= encoding "utf-8-unix") "UTF-8")
-        (t encoding)))
-
     (defvar-local fris-modeline--mule
       '(:eval
          (when (mode-line-window-selected-p)
            (propertize (fris-modeline/mule-string)
              'face 'fris-modeline--mule-face
              'local-map '(keymap (mode-line keymap
-                                   (mouse-1 . (lambda ()
-                                                (interactive)
-                                                (mode-line-change-eol
-                                                  (make-sparse-keymap)))))))))
+                                   (mouse-1 . fris-modeline/switch-eol))))))
       "Local variable to mule info. To be used in custom modeline")
+
+    (defvar-local fris-modeline--buffer-read-only
+        '(:eval
+          (propertize
+           (fris-modeline/buffer-read-only-string)
+           'face 'bold
+           'local-map '(keymap
+                        (mode-line keymap
+                                   (mouse-1 . fris-modeline/toggle-read-only)))))
+      "")
+
+    (defvar-local fris-modeline--buffer-modified
+        '(:eval
+          (propertize (fris-modeline/buffer-modified-string)
+                      'face 'bold))
+      "")
 
     ;; Add custom variables ---------------------------------------------------
     (dolist (var '(fris-modeline--buffer-name
                     fris-modeline--major-mode
                     fris-modeline--time
-                    fris-modeline--mule))
+                    fris-modeline--mule
+                    fris-modeline--buffer-modified
+                    fris-modeline--buffer-read-only))
       (put var 'risky-local-variable t))
 
     ;; set modeline
@@ -152,7 +190,10 @@
          (fris/simple-mode-line-render
            ;; left
            (format-mode-line
-             '("%e" mode-line-modified mode-line-remote " "
+            '("%e"
+              fris-modeline--buffer-read-only
+              fris-modeline--buffer-modified
+              mode-line-modified mode-line-remote " "
                 fris-modeline--buffer-name fris-modeline--major-mode
                 " (%l,%C) %I "))
            ;; right
