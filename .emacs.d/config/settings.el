@@ -3,7 +3,7 @@
 (make-directory "~/.emacs.d/backups/" t)
 (make-directory "~/.emacs.d/autosave/" t)
 (make-directory "~/.emacs.d/lisp/" t)
-(make-directory "~/.config/emacs/savehist" t)
+;;(make-directory "~/.config/emacs/savehist" t)
 
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
@@ -198,6 +198,7 @@
 (dolist (mode '(org-mode-hook
                  dired-mode-hook
                  term-mode-hook
+                 buffer-list-update-hook
                  help-mode-hook
                  eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -209,7 +210,7 @@
 (save-place-mode t)
 
 ;;(require 'savehist)
-(setq savehist-file "~/.config/emacs/savehist")
+(setq savehist-file "~/.emacs.d/savehist")
 (savehist-mode t)
 (setq history-length t)
 (setq history-delete-duplicates t)

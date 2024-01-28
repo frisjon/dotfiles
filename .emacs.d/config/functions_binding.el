@@ -1,18 +1,17 @@
 (defun fris/emacs-startup-time ()
-    "Profile emacs startup"
-    (message "*** Emacs loaded in %s seconds with %d garbage collections."
-             (emacs-init-time "%.2f")
-             gcs-done))
+  "Profile emacs startup"
+  (message "*** Emacs loaded in %s seconds with %d garbage collections."
+    (emacs-init-time "%.2f") gcs-done))
 
 (defun fris/backward-kill-char-or-word ()
   "To replace default backward-kill-word
 Taken from https://emacs.stackexchange.com/questions/30401/backward-kill-word-kills-too-much-how-to-make-it-more-intelligent"
   (interactive)
   (cond ((looking-back (rx (char word)) 1)
-         (backward-kill-word 1))
-        ((looking-back (rx (char blank)) 1)
-         (delete-horizontal-space t))
-        (t (backward-delete-char 1))))
+          (backward-kill-word 1))
+    ((looking-back (rx (char blank)) 1)
+      (delete-horizontal-space t))
+    (t (backward-delete-char 1))))
 
 (defun fris/kill-this-buffer ()
   (interactive) (kill-buffer (current-buffer)))
@@ -38,7 +37,7 @@ Version: 2017-11-01 2022-04-05"
   (interactive)
   (if (window-left-child(frame-root-window))
     (select-window(window-left-child(frame-root-window)))
-  (select-window (frame-root-window))))
+    (select-window (frame-root-window))))
 
 (defun fris/edwina-new-empty-buffer-in-window ()
   "open new empty buffer in new windows to the left. dwm style"
@@ -78,8 +77,8 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 (defun fris/color-name-string-to-hex-string (color)
   "Takes in string color-name variable and returns its hex code as a string"
   (apply 'format "#%02x%02x%02x"
-		 (mapcar (lambda (c) (ash c -8))
-				 (color-values color))))
+    (mapcar (lambda (c) (ash c -8))
+      (color-values color))))
 
 (defalias 'fris/color 'fris/color-name-string-to-hex-string)
 
@@ -97,7 +96,8 @@ https://www.reddit.com/r/emacs/comments/1act3md/how_to_replace_inparagraph_newli
   (interactive)
   (let ((fill-column most-positive-fixnum))
     (fill-paragraph nil)))
-;;
+
+;; bindings
 
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
@@ -142,7 +142,7 @@ https://www.reddit.com/r/emacs/comments/1act3md/how_to_replace_inparagraph_newli
 
 ;;(require 'window)
 (global-set-key (kbd "C-<tab>") 'other-window)
-(global-set-key (kbd "C-S-<tab>") '(lambda () (interactive) (other-window -1)))
+(global-set-key (kbd "C-S-<tab>") #'(lambda () (interactive) (other-window -1)))
 
 ;;(require 'rotate)
 (global-set-key (kbd "C-c r") 'rotate-window)
@@ -150,7 +150,8 @@ https://www.reddit.com/r/emacs/comments/1act3md/how_to_replace_inparagraph_newli
 ;;(require 'simple)
 (global-set-key (kbd "C-c l") 'goto-line)
 
-;; unsettings
+;; unbindings
+
 ;;(global-unset-key (kbd "M-{"))
 ;;(global-unset-key (kbd "M-}"))
 (global-unset-key (kbd "<insertchar>"))

@@ -180,19 +180,6 @@ To be used in custom modeline"
                     fris-modeline--buffer-read-only))
       (put var 'risky-local-variable t))
 
-    ;; set modeline
-    ;; (setq-default
-    ;;  mode-line-format
-    ;;  `("%e "
-    ;;    mode-line-modified
-    ;;    mode-line-remote
-    ;;    fris-modeline--buffer-name
-    ;;    fris-modeline--major-mode
-    ;;    fris-modeline--mule
-    ;;    " (%l,%C) %I "
-    ;;    (vc-mode vc-mode)
-    ;;    fris-modeline--time))
-
     ;; Modeline ---------------------------------------------------------------
     (setq-default
       mode-line-format
