@@ -57,7 +57,8 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 (defun fris/edwina-kill-buffer-and-window ()
   (interactive)
   (kill-buffer-and-window)
-  (edwina-arrange))
+  (edwina-arrange)
+  (fris/edwina-focus-master))
 
 (defun fris/edwina-open-eshell-in-new-window()
   (interactive)
@@ -90,6 +91,14 @@ https://emacs.stackexchange.com/questions/5529/how-to-right-align-some-items-in-
   (let* ((available-width (- (window-width) (length left) 2)))
     (format (format " %%s %%%ds " available-width) left right)))
 
+(defun fris/unfill-paragraph ()
+  "Taken from
+https://www.reddit.com/r/emacs/comments/1act3md/how_to_replace_inparagraph_newlines_etc_with/"
+  (interactive)
+  (let ((fill-column most-positive-fixnum))
+    (fill-paragraph nil)))
+;;
+
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
 (global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
@@ -108,6 +117,38 @@ https://emacs.stackexchange.com/questions/5529/how-to-right-align-some-items-in-
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)
 
 (global-set-key (kbd "M-e") 'fill-paragraph)
+(global-set-key (kbd "M-E") 'fris/unfill-paragraph)
+
+;;(require 'misc)
+(global-set-key (kbd "C-S-d") 'duplicate-line)
+(global-set-key (kbd "C-D") 'duplicate-line)
+
+;;(require 'bookmark)
+(global-set-key (kbd "C-c b") 'bookmark-bmenu-list)
+
+;;(require 'crux)
+(global-set-key (kbd "C-c c") 'crux-cleanup-buffer-or-region)
+
+;;(require 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;;(require 'whitespace)
+(global-set-key (kbd "C-c w") 'whitespace-cleanup)
+
+
+;;(require 'isearch)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'replace-regexp)
+
+;;(require 'window)
+(global-set-key (kbd "C-<tab>") 'other-window)
+(global-set-key (kbd "C-S-<tab>") '(lambda () (interactive) (other-window -1)))
+
+;;(require 'rotate)
+(global-set-key (kbd "C-c r") 'rotate-window)
+
+;;(require 'simple)
+(global-set-key (kbd "C-c l") 'goto-line)
 
 ;; unsettings
 ;;(global-unset-key (kbd "M-{"))

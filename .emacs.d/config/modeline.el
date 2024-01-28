@@ -201,11 +201,11 @@ To be used in custom modeline"
            ;; left
            (format-mode-line
             '("%e"
-              fris-modeline--buffer-read-only
-              fris-modeline--buffer-modified
-              mode-line-modified mode-line-remote " "
+               fris-modeline--buffer-read-only
+               fris-modeline--buffer-modified
+               mode-line-remote " "
                 fris-modeline--buffer-name fris-modeline--major-mode
-                " (%l,%C) %I "))
+                " (%l,%C) %I"))
            ;; right
            (format-mode-line
              '("" fris-modeline--mule (vc-mode vc-mode)
