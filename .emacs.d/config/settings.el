@@ -201,7 +201,7 @@
                  buffer-list-update-hook
                  help-mode-hook
                  eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (add-hook mode #'(lambda () (display-line-numbers-mode -1))))
 
 ;;(require 'hl-line)
 (global-hl-line-mode t)

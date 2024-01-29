@@ -83,7 +83,7 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 (defalias 'fris/color 'fris/color-name-string-to-hex-string)
 
 ;; write a function to do the spacing
-(defun fris/simple-mode-line-render (left right)
+(defun fris-modeline/simple-mode-line-render (left right)
   "Return a string of `window-width' length containing LEFT, and RIGHT
  aligned respectively.
 https://emacs.stackexchange.com/questions/5529/how-to-right-align-some-items-in-the-modeline"
@@ -134,7 +134,6 @@ https://www.reddit.com/r/emacs/comments/1act3md/how_to_replace_inparagraph_newli
 
 ;;(require 'whitespace)
 (global-set-key (kbd "C-c w") 'whitespace-cleanup)
-
 
 ;;(require 'isearch)
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)

@@ -54,7 +54,8 @@
     ;; Functions --------------------------------------------------------------
     (defun fris-modeline/major-mode-string ()
       "Return string with major mode. To be used in custom modeline"
-      (format " %s " (capitalize (symbol-name major-mode))))
+      (format " %s " (capitalize (replace-regexp-in-string
+                                  "-mode" "" (symbol-name major-mode)))))
 
     (defun fris-modeline/buffer-name-string ()
       "Return string with buffer name. To be used in custom modeline"
@@ -184,7 +185,7 @@ To be used in custom modeline"
     (setq-default
       mode-line-format
       '(:eval
-         (fris/simple-mode-line-render
+         (fris-modeline/simple-mode-line-render
            ;; left
            (format-mode-line
             '("%e"
