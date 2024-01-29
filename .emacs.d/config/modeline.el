@@ -79,14 +79,14 @@
       "Return string showing if buffer is read-only.
 To be used in custom modeline"
       (if (buffer-local-value 'buffer-read-only (current-buffer))
-          "readonly"
-          "writable"))
+          "r"
+          "w"))
 
     (defun fris-modeline/buffer-modified-string()
       "Return string showing if buffer was modified"
       (if (buffer-modified-p)
-          " modif "
-          " unmod "))
+          "*"
+          "-"))
 
     (defun fris-modeline/buffer-coding-system-string (encoding)
       "Return string showing buffer encoding. To be used in custom modeline"
