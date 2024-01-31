@@ -1,6 +1,6 @@
 ;; modeline
 
-(when 'ef-themes-with-colors
+(when nil ;;'ef-themes-with-colors
   (defun fris-modeline/reeval-faces-on-theme-change ()
     (interactive)
     (set-face-attribute 'fris-modeline--major-mode-face nil
@@ -23,7 +23,7 @@
       :background (ef-themes-with-colors bg-blue-intense)
       :foreground (ef-themes-with-colors fg-mode-line))))
 
-(when 'ef-themes-with-colors
+(when nil ;; 'ef-themes-with-colors
   (progn
     ;; Faces ------------------------------------------------------------------
     (defface fris-modeline--major-mode-face
@@ -204,3 +204,26 @@ To be used in custom modeline"
       'fris-modeline/reeval-faces-on-theme-change)
     ;; warning. the hook is used by ef-themes-select. dont use load-theme
     ))
+
+(defun fris-modeline/major-mode ()
+      "Return string with major mode. To be used in custom modeline"
+      (format " %s " (capitalize (replace-regexp-in-string
+                                  "-mode" "" (symbol-name major-mode)))))
+
+(setq-default
+ mode-line-format
+ `(("%e " mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification mode-line-position (vc-mode vc-mode) ,(fris-modeline/major-mode) mode-line-misc-info )
+   ;;(fris-modeline/simple-mode-line-render
+   ;; ;; left
+   ;; (format-mode-line
+   ;;  '("%e"
+   ;;    fris-modeline--buffer-read-only
+   ;;    fris-modeline--buffer-modified
+   ;;    mode-line-remote " "
+   ;;    fris-modeline--buffer-name fris-modeline--major-mode
+   ;;    " (%l,%C) %I"))
+   ;; ;; right
+   ;; (format-mode-line
+   ;;  '("" fris-modeline--mule (vc-mode vc-mode)
+   ;;    " " fris-modeline--time)))
+   ))
