@@ -97,6 +97,29 @@ https://www.reddit.com/r/emacs/comments/1act3md/how_to_replace_inparagraph_newli
   (let ((fill-column most-positive-fixnum))
     (fill-paragraph nil)))
 
+(defun fris/insert-character-with-font (char font)
+  "Insert CHAR into the current buffer with FONT.
+Taken from https://emacs.stackexchange.com/a/79976"
+  (let ((start (point)))
+    (insert char)
+    (add-text-properties start (point)
+                         `(face (:family ,font)))))
+
+(defun fris/print-all-fonts ()
+  "Print details of all installed fonts.
+Taken from https://emacs.stackexchange.com/a/79976"
+  (interactive)
+  (font-lock-mode -1)
+  (set-fontset-font t 'symbol nil)
+  (set-fontset-font t 'emoji nil)
+  (let ((fonts (font-family-list)))
+    (dolist (font fonts)
+      (fris/insert-character-with-font "🔁" font) ;; 01F501 - Segoe UI Symbol is best
+      (insert " ")
+      (fris/insert-character-with-font "🧗" font) ;; 01F9D7 - only in Segoe UI Emoji
+      (insert (prin1-to-string font))
+      (insert "\n"))))
+
 ;; bindings
 
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)

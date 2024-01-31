@@ -5,7 +5,7 @@
   (edwina-setup-dwm-keys)
   (edwina-mode 1)
   (defun edwina-mode-line-indicator ()
-    "redefining this func" ""))
+    "redefining this func to return empty string" ""))
 
 (use-package which-key
   :ensure t
@@ -44,14 +44,14 @@
 (use-package elfeed
   :ensure t
   :config
-  (defun elfeed-search-browse-all-url ()
+  (defun fris/elfeed-search-browse-all-url ()
     (interactive)
     (if (< (count-lines (point-min) (point-max)) 20)
         (progn
           (mark-whole-buffer)
           (elfeed-search-browse-url))
       (message "More than 20 links to open. Not proceeding")))
-  (define-key elfeed-search-mode-map "B" 'elfeed-search-browse-all-url)
+  (define-key elfeed-search-mode-map "B" 'fris/elfeed-search-browse-all-url)
   ;; Mark all YouTube entries
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-url "youtube\\.com"
@@ -65,3 +65,9 @@
   :ensure t
   :config
   (editorconfig-mode 1))
+
+(use-package vertico
+  :ensure t
+  :config
+  (vertico-mode))
+

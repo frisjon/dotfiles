@@ -145,8 +145,9 @@
 (electric-pair-mode t)
 (setq electric-pair-pairs
   '((?\" . ?\")
-     (?\' . ?\')
-     (?< . ?>)
+     ;;(?\' . ?\')
+    ;;(?< . ?>)
+	(?\[ . ?\])
      (?\{ . ?\})))
 
 ;;(require 'paren)
@@ -154,7 +155,7 @@
 
 ;;(require 'simple)
 (column-number-mode)
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode -1)
 
 ;;(require 'cc-vars)
 (setq-default c-basic-offset 4)
@@ -195,13 +196,13 @@
 
 ;;(require 'display-line-numbers)
 (global-display-line-numbers-mode t)
-(dolist (mode '(org-mode-hook
-                 dired-mode-hook
-                 term-mode-hook
-                 buffer-list-update-hook
-                 help-mode-hook
-                 eshell-mode-hook))
-  (add-hook mode #'(lambda () (display-line-numbers-mode -1))))
+;;(dolist (mode '(org-mode-hook
+;;                 dired-mode-hook
+;;                 term-mode-hook
+;;                 buffer-list-update-hook
+;;                 help-mode-hook
+;;                 eshell-mode-hook))
+;;  (add-hook mode #'(lambda () (display-line-numbers-mode -1))))
 
 ;;(require 'hl-line)
 (global-hl-line-mode t)
@@ -255,3 +256,13 @@
   dired-deletion-confirmer '(lambda (x) t))
 
 (add-hook 'kill-buffer-query-functions (lambda () (not-modified) t))
+
+;; use font Segoe UI Emoji to display ~symbols~
+;; in windows, emacs doesnt have support for color emojis yet
+(when (member "Segoe UI Emoji" (font-family-list))
+  (set-fontset-font
+   t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
+  (set-fontset-font
+    t 'unicode (font-spec :family "Segoe UI Emoji") nil 'prepend)
+  )
+
