@@ -15,7 +15,6 @@
 
 (use-package multiple-cursors
   :ensure t
-  :defer t
   :bind
   (("C-S-c C-S-c" . mc/edit-lines)
    ("C-<" . mc/mark-next-like-this)
@@ -24,19 +23,19 @@
 
 (use-package company
   :ensure t
-  :defer t
+  :defer 3
   :hook
   (after-init . global-company-mode))
 
 (use-package move-text
   :ensure t
-  :defer t
+  :defer 2
   :config
   (move-text-default-bindings))
 
 (use-package crux
   :ensure t
-  :defer t
+  :defer 1
   :config
   (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
   ;;(global-set-key (kbd "C-c o") #'crux-open-with)
@@ -68,7 +67,7 @@
 
 (use-package editorconfig
   :ensure t
-  :defer t
+  :defer 1
   :config
   (editorconfig-mode 1))
 
@@ -77,10 +76,9 @@
   :config
   (vertico-mode))
 
-
 ;;(require 'ls-lisp)
 (use-package ls-lisp
-  :defer t
+  :defer 5
   :config
   (setq-default
    ls-lisp-dirs-first t
@@ -96,14 +94,14 @@
 
 ;;(require 'ido)
 (use-package ido
-  :defer t
+  :defer 1
   :config
   (ido-mode t)
   )
 
 ;;(require 'windmove)
 (use-package windmove
-  :defer t
+  :defer 1
   :config
   (windmove-mode t)
   )
@@ -111,7 +109,6 @@
 ;;http://xahlee.info/emacs/emacs/emacs_dired_tips.html
 ;;(require 'dired)
 (use-package dired
-  :defer t
   :config
   ;;(if (< emacs-major-version 28)
   ;;    (progn
@@ -129,7 +126,7 @@
 
 ;;(require 'eglot)
 (use-package eglot
-  :defer t
+  :defer 5
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   :hook
@@ -147,21 +144,21 @@
 
 ;;(require 'electric)
 (use-package electric
-  :defer t
+  :defer 1
   :config
   (electric-indent-mode t)
   )
 
 ;;(require 'delsel)
 (use-package delsel
-  :defer t
+  :defer 1
   :config
   (delete-selection-mode t)
   )
 
 ;;(require 'elec-pair)
 (use-package elec-pair
-  :defer t
+  :defer 1
   :config
   (electric-pair-mode t)
   (setq electric-pair-pairs
@@ -172,7 +169,6 @@
 
 ;;(require 'paren)
 (use-package paren
-  :defer t
   :config
   (show-paren-mode t)
   )
@@ -222,7 +218,7 @@
 
 ;;(require 'window)
 (use-package window
-  :defer t
+  :defer 1
   :config
   (setq-default pop-up-windows nil)
   )
@@ -253,21 +249,21 @@
 
 ;;(require 'hl-line)
 (use-package hl-line
-  :defer t
+  :defer 1
   :config
   (global-hl-line-mode t)
   )
 
 ;;(require 'saveplace)
 (use-package saveplace
-  :defer t
+  :defer 1
   :config
   (save-place-mode t)
   )
 
 ;;(require 'savehist)
 (use-package savehist
-  :defer t
+  :defer 1
   :config
   (setq savehist-file "~/.emacs.d/savehist")
   (savehist-mode t)
@@ -283,7 +279,6 @@
 ;; update buffers from disk
 ;;(require 'autorevert)
 (use-package autorevert
-  :defer t
   :config
   (global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t)
@@ -292,20 +287,20 @@
 ;; Dont warn for following symlinked files
 ;;(require 'vc-hooks)
 (use-package vc-hooks
-  :defer t
+  :defer 10
   :config
   (setq vc-follow-symlinks t)
   )
 
 ;;(require 'time)
-;;(use-package time
-;;  :defer t
-;;  :config
-;;  (display-time-mode t)
-;;  (setq-default display-time-format "%a %d %b %H:%M"
-;;              display-time-default-load-average nil
-;;              display-time-load-average "")
-;;  )
+(use-package time
+  :defer 1
+  :config
+  (display-time-mode t)
+  (setq-default display-time-format "%a %d %b %H:%M"
+              display-time-default-load-average nil
+              display-time-load-average "")
+  )
 
 ;;(require 'erc)
 ;;(setq erc-nick "fris"
@@ -318,7 +313,7 @@
 (load-file "~/.emacs.d/themes/ef-themes.el")
 (push "~/.emacs.d/themes" load-path)
 (use-package ef-themes
-  :defer t
+  :defer 1
   :config
   (ef-themes-select 'ef-kassio)
   ;;(when 'ef-kassio (ef-themes-select 'ef-kassio))
