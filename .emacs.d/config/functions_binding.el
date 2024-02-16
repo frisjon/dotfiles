@@ -74,6 +74,14 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
   (edwina-delete-window)
   (fris/edwina-focus-master))
 
+(defun fris/edwina-open-ibuffer-in-new-window()
+  (interactive)
+  
+  (edwina-clone-window)
+  (fris/edwina-focus-master)
+  (ibuffer nil)
+  )
+
 (defun fris/color-name-string-to-hex-string (color)
   "Takes in string color-name variable and returns its hex code as a string"
   (apply 'format "#%02x%02x%02x"
@@ -122,6 +130,8 @@ Taken from https://emacs.stackexchange.com/a/79976"
 
 ;; bindings
 
+(global-set-key (kbd "M-1") 'delete-other-windows)
+
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
 (global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
 (global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
@@ -130,13 +140,18 @@ Taken from https://emacs.stackexchange.com/a/79976"
 (global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
 (global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
+(global-unset-key (kbd "M-S-<return>"))
+(global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
 
 (global-set-key (kbd "C-<backspace>") 'fris/backward-kill-char-or-word)
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "C-x k") 'fris/kill-this-buffer)
-(global-set-key (kbd "C-S-k") 'fris/edwina-kill-buffer-and-window)
+(global-set-key (kbd "M-S-k") 'fris/edwina-kill-buffer-and-window)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
+
+(global-set-key (kbd "<f1>") 'previous-buffer)
+(global-set-key (kbd "<f2>") 'next-buffer)
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)
 
 (global-set-key (kbd "M-e") 'fill-paragraph)
