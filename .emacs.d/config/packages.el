@@ -124,14 +124,23 @@
         dired-deletion-confirmer '(lambda (x) t))
   )
 
+(use-package rust-mode
+  :ensure t
+  )
+
 ;;(require 'eglot)
 (use-package eglot
   :defer 5
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  ;;(add-to-list 'eglot-server-programs '((rust-mode) . ("rust-analyzer​")))
+  (add-to-list 'eglot-server-programs
+               '((rust-ts-mode rust-mode) .
+                 ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
   :hook
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure)
+  (rust-mode . eglot-ensure)
   )
 
 ;;(require 'uniquify)
@@ -206,6 +215,14 @@
            :html-head "<link rel=\"stylesheet\"
                     href=\"../../res/style.css\"
                     type=\"text/css\"/>")))
+  (setq org-html-postamble-format
+        '(("en" "<p class=\"author\">Author: %a (%e)</p>
+<p class=\"date\">Date: %d</p>
+<p class=\"creator\">%c</p>")))
+  (progn
+    (setq org-footnote-section nil)
+    (org-element-cache-reset)
+    )
   )
 
 ;;(require 'tab-bar)
@@ -303,8 +320,13 @@
   )
 
 ;;(require 'erc)
-;;(setq erc-nick "fris"
-;;erc-system-name "frispc")
+(use-package erc
+  :defer t
+  :config
+  (setq erc-nick "kneecaps"
+        erc-system-name "potato"
+        erc-hide-list '("JOIN" "PART" "QUIT"))
+  )
 
 ;;(require 'recentf)
 ;;(recentf-mode t)

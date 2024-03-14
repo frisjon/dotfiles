@@ -142,6 +142,7 @@ Taken from https://emacs.stackexchange.com/a/79976"
 (global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
 (global-unset-key (kbd "M-S-<return>"))
 (global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
+(global-set-key (kbd "M-]") 'fris/edwina-open-ibuffer-in-new-window)
 
 (global-set-key (kbd "C-<backspace>") 'fris/backward-kill-char-or-word)
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
