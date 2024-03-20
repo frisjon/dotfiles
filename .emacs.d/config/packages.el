@@ -340,3 +340,7 @@
   (ef-themes-select 'ef-kassio)
   ;;(when 'ef-kassio (ef-themes-select 'ef-kassio))
   )
+
+(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
+(use-package selection-highlight-mode
+  :config (selection-highlight-mode))

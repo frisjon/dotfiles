@@ -128,8 +128,18 @@ Taken from https://emacs.stackexchange.com/a/79976"
       (insert (prin1-to-string font))
       (insert "\n"))))
 
+(defun fris/highlight-word ()
+  "Highlight the current word you are on.
+https://www.reddit.com/r/emacs/comments/1bgyq3y/wrote_my_first_function/"
+  (interactive)
+  (backward-word 1)
+  (set-mark-command nil)
+  (forward-word 1))
+
+
 ;; bindings
 
+(global-set-key (kbd "C-c C-SPC") 'fris/highlight-word)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)

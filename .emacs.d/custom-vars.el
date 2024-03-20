@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes '(default))
  '(package-selected-packages
-   '(vertico editorconfig elfeed crux move-text company multiple-cursors which-key edwina)))
+   '(selection-highlight-mode vertico editorconfig elfeed crux move-text company multiple-cursors which-key edwina)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
