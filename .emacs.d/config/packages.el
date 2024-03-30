@@ -1,3 +1,13 @@
+(use-package tramp
+  :init
+  (with-eval-after-load "tramp"
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+    (add-to-list 'tramp-remote-path "/home/mk/.cargo/bin")
+    )
+  :config
+  (setq tramp-default-method "plinkx")
+  )
+
 (use-package edwina
   :ensure t
   :config
@@ -133,7 +143,7 @@
   :defer 5
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  ;;(add-to-list 'eglot-server-programs '((rust-mode) . ("rust-analyzer​")))
+  (add-to-list 'eglot-server-programs '((rust-mode) . ("rust-analyzer​")))
   (add-to-list 'eglot-server-programs
                '((rust-ts-mode rust-mode) .
                  ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))
@@ -142,6 +152,7 @@
   (c++-mode . eglot-ensure)
   (rust-mode . eglot-ensure)
   )
+
 
 ;;(require 'uniquify)
 (use-package uniquify
@@ -344,3 +355,9 @@
 (load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (use-package selection-highlight-mode
   :config (selection-highlight-mode))
+
+(load-file "~/.emacs.d/lisp/exec-path-from-shell.el")
+(use-package exec-path-from-shell
+  :config (when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)))
+
