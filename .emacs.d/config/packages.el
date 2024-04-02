@@ -34,6 +34,8 @@
 (use-package company
   :ensure t
   :defer 3
+  :custom-face
+  (company-tooltip ((t (:family "Noto Sans Mono"))))
   :hook
   (after-init . global-company-mode))
 
@@ -321,14 +323,14 @@
   )
 
 ;;(require 'time)
-(use-package time
-  :defer 1
-  :config
-  (display-time-mode t)
-  (setq-default display-time-format "%a %d %b %H:%M"
-              display-time-default-load-average nil
-              display-time-load-average "")
-  )
+;;(use-package time
+;;  :defer 1
+;;  :config
+;;  (display-time-mode t)
+;;  (setq-default display-time-format "%a %d %b %H:%M"
+;;              display-time-default-load-average nil
+;;              display-time-load-average "")
+;;  )
 
 ;;(require 'erc)
 (use-package erc
@@ -343,14 +345,14 @@
 ;;(recentf-mode t)
 
 ;; themes
-(load-file "~/.emacs.d/themes/ef-themes.el")
 (push "~/.emacs.d/themes" load-path)
-(use-package ef-themes
-  :defer 1
-  :config
-  (ef-themes-select 'ef-kassio)
-  ;;(when 'ef-kassio (ef-themes-select 'ef-kassio))
-  )
+(load-file "~/.emacs.d/themes/ef-themes.el")
+;;(use-package ef-themes
+;;  :defer 1
+;;  :config
+;;  (ef-themes-select 'ef-kassio)
+;;  ;;(when 'ef-kassio (ef-themes-select 'ef-kassio))
+;;  )
 
 (load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (use-package selection-highlight-mode
@@ -361,3 +363,5 @@
   :config (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize)))
 
+(use-package gruvbox-theme
+  :ensure t)

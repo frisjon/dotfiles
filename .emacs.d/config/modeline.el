@@ -13,11 +13,13 @@
 
     (set-face-attribute 'fris-modeline--buffer-name-face nil
       :background (ef-themes-with-colors bg-green-intense)
-      :foreground (ef-themes-with-colors fg-mode-line))
+      :foreground (ef-themes-with-colors fg-mode-line)
+      )
 
     (set-face-attribute 'fris-modeline--buffer-name-face-inactive nil
       :background (ef-themes-with-colors bg-tab-bar)
-      :foreground (ef-themes-with-colors fg-mode-line))
+      :foreground (ef-themes-with-colors fg-mode-line)
+      )
 
     (set-face-attribute 'fris-modeline--mule-face nil
       :background (ef-themes-with-colors bg-blue-intense)
@@ -114,13 +116,14 @@ To be used in custom modeline"
     (defvar-local fris-modeline--major-mode
       '(:eval (if (mode-line-window-selected-p)
                 (propertize (fris-modeline/major-mode-string)
-                  'face 'fris-modeline--major-mode-face
+                  ;;'face 'fris-modeline--major-mode-face
                   'local-map '(keymap (mode-line keymap
                                         (mouse-3 menu-item "menu bar")
                                         (mouse-1 . describe-mode)))
                   )
                 (propertize (fris-modeline/major-mode-string) 'face
-                  'fris-modeline--major-mode-face-inactive)))
+                  ;;'fris-modeline--major-mode-face-inactive
+                  )))
       "Local variable to show major mode. To be used in custom modeline")
 
     (defvar-local fris-modeline--buffer-name
@@ -128,14 +131,15 @@ To be used in custom modeline"
          (if (mode-line-window-selected-p)
            (propertize
              (fris-modeline/buffer-name-string)
-             'face 'fris-modeline--buffer-name-face
+             ;;'face 'fris-modeline--buffer-name-face
              'help-echo " Buffer name"
              'local-map '(keymap (mode-line keymap
                                    (mouse-3 . previous-buffer)
                                    (mouse-1 . next-buffer))))
            (propertize
              (fris-modeline/buffer-name-string)
-             'face 'fris-modeline--buffer-name-face-inactive)))
+             ;;'face 'fris-modeline--buffer-name-face-inactive
+             )))
       "Local variable to show buffer name. To be used in custom modeline")
 
     (defvar-local fris-modeline--time
@@ -147,7 +151,7 @@ To be used in custom modeline"
       '(:eval
          (when (mode-line-window-selected-p)
            (propertize (fris-modeline/mule-string)
-             'face 'fris-modeline--mule-face
+             ;;'face 'fris-modeline--mule-face
              'local-map '(keymap (mode-line keymap
                                    (mouse-1 . fris-modeline/switch-eol))))))
       "Local variable to mule info. To be used in custom modeline")
@@ -192,8 +196,8 @@ To be used in custom modeline"
                fris-modeline--buffer-read-only
                fris-modeline--buffer-modified
                mode-line-remote " "
-                fris-modeline--buffer-name fris-modeline--major-mode
-                " (%l,%C) %I"))
+               fris-modeline--buffer-name fris-modeline--major-mode
+               " (%l,%C) %I"))
            ;; right
            (format-mode-line
              '("" fris-modeline--mule (vc-mode vc-mode)
