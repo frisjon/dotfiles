@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; modeline
 
 (when 'ef-themes-with-colors
@@ -56,8 +57,10 @@
     ;; Functions --------------------------------------------------------------
     (defun fris-modeline/major-mode-string ()
       "Return string with major mode. To be used in custom modeline"
-      (format " %s " (capitalize (replace-regexp-in-string
-                                  "-mode" "" (symbol-name major-mode)))))
+      (format " %s %s" (capitalize (replace-regexp-in-string
+                                  "-mode" "" (symbol-name major-mode)))
+              flymake-mode-line-format
+              ))
 
     (defun fris-modeline/buffer-name-string ()
       "Return string with buffer name. To be used in custom modeline"
@@ -200,8 +203,9 @@ To be used in custom modeline"
                " (%l,%C) %I"))
            ;; right
            (format-mode-line
-             '("" fris-modeline--mule (vc-mode vc-mode)
-                " " fris-modeline--time)))))
+             '("" fris-modeline--mule (vc-mode vc-mode))
+              ;; " " fris-modeline--time)
+             ))))
 
     ;; Hook to update faces in modeline ---------------------------------------
     (add-hook 'ef-themes-post-load-hook

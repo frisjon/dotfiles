@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq default-directory "~/")
 
 (make-directory "~/.emacs.d/backups/" t)

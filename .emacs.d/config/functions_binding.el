@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defun fris/emacs-startup-time ()
   "Profile emacs startup"
   (message "*** Emacs loaded in %s seconds with %d garbage collections."
@@ -136,33 +137,74 @@ https://www.reddit.com/r/emacs/comments/1bgyq3y/wrote_my_first_function/"
   (set-mark-command nil)
   (forward-word 1))
 
+(defun fris/xah-next-user-buffer ()
+  "Switch to the next user buffer.
+“user buffer” is determined by `xah-user-buffer-q'.
+URL `http://xahlee.info/emacs/emacs/elisp_next_prev_user_buffer.html'
+Version 2016-06-19"
+  (interactive)
+  (next-buffer)
+  (let ((i 0))
+    (while (< i 20)
+      (if (not (fris/xah-user-buffer-q))
+          (progn (next-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100))))))
+
+(defun fris/xah-previous-user-buffer ()
+  "Switch to the previous user buffer.
+“user buffer” is determined by `xah-user-buffer-q'.
+URL `http://xahlee.info/emacs/emacs/elisp_next_prev_user_buffer.html'
+Version 2016-06-19"
+  (interactive)
+  (previous-buffer)
+  (let ((i 0))
+    (while (< i 20)
+      (if (not (fris/xah-user-buffer-q))
+          (progn (previous-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100))))))
+
+(defun fris/xah-user-buffer-q ()
+  "Return t if current buffer is a user buffer, else nil.
+Typically, if buffer name starts with *, it's not considered a user buffer.
+This function is used by buffer switching command and close buffer command, so that next buffer shown is a user buffer.
+You can override this function to get your idea of “user buffer”.
+version 2016-06-18"
+  (interactive)
+  (if (string-equal "*" (substring (buffer-name) 0 1))
+      nil
+    t))
 
 ;; bindings
 
 (global-set-key (kbd "C-c C-SPC") 'fris/highlight-word)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 
+(global-unset-key (kbd "M-z"))
 (global-set-key (kbd "M-z") 'fris/edwina-focus-master)
-(global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
-(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
+;;(global-set-key [remap edwina-zoom] #'fris/edwina-zoom)
+;;(global-set-key [remap edwina-delete-window] #'fris/edwina-delete-window)
+(global-unset-key (kbd "M-q"))
 (global-set-key (kbd "M-q") 'fris/edwina-delete-window)
-(global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
-(global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-Q") 'fris/edwina-kill-buffer-and-window)
 (global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
+;;(global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
-(global-unset-key (kbd "M-S-<return>"))
-(global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
+;;(global-unset-key (kbd "M-S-<return>"))
+;;(global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
 (global-set-key (kbd "M-]") 'fris/edwina-open-ibuffer-in-new-window)
 
-(global-set-key (kbd "C-<backspace>") 'fris/backward-kill-char-or-word)
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "C-x k") 'fris/kill-this-buffer)
-(global-set-key (kbd "M-S-k") 'fris/edwina-kill-buffer-and-window)
+
+(global-set-key (kbd "C-<backspace>") 'fris/backward-kill-char-or-word)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
-(global-set-key (kbd "<f1>") 'previous-buffer)
-(global-set-key (kbd "<f2>") 'next-buffer)
+(global-set-key (kbd "<f1>") 'fris/xah-previous-user-buffer)
+(global-set-key (kbd "<f2>") 'fris/xah-next-user-buffer)
 ;;(global-set-key (kbd "C-x C-S-f") 'fris/find-file-wsl)
 
 (global-set-key (kbd "M-e") 'fill-paragraph)

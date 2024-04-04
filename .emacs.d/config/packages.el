@@ -1,12 +1,15 @@
+;; -*- lexical-binding: t; -*-
 (use-package tramp
   :init
   (with-eval-after-load "tramp"
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-    (add-to-list 'tramp-remote-path "/home/mk/.cargo/bin")
-    )
+    (add-to-list 'tramp-remote-path "/home/mk/.cargo/bin"))
   :config
-  (setq tramp-default-method "plinkx")
-  )
+  (setq tramp-default-method "plinkx"))
+
+(use-package isearch
+  :config
+  (setq lazy-highlight-cleanup nil))
 
 (use-package edwina
   :ensure t
@@ -357,11 +360,6 @@
 (load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (use-package selection-highlight-mode
   :config (selection-highlight-mode))
-
-(load-file "~/.emacs.d/lisp/exec-path-from-shell.el")
-(use-package exec-path-from-shell
-  :config (when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize)))
 
 (use-package gruvbox-theme
   :ensure t)
