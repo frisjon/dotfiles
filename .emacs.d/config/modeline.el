@@ -29,8 +29,8 @@
 ;;(when 'ef-themes-with-colors (progn
 ;; Faces ------------------------------------------------------------------
 (defface fris-modeline--major-mode-face
-  `((t :background ,(ef-themes-with-colors bg-red-intense)
-       :foreground ,(ef-themes-with-colors fg-mode-line)))
+  `((t :background "#ff3030"
+       :foreground "#ffffff"))
   "Face for custom modeline. Used for major mode in active modeline")
 
 (defface fris-modeline--major-mode-face-inactive
@@ -39,8 +39,8 @@
   "Face for custom modeline. Used for major mode in inactive modeline")
 
 (defface fris-modeline--buffer-name-face
-  `((t :background ,(ef-themes-with-colors bg-green-intense)
-       :foreground ,(ef-themes-with-colors fg-mode-line)))
+  `((t :background "#00ff7f"
+       :foreground "#000000"))
   "Face for custom modeline. Used for buffer name in active modeline")
 
 (defface fris-modeline--buffer-name-face-inactive
@@ -49,8 +49,8 @@
   "Face for custom modeline. Used for buffer name in inactive modeline")
 
 (defface fris-modeline--mule-face
-  `((t :background ,(ef-themes-with-colors bg-blue-intense)
-       :foreground ,(ef-themes-with-colors fg-mode-line)))
+  `((t :background "#1e90ff"
+       :foreground "#ffffff"))
   "Face for custom modeline. Used for mule info")
 
 ;; Functions --------------------------------------------------------------
@@ -61,8 +61,9 @@
 
 (defun fris-modeline/minor-mode-string ()
   "Return string with minor mode. To be used in custom modeline"
-  (format " %s " (capitalize (replace-regexp-in-string
-                              "-mode" "" (symbol-name major-mode)))))
+  (format " .%s. " (car flymake-mode-line-format))
+  ;;(format "%s%s%s " flymake-mode-line-title flymake-mode-line-exception flymake-mode-line-counters)
+  )
 
 (defun fris-modeline/buffer-name-string ()
   "Return string with buffer name. To be used in custom modeline"
@@ -93,8 +94,7 @@ To be used in custom modeline"
 (defun fris-modeline/buffer-modified-string()
   "Return string showing if buffer was modified"
   (if (buffer-modified-p)
-      "*"
-    "-"))
+      "*" "-"))
 
 (defun fris-modeline/buffer-coding-system-string (encoding)
   "Return string showing buffer encoding. To be used in custom modeline"
@@ -121,7 +121,7 @@ To be used in custom modeline"
 (defvar-local fris-modeline--major-mode
     '(:eval (if (mode-line-window-selected-p)
                 (propertize (fris-modeline/major-mode-string)
-                            ;;'face 'fris-modeline--major-mode-face
+                            'face 'fris-modeline--major-mode-face
                             'local-map '(keymap (mode-line keymap
                                                            (mouse-3 menu-item "menu bar")
                                                            (mouse-1 . describe-mode)))
@@ -148,7 +148,7 @@ To be used in custom modeline"
       (if (mode-line-window-selected-p)
           (propertize
            (fris-modeline/buffer-name-string)
-           ;;'face 'fris-modeline--buffer-name-face
+           'face 'fris-modeline--buffer-name-face
            'help-echo " Buffer name"
            'local-map '(keymap (mode-line keymap
                                           (mouse-3 . previous-buffer)
@@ -168,7 +168,7 @@ To be used in custom modeline"
     '(:eval
       (when (mode-line-window-selected-p)
         (propertize (fris-modeline/mule-string)
-                    ;;'face 'fris-modeline--mule-face
+                    'face 'fris-modeline--mule-face
                     'local-map '(keymap (mode-line keymap
                                                    (mouse-1 . fris-modeline/switch-eol))))))
   "Local variable to mule info. To be used in custom modeline")
@@ -216,11 +216,12 @@ To be used in custom modeline"
        mode-line-remote " "
        fris-modeline--buffer-name
        fris-modeline--major-mode
-       fris-modeline--minor-mode))
+       fris-modeline--minor-mode
+       flymake-mode-line-format
+       ))
     ;; right
     (format-mode-line
-     '("" (vc-mode vc-mode) fris-modeline--mule " (%l,%C) %I")
-     ;; " " fris-modeline--time)
+     '("" (vc-mode vc-mode) fris-modeline--mule " (%l,%C) %I ")
      ))))
 
 ;; Hook to update faces in modeline ---------------------------------------

@@ -77,11 +77,9 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 
 (defun fris/edwina-open-ibuffer-in-new-window()
   (interactive)
-  
   (edwina-clone-window)
   (fris/edwina-focus-master)
-  (ibuffer nil)
-  )
+  (ibuffer nil))
 
 (defun fris/color-name-string-to-hex-string (color)
   "Takes in string color-name variable and returns its hex code as a string"

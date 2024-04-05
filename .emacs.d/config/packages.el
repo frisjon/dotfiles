@@ -108,11 +108,11 @@
   (setq rotate-functions '(rotate:main-vertical)))
 
 ;;(require 'ido)
-(use-package ido
-  :defer 1
-  :config
-  (ido-mode t)
-  )
+;;(use-package ido
+;;  :defer 1
+;;  :config
+;;  (ido-mode t)
+;;  )
 
 ;;(require 'windmove)
 (use-package windmove
@@ -363,3 +363,7 @@
 
 (use-package gruvbox-theme
   :ensure t)
+
+(use-package fringe
+  :config
+  (fringe-mode '(10 . 0)))
