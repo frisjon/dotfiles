@@ -361,9 +361,8 @@
 (use-package selection-highlight-mode
   :config (selection-highlight-mode))
 
-(use-package gruvbox-theme
-  :ensure t)
-
 (use-package fringe
   :config
   (fringe-mode '(10 . 0)))
+
+(load-file "~/.emacs.d/themes/one-themes.el")

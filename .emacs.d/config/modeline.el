@@ -61,7 +61,7 @@
 
 (defun fris-modeline/minor-mode-string ()
   "Return string with minor mode. To be used in custom modeline"
-  (format " .%s. " (car flymake-mode-line-format))
+  (format " .%s. " (if flymake-mode (car flymake-mode-line-format) "."))
   ;;(format "%s%s%s " flymake-mode-line-title flymake-mode-line-exception flymake-mode-line-counters)
   )
 
@@ -217,7 +217,6 @@ To be used in custom modeline"
        fris-modeline--buffer-name
        fris-modeline--major-mode
        fris-modeline--minor-mode
-       flymake-mode-line-format
        ))
     ;; right
     (format-mode-line
