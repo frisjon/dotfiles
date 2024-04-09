@@ -193,6 +193,7 @@ version 2016-06-18"
 ;;(global-unset-key (kbd "M-S-<return>"))
 ;;(global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
 (global-set-key (kbd "M-]") 'fris/edwina-open-ibuffer-in-new-window)
+(global-set-key (kbd "M-}") 'ibuffer)
 
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "C-x k") 'fris/kill-this-buffer)
@@ -210,7 +211,7 @@ version 2016-06-18"
 
 ;;(require 'misc)
 (global-set-key (kbd "C-S-d") 'duplicate-line)
-(global-set-key (kbd "C-D") 'duplicate-line)
+(global-set-key (kbd "C-d") 'duplicate-line)
 
 ;;(require 'bookmark)
 (global-set-key (kbd "C-c b") 'bookmark-bmenu-list)

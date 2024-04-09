@@ -349,7 +349,7 @@
 
 ;; themes
 (push "~/.emacs.d/themes" load-path)
-(load-file "~/.emacs.d/themes/ef-themes.el")
+;;(load-file "~/.emacs.d/themes/ef-themes.el")
 ;;(use-package ef-themes
 ;;  :defer 1
 ;;  :config
@@ -366,3 +366,4 @@
   (fringe-mode '(10 . 0)))
 
 (load-file "~/.emacs.d/themes/one-themes.el")
+(load-theme 'one-light)

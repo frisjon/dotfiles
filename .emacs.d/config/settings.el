@@ -37,12 +37,12 @@
 ;; font
 ;;(add-to-list 'default-frame-alist '(font . "Noto Sans Mono-12"))
 ;; https://www.youtube.com/watch?v=qR8JRYr4BKE
-(set-face-attribute 'default nil
-					:family "Noto Sans Mono"
-					:height 120)
-(set-face-attribute 'fixed-pitch nil
-					:family "Noto Sans Mono"
-					:height 120)
+(dolist (face '(default
+                fixed-pitch
+                variable-pitch))
+  (set-face-attribute face nil
+					  :family "Noto Sans Mono"
+					  :height 120))
 
 ;; command history
 (setq history-length 25)
@@ -86,6 +86,8 @@
 
 (add-to-list 'default-frame-alist '(height . 24))
 (add-to-list 'default-frame-alist '(width . 80))
+
+(setq read-buffer-completion-ignore-case t)
 
 (setq fill-column 80)
 
