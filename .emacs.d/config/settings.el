@@ -44,6 +44,31 @@
 					  :family "Noto Sans Mono"
 					  :height 120))
 
+;; http://xahlee.info/emacs/emacs/emacs_set_font_symbol.html
+(set-fontset-font
+ t
+ 'symbol
+ (cond
+  ((eq system-type 'windows-nt)
+   (cond
+    ((member "Segoe UI Symbol" (font-family-list)) "Segoe UI Symbol")
+    ((member "all-the-icons" (font-family-list)) "all-the-icons")
+    ))
+  ((eq system-type 'gnu/linux)
+   (cond
+    ((member "Symbola" (font-family-list)) "Symbola")))))
+
+(progn
+  (set-fontset-font
+   t
+   'emoji
+   (cond
+    ((member "Segoe UI Emoji" (font-family-list)) "Segoe UI Emoji")
+    ((member "all-the-icons" (font-family-list)) "all-the-icons")
+    ((member "Noto Color Emoji" (font-family-list)) "Noto Color Emoji")
+    ((member "Noto Emoji" (font-family-list)) "Noto Emoji")
+    ((member "Symbola" (font-family-list)) "Symbola"))))
+
 ;; command history
 (setq history-length 25)
 
@@ -105,18 +130,7 @@
 
 (add-hook 'kill-buffer-query-functions (lambda () (not-modified) t))
 
-;; use font Segoe UI Emoji to display ~symbols~
-;; in windows, emacs doesnt have support for color emojis yet
-(when (member "Segoe UI Emoji" (font-family-list))
-  (set-fontset-font
-   t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
-  (set-fontset-font
-	t 'unicode (font-spec :family "Segoe UI Emoji") nil 'prepend)
-  )
-
-
 ;;(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 ;;(add-to-list 'exec-path (expand-file-name "/plinkx:local_wsl:/home/mk/.cargo/bin/"))
 ;;(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
 ;;(setq explicit-shell-file-name "/bin/bash")
-
