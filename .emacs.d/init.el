@@ -1,4 +1,5 @@
 ;; -*- lexical-binding: t; -*-
+;;(setq use-package-compute-statistics t)
 (make-directory "~/.emacs.d/config/" t)
 (push "~/.emacs.d/config" load-path)
 
