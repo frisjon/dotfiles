@@ -374,3 +374,8 @@
 (use-package rust-mode
   :ensure t
   :defer 2)
+
+(use-package ido
+  :ensure nil
+  :config
+  (ido-mode t))
