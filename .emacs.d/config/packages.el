@@ -275,18 +275,6 @@
 ;;(require 'recentf)
 ;;(recentf-mode t)
 
-;; themes
-(push "~/.emacs.d/themes" load-path)
-(load-file "~/.emacs.d/themes/one-themes.el")
-(load-theme 'one-light)
-
-(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
-(use-package selection-highlight-mode
-  :ensure nil
-  :defer 2
-  :config
-  (selection-highlight-mode))
-
 (use-package edwina
   :ensure t
   :init
@@ -379,3 +367,39 @@
   :ensure nil
   :config
   (ido-mode t))
+
+(use-package hideshow
+  :ensure nil
+  :config
+  (setq
+    hs-hide-comments nil
+    hs-isearch-open 'x)
+  (defvar hs-special-modes-alist
+    (mapcar 'purecopy
+      '((c-mode "{" "}" "/[*/]" nil nil)
+         (rust-mode "{" "}" "/[*/]" nil nil)
+         (c++-mode "{" "}" "/[*/]" nil nil)
+         (bibtex-mode ("@\\S(*\\(\\s(\\)" 1))
+         (java-mode "{" "}" "/[*/]" nil nil)
+         (js-mode "{" "}" "/[*/]" nil))))
+  (hs-minor-mode))
+
+(load-file "~/.emacs.d/lisp/hideshowvis.el")
+(use-package hideshowvis
+  :ensure nil
+  :config (hideshowvis-minor-mode))
+
+(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
+(use-package selection-highlight-mode
+  :ensure nil
+  :defer 2
+  :config
+  (selection-highlight-mode))
+
+;; themes
+(push "~/.emacs.d/themes" load-path)
+;;(load-file "~/.emacs.d/themes/one-themes.el")
+;;(load-theme 'one-light)
+
+(load-file "~/.emacs.d/themes/tsoding-theme.el")
+(load-theme 'tsoding)

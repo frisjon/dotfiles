@@ -131,6 +131,6 @@
 (add-hook 'kill-buffer-query-functions (lambda () (not-modified) t))
 
 ;;(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-(add-to-list 'exec-path (expand-file-name "/plinkx:local_wsl:/home/mk/.cargo/bin/"))
+(add-to-list 'exec-path (expand-file-name "/plinkx:local_wsl:~/.cargo/bin/"))
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
 (setq explicit-shell-file-name "/bin/bash")

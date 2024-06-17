@@ -239,6 +239,10 @@ version 2016-06-18"
 ;;(require 'simple)
 (global-set-key (kbd "C-c l") 'goto-line)
 
+(global-set-key (kbd "C-c C-l") 'hs-toggle-hiding)
+(global-set-key (kbd "C-c C-k") 'hs-hide-all)
+(global-set-key (kbd "C-c C-j") 'hs-show-all)
+
 ;; unbindings
 (global-unset-key (kbd "<insertchar>"))
 (global-unset-key (kbd "<insert>"))
