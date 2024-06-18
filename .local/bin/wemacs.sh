@@ -30,33 +30,54 @@ _diff_and_copy () {
 case $1 in
   "d2w")
     echo "Dotfiles to Windows"
-    _diff_and_copy_file_from_to init.el $DOTFILES_DIR $EMACS_DIR
-    _diff_and_copy_file_from_to custom-vars.el $DOTFILES_DIR $EMACS_DIR
-    for dir in $SUBDIR_LIST;do
-      if [ ! -d $EMACS_DIR/$dir ]; then
-        mkdir -p "$EMACS_DIR/$dir"
-      fi
-      _diff_and_copy "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
-    done
+    read -p "Are you sure? y/[n]" opt1
+    echo $opt1
+    case $opt1 in
+      y|Y)
+        _diff_and_copy_file_from_to init.el $DOTFILES_DIR $EMACS_DIR
+        _diff_and_copy_file_from_to custom-vars.el $DOTFILES_DIR $EMACS_DIR
+        for dir in $SUBDIR_LIST;do
+          if [ ! -d $EMACS_DIR/$dir ]; then
+            mkdir -p "$EMACS_DIR/$dir"
+          fi
+          _diff_and_copy "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
+        done
+    ;;
+    n|N|*) echo "skipping...";;
+    esac
+
   ;;
   "w2d")
-    _diff_and_copy_file_from_to init.el $EMACS_DIR $DOTFILES_DIR
-    _diff_and_copy_file_from_to custom-vars.el $EMACS_DIR $DOTFILES_DIR
-    for dir in $SUBDIR_LIST;do
-      if [ ! -d $DOTFILES_DIR/$dir ]; then
-        mkdir -p "$DOTFILES_DIR/$dir"
-      fi
-      _diff_and_copy "$EMACS_DIR/$dir" "$DOTFILES_DIR/$dir"
-    done
+    echo "Windows to Dotfiles"
+    read -p "Are you sure? y/[n]" opt1
+    echo $opt1
+    case $opt1 in
+      y|Y) 
+        _diff_and_copy_file_from_to init.el $EMACS_DIR $DOTFILES_DIR
+        _diff_and_copy_file_from_to custom-vars.el $EMACS_DIR $DOTFILES_DIR
+        for dir in $SUBDIR_LIST;do
+          if [ ! -d $DOTFILES_DIR/$dir ]; then
+            mkdir -p "$DOTFILES_DIR/$dir"
+          fi
+          _diff_and_copy "$EMACS_DIR/$dir" "$DOTFILES_DIR/$dir"
+        done
+    ;;
+    n|N|*) echo "skipping...";;
+    esac
+
   ;;
   "diff")
-    echo "Local v Dotfiles"
+    echo "diff Windows Dotfiles"
     for dir in $SUBDIR_LIST;do
       _diff_only "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
     done
   ;;
   *)
     echo no option
+    echo choose from:
+    echo " - diff"
+    echo " - w2d"
+    echo " - d2w"
     ;;
 esac
 
