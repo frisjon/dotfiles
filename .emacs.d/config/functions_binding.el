@@ -60,10 +60,11 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
   (edwina-arrange)
   (fris/edwina-focus-master))
 
-(defun fris/edwina-open-eshell-in-new-window()
+(defun fris/edwina-open-shell-in-new-window()
   (interactive)
   (edwina-clone-window)
-  (eshell))
+  (let ((explicit-shell-file-name "C:/Windows/System32/bash.exe"))
+    (shell)))
 
 (defun fris/edwina-zoom ()
   (interactive)
@@ -174,6 +175,31 @@ version 2016-06-18"
       nil
     t))
 
+(defun ajv/human-readable-file-sizes-to-bytes (string)
+  "Convert a human-readable file size into bytes.
+https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
+  (interactive)
+  (cond
+   ((string-suffix-p "G" string t)
+    (* 1000000000 (string-to-number (substring string 0 (- (length string) 1)))))
+   ((string-suffix-p "M" string t)
+    (* 1000000 (string-to-number (substring string 0 (- (length string) 1)))))
+   ((string-suffix-p "K" string t)
+    (* 1000 (string-to-number (substring string 0 (- (length string) 1)))))
+   (t (string-to-number (substring string 0 (- (length string) 1))))))
+
+(defun ajv/bytes-to-human-readable-file-sizes (bytes)
+  "Convert number of bytes to human-readable file size.
+https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
+  (interactive)
+  (cond
+   ((> bytes 1000000000) (format "%10.1fG" (/ bytes 1000000000.0)))
+   ((> bytes 100000000) (format "%10.0fM" (/ bytes 1000000.0)))
+   ((> bytes 1000000) (format "%10.1fM" (/ bytes 1000000.0)))
+   ((> bytes 100000) (format "%10.0fk" (/ bytes 1000.0)))
+   ((> bytes 1000) (format "%10.1fk" (/ bytes 1000.0)))
+   (t (format "%10d" bytes))))
+
 ;; bindings
 
 (global-set-key (kbd "C-c C-SPC") 'fris/highlight-word)
@@ -189,11 +215,15 @@ version 2016-06-18"
 (global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
 ;;(global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer)
-(global-set-key (kbd "M-t") 'fris/edwina-open-eshell-in-new-window)
+(global-set-key (kbd "M-t") 'fris/edwina-open-shell-in-new-window)
 ;;(global-unset-key (kbd "M-S-<return>"))
 ;;(global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
 (global-set-key (kbd "M-]") 'fris/edwina-open-ibuffer-in-new-window)
+(eval-after-load 'dired
+  '(define-key dired-mode-map (kbd "M-]") 'fris/edwina-open-ibuffer-in-new-window))
 (global-set-key (kbd "M-}") 'ibuffer)
+(eval-after-load 'dired
+  '(define-key dired-mode-map (kbd "M-}") 'ibuffer))
 
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "C-x k") 'fris/kill-this-buffer)
@@ -251,4 +281,3 @@ version 2016-06-18"
 (global-unset-key (kbd "C-x m"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-t"))
-

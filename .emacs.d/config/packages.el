@@ -379,22 +379,73 @@
       '((c-mode "{" "}" "/[*/]" nil nil)
          (rust-mode "{" "}" "/[*/]" nil nil)
          (c++-mode "{" "}" "/[*/]" nil nil)
-         (bibtex-mode ("@\\S(*\\(\\s(\\)" 1))
+         ;;(emacs-lisp-mode "(" ")" nil nil nil nil)
+         ;;(bibtex-mode ("@\\S(*\\(\\s(\\)" 1))
          (java-mode "{" "}" "/[*/]" nil nil)
          (js-mode "{" "}" "/[*/]" nil))))
   (hs-minor-mode))
 
-(load-file "~/.emacs.d/lisp/hideshowvis.el")
+(use-package ibuffer
+  :ensure nil
+  :config
+  ;; https://www.emacswiki.org/emacs/IbufferMode#h5o-1
+  ;; Use human readable Size column instead of original one
+  (define-ibuffer-column size-h
+    (:name "Size"
+           :inline t
+           :summarizer
+           (lambda (column-strings)
+             (let ((total 0))
+               (dolist (string column-strings)
+                 (setq total
+                       ;; like, ewww ...
+                       (+ (float (ajv/human-readable-file-sizes-to-bytes string))
+                          total)))
+               (ajv/bytes-to-human-readable-file-sizes total)))    ;; :summarizer nil
+           )
+    (ajv/bytes-to-human-readable-file-sizes (buffer-size)))
+
+  ;; Modify the default ibuffer-formats
+  (setq ibuffer-formats
+        '((mark modified read-only locked " "
+                (name 20 20 :left :elide) " "
+                (size-h 11 -1 :right) " "
+                (mode 16 16 :left :elide) " "
+                filename-and-process)
+          (mark " "
+                (name 16 -1) " " filename))
+        ibuffer-default-sorting-mode 'major-mode))
+
+;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
 (use-package hideshowvis
   :ensure nil
   :config (hideshowvis-minor-mode))
 
-(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
+;;(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (use-package selection-highlight-mode
   :ensure nil
   :defer 2
   :config
   (selection-highlight-mode))
+
+;;(load-file "~/.emacs.d/lisp/ibuffer-vc.el")
+(use-package ibuffer-vc
+  :ensure nil
+  :config
+  (setq ibuffer-formats
+        '((mark modified read-only vc-status-mini " "
+                (name 18 18 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                (vc-status 16 16 :left)
+                " "
+                vc-relative-file))
+        ibuffer-vc-skip-if-remote nil))
+
+;;(require 'column-marker)
 
 ;; themes
 (push "~/.emacs.d/themes" load-path)
