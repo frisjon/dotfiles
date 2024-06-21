@@ -63,8 +63,9 @@ In this case, the remote location is WSL running on windows. WSL must have ssh i
 (defun fris/edwina-open-shell-in-new-window()
   (interactive)
   (edwina-clone-window)
-  (let ((explicit-shell-file-name "C:/Windows/System32/bash.exe"))
-    (shell)))
+  (shell))
+  ;;(let ((explicit-shell-file-name "C:/Windows/System32/bash.exe"))
+  ;;  (shell)))
 
 (defun fris/edwina-zoom ()
   (interactive)
