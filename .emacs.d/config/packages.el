@@ -12,7 +12,9 @@
 (use-package isearch
   :ensure nil
   :init
-  (setq lazy-highlight-cleanup nil))
+  (setq lazy-highlight-cleanup nil
+        isearch-wrap-pause 'no
+        ))
 
 (use-package ls-lisp
   :ensure nil
@@ -172,7 +174,13 @@
   :ensure nil
   :defer 1
   :init
-  (setq-default pop-up-windows nil))
+  (setq-default pop-up-windows nil)
+  :config
+  (advice-add 'other-window :before
+              (defun other-window-split-if-single (&rest _)
+                "Split the frame if there is a single window."
+                (when (one-window-p) (split-window-sensibly))))
+  )
 
 ;;(require 'menu-bar)
 (menu-bar-mode -1)
@@ -383,7 +391,8 @@
          ;;(bibtex-mode ("@\\S(*\\(\\s(\\)" 1))
          (java-mode "{" "}" "/[*/]" nil nil)
          (js-mode "{" "}" "/[*/]" nil))))
-  (hs-minor-mode))
+  ;;(hs-minor-mode)
+  )
 
 (use-package ibuffer
   :ensure nil
@@ -409,7 +418,7 @@
   (setq ibuffer-formats
         '((mark modified read-only locked " "
                 (name 20 20 :left :elide) " "
-                (size-h 11 -1 :right) " "
+                ;;(size-h 11 -1 :right) " "
                 (mode 16 16 :left :elide) " "
                 filename-and-process)
           (mark " "
@@ -419,7 +428,9 @@
 ;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
 (use-package hideshowvis
   :ensure nil
-  :config (hideshowvis-minor-mode))
+  :defer 3
+  ;;:config (hideshowvis-minor-mode)
+  )
 
 ;;(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (use-package selection-highlight-mode
@@ -429,21 +440,21 @@
   (selection-highlight-mode))
 
 ;;(load-file "~/.emacs.d/lisp/ibuffer-vc.el")
-(use-package ibuffer-vc
-  :ensure nil
-  :config
-  (setq ibuffer-formats
-        '((mark modified read-only vc-status-mini " "
-                (name 18 18 :left :elide)
-                " "
-                (size 9 -1 :right)
-                " "
-                (mode 16 16 :left :elide)
-                " "
-                (vc-status 16 16 :left)
-                " "
-                vc-relative-file))
-        ibuffer-vc-skip-if-remote nil))
+;;(use-package ibuffer-vc
+;;  :ensure nil
+;;  :config
+;;  (setq ibuffer-formats
+;;        '((mark modified read-only vc-status-mini " "
+;;                (name 18 18 :left :elide)
+;;                " "
+;;                (size 9 -1 :right)
+;;                " "
+;;                (mode 16 16 :left :elide)
+;;                " "
+;;                (vc-status 16 16 :left)
+;;                " "
+;;                vc-relative-file))
+;;        ibuffer-vc-skip-if-remote nil))
 
 ;;(require 'column-marker)
 
