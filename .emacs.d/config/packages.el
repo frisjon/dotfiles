@@ -378,6 +378,7 @@
 
 (use-package hideshow
   :ensure nil
+  :defer 1
   :config
   (setq
     hs-hide-comments nil
@@ -392,6 +393,13 @@
          (java-mode "{" "}" "/[*/]" nil nil)
          (js-mode "{" "}" "/[*/]" nil))))
   ;;(hs-minor-mode)
+  (dolist
+    (prog-modes '(c-mode-common-hook
+                   emacs-lisp-mode-hook
+                   rust-mode-hook
+                   c++-mode-hook
+                   java-mode-hook))
+    (add-hook prog-modes 'hs-minor-mode))
   )
 
 (use-package ibuffer
