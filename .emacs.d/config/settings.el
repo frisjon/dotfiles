@@ -42,7 +42,7 @@
                 variable-pitch))
   (set-face-attribute face nil
 					  :family "Noto Sans Mono"
-					  :height 120))
+					  :height 130))
 
 ;; http://xahlee.info/emacs/emacs/emacs_set_font_symbol.html
 (set-fontset-font

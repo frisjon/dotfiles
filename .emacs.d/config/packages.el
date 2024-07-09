@@ -334,27 +334,6 @@
   (global-set-key [(shift return)] #'crux-smart-open-line)
   (global-set-key [remap kill-whole-line] #'crux-kill-whole-line))
 
-(use-package elfeed
-  :ensure t
-  :defer t
-  :config
-  (defun fris/elfeed-search-browse-all-url ()
-    (interactive)
-    (if (< (count-lines (point-min) (point-max)) 20)
-        (progn
-          (mark-whole-buffer)
-          (elfeed-search-browse-url))
-      (message "More than 20 links to open. Not proceeding")))
-  (define-key elfeed-search-mode-map "B" 'fris/elfeed-search-browse-all-url)
-  ;; Mark all YouTube entries
-  (add-hook 'elfeed-new-entry-hook
-            (elfeed-make-tagger :feed-url "youtube\\.com"
-                                :add '(video youtube)))
-  ;; Entries older than 2 weeks are marked as read
-  (add-hook 'elfeed-new-entry-hook
-            (elfeed-make-tagger :before "1 month ago"
-                                :remove 'unread)))
-
 (use-package editorconfig
   :ensure t
   :defer 1
@@ -398,6 +377,7 @@
                    emacs-lisp-mode-hook
                    rust-mode-hook
                    c++-mode-hook
+                   js-mode-hook
                    java-mode-hook))
     (add-hook prog-modes 'hs-minor-mode))
   )
@@ -471,5 +451,5 @@
 ;;(load-file "~/.emacs.d/themes/one-themes.el")
 ;;(load-theme 'one-light)
 
-(load-file "~/.emacs.d/themes/tsoding-theme.el")
-(load-theme 'tsoding)
+;;(load-file "~/.emacs.d/themes/tsoding-theme.el")
+;;(load-theme 'tsoding)

@@ -275,3 +275,4 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (global-unset-key (kbd "C-x m"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-t"))
+(global-unset-key (kbd "C-x C-l"))
