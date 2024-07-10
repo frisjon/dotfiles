@@ -14,17 +14,20 @@
 
     (set-face-attribute 'fris-modeline--buffer-name-face nil
                         :background (ef-themes-with-colors bg-green-intense)
-                        :foreground (ef-themes-with-colors fg-mode-line)
-                        )
+                        :foreground (ef-themes-with-colors fg-mode-line))
 
     (set-face-attribute 'fris-modeline--buffer-name-face-inactive nil
                         :background (ef-themes-with-colors bg-tab-bar)
-                        :foreground (ef-themes-with-colors fg-mode-line)
-                        )
+                        :foreground (ef-themes-with-colors fg-mode-line))
 
     (set-face-attribute 'fris-modeline--mule-face nil
                         :background (ef-themes-with-colors bg-blue-intense)
                         :foreground (ef-themes-with-colors fg-mode-line))))
+
+;; ------------------------------------------------------------------------
+
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
 
 ;; Faces ------------------------------------------------------------------
 (defface fris-modeline--major-mode-face
