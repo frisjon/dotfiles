@@ -413,11 +413,11 @@
                 (name 16 -1) " " filename))
         ibuffer-default-sorting-mode 'major-mode))
 
-;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
+(load-file "~/.emacs.d/lisp/hideshowvis.el")
 (use-package hideshowvis
   :ensure nil
   :defer 3
-  ;;:config (hideshowvis-minor-mode)
+  :config (hideshowvis-minor-mode)
   )
 
 ;;(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
