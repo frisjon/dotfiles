@@ -26,9 +26,6 @@
 
 ;; ------------------------------------------------------------------------
 
-(set-face-attribute 'mode-line nil :box nil)
-(set-face-attribute 'mode-line-inactive nil :box nil)
-
 ;; Faces ------------------------------------------------------------------
 (defface fris-modeline--major-mode-face
   `((t :background "#ff3030"
@@ -136,8 +133,7 @@ To be used in custom modeline"
              ;;`(propertize ,(vc-mode vc-mode) 'face 'fris-modeline--major-mode-face)
              `(vc-mode vc-mode)
              ;;`(:eval (when eglot "eglot"))
-             )
-            )
+             ))
   "Local variable to show minor modes. To be used in custom modeline")
 
 (defvar-local fris-modeline--buffer-name

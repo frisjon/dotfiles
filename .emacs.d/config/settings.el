@@ -134,3 +134,8 @@
 (add-to-list 'exec-path (expand-file-name "/plinkx:local_wsl:~/.cargo/bin/"))
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
 (setq explicit-shell-file-name "/bin/bash")
+
+
+;; remove box attribute from modeline
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
