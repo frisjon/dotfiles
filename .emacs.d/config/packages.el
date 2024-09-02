@@ -417,8 +417,7 @@
 (use-package hideshowvis
   :ensure nil
   :defer 3
-  :config (hideshowvis-minor-mode)
-  )
+  :config (hideshowvis-minor-mode))
 
 ;;(load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (use-package selection-highlight-mode
@@ -427,22 +426,27 @@
   :config
   (selection-highlight-mode))
 
-;;(load-file "~/.emacs.d/lisp/ibuffer-vc.el")
-;;(use-package ibuffer-vc
+(load-file "~/.emacs.d/lisp/ibuffer-vc.el")
+(use-package ibuffer-vc
+  :ensure nil
+  :config
+  (setq ibuffer-formats
+        '((mark modified read-only vc-status-mini " "
+                (name 18 18 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                (vc-status 16 16 :left)
+                " "
+                vc-relative-file))
+        ibuffer-vc-skip-if-remote nil))
+
+(load-file "~/.emacs.d/lisp/zen-mode.el")
+;;(use-package zen-mode
 ;;  :ensure nil
-;;  :config
-;;  (setq ibuffer-formats
-;;        '((mark modified read-only vc-status-mini " "
-;;                (name 18 18 :left :elide)
-;;                " "
-;;                (size 9 -1 :right)
-;;                " "
-;;                (mode 16 16 :left :elide)
-;;                " "
-;;                (vc-status 16 16 :left)
-;;                " "
-;;                vc-relative-file))
-;;        ibuffer-vc-skip-if-remote nil))
+;;  :defer 3)
 
 ;;(require 'column-marker)
 
@@ -451,5 +455,5 @@
 ;;(load-file "~/.emacs.d/themes/one-themes.el")
 ;;(load-theme 'one-light)
 
-;;(load-file "~/.emacs.d/themes/tsoding-theme.el")
-;;(load-theme 'tsoding)
+(load-file "~/.emacs.d/themes/tsoding-theme.el")
+(load-theme 'tsoding)
