@@ -13,8 +13,7 @@
   :ensure nil
   :init
   (setq lazy-highlight-cleanup nil
-        isearch-wrap-pause 'no
-        ))
+        isearch-wrap-pause 'no))
 
 (use-package ls-lisp
   :ensure nil
@@ -57,10 +56,8 @@
         dired-confirm-shell-command nil
         dired-no-confirm t
         dired-recursive-deletes 'always
-        dired-deletion-confirmer '(lambda (x) t))
-  )
+        dired-deletion-confirmer '(lambda (x) t)))
 
-;;(require 'eglot)
 (use-package eglot
   :ensure nil
   :defer 5
@@ -75,33 +72,28 @@
   (c++-mode . eglot-ensure)
   (rust-mode . eglot-ensure))
 
-;;(require 'uniquify)
 (use-package uniquify
   :ensure nil
   :defer 3
   :init
   (setq uniquify-buffer-name-style 'forward))
 
-;;(require 'project)
 (use-package project
   :ensure nil
   :defer 4)
 
-;;(require 'electric)
 (use-package electric
   :ensure nil
   :defer 2
   :config
   (electric-indent-mode t))
 
-;;(require 'delsel)
 (use-package delsel
   :ensure nil
   :defer 2
   :config
   (delete-selection-mode t))
 
-;;(require 'elec-pair)
 (use-package elec-pair
   :ensure nil
   :defer 1
@@ -113,14 +105,12 @@
   :config
   (electric-pair-mode t))
 
-;;(require 'paren)
 (use-package paren
   :ensure nil
   :defer 1
   :config
   (show-paren-mode t))
 
-;;(require 'simple)
 (use-package simple
   :ensure nil
   :defer t
@@ -129,14 +119,12 @@
   :config
   (column-number-mode))
 
-;;(require 'cc-vars)
 (use-package cc-vars
   :ensure nil
   :defer t
   :init
   (setq-default c-basic-offset 4))
 
-;;(require 'org)
 (use-package org
   :ensure nil
   :defer t
@@ -161,7 +149,6 @@
   :config
   (org-element-cache-reset))
 
-;;(require 'tab-bar)
 (use-package tab-bar
   :ensure nil
   :defer t
@@ -169,7 +156,6 @@
   (setq-default tab-bar-close-button-show nil
                 tab-bar-tab-hints t))
 
-;;(require 'window)
 (use-package window
   :ensure nil
   :defer 1
@@ -182,17 +168,11 @@
                 (when (one-window-p) (split-window-sensibly))))
   )
 
-;;(require 'menu-bar)
 (menu-bar-mode -1)
-
-;;(require 'tool-bar)
 (tool-bar-mode -1)
-
-;;(require 'scroll-bar)
 (scroll-bar-mode -1)
 (horizontal-scroll-bar-mode -1)
 
-;;(require 'display-line-numbers)
 (use-package display-line-numbers
   :ensure nil
   :defer 1
@@ -208,21 +188,18 @@
   ;;  (add-hook mode #'(lambda () (display-line-numbers-mode -1))))
   )
 
-;;(require 'hl-line)
 (use-package hl-line
   :ensure nil
   :defer 1
   :config
   (global-hl-line-mode t))
 
-;;(require 'saveplace)
 (use-package saveplace
   :ensure nil
   :defer 1
   :config
   (save-place-mode t))
 
-;;(require 'savehist)
 (use-package savehist
   :ensure nil
   :defer 1
@@ -239,17 +216,14 @@
   (savehist-mode t))
 
 ;; update buffers from disk
-;;(require 'autorevert)
 (use-package autorevert
   :ensure nil
   :init
   (setq global-auto-revert-non-file-buffers t)
   :config
-  (global-auto-revert-mode t)
-  )
+  (global-auto-revert-mode t))
 
 ;; Dont warn for following symlinked files
-;;(require 'vc-hooks)
 (use-package vc-hooks
   :ensure nil
   :defer 10
@@ -261,7 +235,6 @@
   :init
   (fringe-mode '(10 . 0)))
 
-;;(require 'time)
 ;;(use-package time
 ;;  :defer 1
 ;;  :config
@@ -271,7 +244,6 @@
 ;;              display-time-load-average "")
 ;;  )
 
-;;(require 'erc)
 (use-package erc
   :ensure nil
   :defer t
@@ -426,7 +398,7 @@
   :config
   (selection-highlight-mode))
 
-(load-file "~/.emacs.d/lisp/ibuffer-vc.el")
+;;(load-file "~/.emacs.d/lisp/ibuffer-vc.el")
 (use-package ibuffer-vc
   :ensure nil
   :config
@@ -443,7 +415,7 @@
                 vc-relative-file))
         ibuffer-vc-skip-if-remote nil))
 
-(load-file "~/.emacs.d/lisp/zen-mode.el")
+;;(load-file "~/.emacs.d/lisp/zen-mode.el")
 ;;(use-package zen-mode
 ;;  :ensure nil
 ;;  :defer 3)

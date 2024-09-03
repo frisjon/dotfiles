@@ -5,11 +5,11 @@
 
 ;; Initialize package sources
 ;;(require 'package)
-;;
+
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-;;
+
 ;;(package-initialize)
 ;;(unless package-archive-contents
 ;; (package-refresh-contents))
@@ -23,5 +23,5 @@
 (load-file "~/.emacs.d/config/settings.el")
 (load-file "~/.emacs.d/config/functions_binding.el")
 (load-file "~/.emacs.d/config/packages.el")
-;(load-file "~/.emacs.d/config/modeline.el")
-;(load-file "~/.emacs.d/feeds.el")
+(load-file "~/.emacs.d/config/modeline2.el")
+;;(load-file "~/.emacs.d/feeds.el")
