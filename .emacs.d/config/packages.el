@@ -45,12 +45,6 @@
   :ensure nil
   :defer 2
   :init
-  ;;(if (< emacs-major-version 28)
-  ;;    (progn
-  ;;      ;; was dired-advertised-find-file
-  ;;      (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-  ;;      ;; was dired-up-directory
-  ;;      (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))))
   (setq dired-kill-when-opening-new-dired-buffer t
         dired-clean-confirm-killing-deleted-buffers nil
         dired-confirm-shell-command nil
@@ -385,7 +379,7 @@
                 (name 16 -1) " " filename))
         ibuffer-default-sorting-mode 'major-mode))
 
-(load-file "~/.emacs.d/lisp/hideshowvis.el")
+;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
 (use-package hideshowvis
   :ensure nil
   :defer 3
@@ -427,5 +421,5 @@
 ;;(load-file "~/.emacs.d/themes/one-themes.el")
 ;;(load-theme 'one-light)
 
-(load-file "~/.emacs.d/themes/tsoding-theme.el")
-(load-theme 'tsoding)
+;(load-file "~/.emacs.d/themes/tsoding-theme.el")
+;(load-theme 'tsoding)
