@@ -124,10 +124,5 @@
   "Run `after-load-theme-hook'."
   (run-hooks 'after-load-theme-hook))
 
-(add-hook 'after-load-theme-hook
-  (lambda ()
-    (progn
-      ;; remove box attribute from modeline
-      (set-face-attribute 'mode-line nil :box nil)
-      (set-face-attribute 'mode-line-inactive nil :box nil))))
+(add-hook 'after-load-theme-hook 'fris/remove-box-attr-from-modeline)
 

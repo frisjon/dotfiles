@@ -13,10 +13,8 @@
           (propertize " %b " 'face '(:background "firebrick" :foreground "yellow"))
         " %b "))
      " "
-     ("<"
       mode-line-percent-position
       mode-line-position-column-line-format
-      ">")
      (vc-mode vc-mode)
      " "
      (:eval

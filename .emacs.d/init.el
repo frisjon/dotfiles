@@ -24,4 +24,5 @@
 (load-file "~/.emacs.d/config/functions_binding.el")
 (load-file "~/.emacs.d/config/packages.el")
 (load-file "~/.emacs.d/config/modeline2.el")
+(fris/remove-box-attr-from-modeline)
 ;;(load-file "~/.emacs.d/feeds.el")

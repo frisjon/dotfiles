@@ -194,6 +194,11 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
    ((> bytes 1000) (format "%10.1fk" (/ bytes 1000.0)))
    (t (format "%10d" bytes))))
 
+(defun fris/remove-box-attr-from-modeline ()
+  (interactive)
+  (set-face-attribute 'mode-line nil :box nil) ;; remove box attribute from modeline
+      (set-face-attribute 'mode-line-inactive nil :box nil))
+
 ;; bindings
 
 (global-set-key (kbd "C-c C-SPC") 'fris/highlight-word)
