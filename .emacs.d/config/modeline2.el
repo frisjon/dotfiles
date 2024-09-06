@@ -10,11 +10,17 @@
      " "
      (:eval
       (if (mode-line-window-selected-p)
-          (propertize " %b " 'face '(:background "firebrick" :foreground "yellow"))
+          (propertize " %b "
+                      'face '(:background "firebrick" :foreground "yellow")
+                      'local-map '(keymap
+                                  (mode-line keymap
+                                             (mouse-3 . mode-line-previous-buffer)
+                                             (mouse-1 . mode-line-next-buffer)))
+                      'mouse-face 'mode-line-highlight)
         " %b "))
      " "
-      mode-line-percent-position
-      mode-line-position-column-line-format
+     mode-line-percent-position
+     mode-line-position-column-line-format
      (vc-mode vc-mode)
      " "
      (:eval
