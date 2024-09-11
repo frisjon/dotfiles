@@ -31,7 +31,7 @@
   explicit-shell-file-name "/bin/bash"
   display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)) ;; resuse help buffer
   system-time-locale "C"
-  eol-mnemonic-unix "."
+  eol-mnemonic-unix "-"
   system-name "jon")
 
 (setq-default tab-width 4

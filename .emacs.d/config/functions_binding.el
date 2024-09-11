@@ -165,9 +165,10 @@ This function is used by buffer switching command and close buffer command, so t
 You can override this function to get your idea of “user buffer”.
 version 2016-06-18"
   (interactive)
-  (if (string-equal "*" (substring (buffer-name) 0 1))
+  (if (and (string-equal "*" (substring (buffer-name) 0 1)) (not (string-equal "*scratch*" (buffer-name))) (not (string-equal "*Help*" (buffer-name))))
       nil
-    t))
+    t)
+  )
 
 (defun ajv/human-readable-file-sizes-to-bytes (string)
   "Convert a human-readable file size into bytes.
@@ -281,3 +282,6 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-t"))
 (global-unset-key (kbd "C-x C-l"))
+
+
+(define-key help-mode-map "q" (lambda () (interactive) (quit-window 1)))
