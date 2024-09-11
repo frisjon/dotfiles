@@ -11,7 +11,7 @@
      (:eval
       (if (mode-line-window-selected-p)
           (propertize " %b "
-                      'face '(:background "firebrick" :foreground "yellow")
+                      'face '(:weight bold)
                       'local-map '(keymap
                                   (mode-line keymap
                                              (mouse-3 . mode-line-previous-buffer)
@@ -24,6 +24,6 @@
      (vc-mode vc-mode)
      " "
      (:eval
-      (propertize (replace-regexp-in-string "-mode" "" (concat " " (symbol-name major-mode) " ")) 'face '(:background "royal blue" :foreground "white")))
-     mode-line-misc-info
-     )))
+      (propertize (replace-regexp-in-string "-mode" "" (concat " " (symbol-name major-mode) " "))
+                  'face '(:weight bold)))
+     mode-line-misc-info)))

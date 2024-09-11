@@ -4,35 +4,36 @@
 (make-directory "~/.emacs.d/backups/" t)
 (make-directory "~/.emacs.d/autosave/" t)
 (make-directory "~/.emacs.d/lisp/" t)
-;;(make-directory "~/.config/emacs/savehist" t)
 
 (push "~/.emacs.d/lisp" load-path)
 
 ;;(setq auto-save-default nil)
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t))
-  backup-directory-alist '(("." . "~/.emacs.d/backups"))
-  backup-by-copying t
-  gc-cons-threshold (* 2 1000 1000) ;; The default is 800 kilobytes.  Measured in bytes
-  inhibit-startup-screen t
-  inhibit-startup-echo-area-message t
-  inhibit-startup-message t
-  initial-scratch-message nil
-  coding-system-for-read 'utf-8-unix
-  coding-system-for-write 'utf-8-unix
-  custom-file (locate-user-emacs-file "custom-vars.el") ;; move customization to file
-  visible-bell nil
-  history-length 25 ;; command history
-  use-dialog-box nil ;; supress dialog box
-  ;;https://emacs.stackexchange.com/questions/28906/how-to-switch-off-the-sounds
-  ring-bell-function 'ignore
-  delete-by-moving-to-trash t
-  read-buffer-completion-ignore-case t
-  fill-column 80
-  explicit-shell-file-name "/bin/bash"
-  display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)) ;; resuse help buffer
-  system-time-locale "C"
-  eol-mnemonic-unix "-"
-  system-name "jon")
+      backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      backup-by-copying t
+      gc-cons-threshold (* 2 1000 1000) ;; The default is 800 kilobytes.  Measured in bytes
+      inhibit-startup-screen t
+      inhibit-startup-echo-area-message t
+      inhibit-startup-message t
+      initial-scratch-message nil
+      coding-system-for-read 'utf-8-unix
+      coding-system-for-write 'utf-8-unix
+      custom-file (locate-user-emacs-file "custom-vars.el") ;; move customization to file
+      visible-bell nil
+      history-length 25 ;; command history
+      use-dialog-box nil ;; supress dialog box
+      ;;https://emacs.stackexchange.com/questions/28906/how-to-switch-off-the-sounds
+      ring-bell-function 'ignore
+      delete-by-moving-to-trash t
+      read-buffer-completion-ignore-case t
+      fill-column 80
+      explicit-shell-file-name "/bin/bash"
+      ;; resuse help buffer
+      display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)
+                             ("\*Warning\*" display-buffer-reuse-window))
+      system-time-locale "C"
+      eol-mnemonic-unix "-"
+      system-name "jon")
 
 (setq-default tab-width 4
               show-trailing-whitespace t
