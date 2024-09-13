@@ -30,10 +30,10 @@
       explicit-shell-file-name "/bin/bash"
       ;; resuse help buffer
       display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)
-                             ("\*Warning\*" display-buffer-reuse-window))
+                             ("\*Warning\*" display-buffer-reuse-window)
+                             ("\*Compile-Log\*" display-buffer-reuse-window))
       system-time-locale "C"
-      eol-mnemonic-unix "-"
-      system-name "jon")
+      eol-mnemonic-unix "-")
 
 (setq-default tab-width 4
               show-trailing-whitespace t

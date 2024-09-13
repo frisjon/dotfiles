@@ -48,9 +48,7 @@ Version: 2017-11-01 2022-04-05"
   (fris/xah-new-empty-buffer))
 
 (defun fris/find-file-wsl ()
-  "find-file in remote location.
-Use on windows. Requires to have putty installed, with a remote location saved as local_wsl.
-In this case, the remote location is WSL running on windows. WSL must have ssh installed and running."
+  "find-file in remote location."
   (interactive)
   (find-file "/plinkx:local_wsl:~/"))
 
@@ -159,11 +157,7 @@ Version 2016-06-19"
         (progn (setq i 100))))))
 
 (defun fris/xah-user-buffer-q ()
-  "Return t if current buffer is a user buffer, else nil.
-Typically, if buffer name starts with *, it's not considered a user buffer.
-This function is used by buffer switching command and close buffer command, so that next buffer shown is a user buffer.
-You can override this function to get your idea of “user buffer”.
-version 2016-06-18"
+  "Return t if current buffer is a user buffer, else nil. version 2016-06-18"
   (interactive)
   (if (and (string-equal "*" (substring (buffer-name) 0 1)) (not (string-equal "*scratch*" (buffer-name))) (not (string-equal "*Help*" (buffer-name))))
       nil

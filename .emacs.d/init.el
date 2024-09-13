@@ -5,7 +5,6 @@
 
 ;; Initialize package sources
 ;;(require 'package)
-
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
@@ -26,3 +25,4 @@
 (load-file "~/.emacs.d/config/modeline2.el")
 (fris/remove-box-attr-from-modeline)
 ;;(load-file "~/.emacs.d/feeds.el")
+
