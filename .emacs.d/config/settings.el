@@ -11,7 +11,7 @@
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       backup-by-copying t
-      gc-cons-threshold (* 2 1000 1000) ;; The default is 800 kilobytes.  Measured in bytes
+      ;;gc-cons-threshold (* 2 1000 1000) ;; The default is 800 kilobytes.  Measured in bytes
       inhibit-startup-screen t
       inhibit-startup-echo-area-message t
       inhibit-startup-message t
