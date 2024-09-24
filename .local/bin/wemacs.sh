@@ -9,20 +9,34 @@ _diff_only () {
 }
 
 _diff_and_copy_file_from_to () {
-  echo "$2/$1 -> $3/$1"
+  from=$2
+  to=$3
+  from=${from//$DOTFILES_DIR/Wsl}
+  from=${from//$EMACS_DIR/Win}
+  to=${to//$DOTFILES_DIR/Wsl}
+  to=${to//$EMACS_DIR/Win}
   /usr/bin/diff $2/$1 $3/$1 &> /dev/null
   if [ ! $? -eq 0 ] || [ ! -f $3/$1 ]; then
     /usr/bin/cp -i $2/$1 $3/$1
+  echo -e "$from $1" '\t'"->" "$to $1"
   fi
 }
 
 _diff_and_copy () {
-  echo "$1 -> $2"
+  from=$1
+  to=$2
+  from=${from//$DOTFILES_DIR\//Wsl }
+  from=${from//$EMACS_DIR\//Win }
+  to=${to//$DOTFILES_DIR\//Wsl }
+  to=${to//$EMACS_DIR\//Win }
+
+  echo -e "$from" '\t'"->" "$to"
   for file in $1/*; do
     file_dst=$(echo $file | rev | cut -d'/' -f 1 | rev)
     /usr/bin/diff $file $2/$file_dst &> /dev/null
     if [ ! $? -eq 0 ] || [ ! -f $2/$file_dst ]; then
       /usr/bin/cp -i $file $2/$file_dst
+      echo "  $file"
     fi
   done
 }
@@ -30,8 +44,7 @@ _diff_and_copy () {
 case $1 in
   "d2w")
     echo "Dotfiles to Windows"
-    read -p "Are you sure? y/[n]" opt1
-    echo $opt1
+    read -p "Are you sure? y/[n] " opt1
     case $opt1 in
       y|Y)
         _diff_and_copy_file_from_to init.el $DOTFILES_DIR $EMACS_DIR
@@ -49,8 +62,7 @@ case $1 in
   ;;
   "w2d")
     echo "Windows to Dotfiles"
-    read -p "Are you sure? y/[n]" opt1
-    echo $opt1
+    read -p "Are you sure? y/[n] " opt1
     case $opt1 in
       y|Y) 
         _diff_and_copy_file_from_to init.el $EMACS_DIR $DOTFILES_DIR
