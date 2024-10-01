@@ -8,38 +8,41 @@
 (push "~/.emacs.d/lisp" load-path)
 
 ;;(setq auto-save-default nil)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t))
-      backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      backup-by-copying t
-      ;;gc-cons-threshold (* 2 1000 1000) ;; The default is 800 kilobytes.  Measured in bytes
-      inhibit-startup-screen t
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t)))
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      backup-by-copying t)
+(setq inhibit-startup-screen t
       inhibit-startup-echo-area-message t
       inhibit-startup-message t
-      initial-scratch-message nil
-      coding-system-for-read 'utf-8-unix
-      coding-system-for-write 'utf-8-unix
-      custom-file (locate-user-emacs-file "custom-vars.el") ;; move customization to file
-      visible-bell nil
-      history-length 25 ;; command history
-      use-dialog-box nil ;; supress dialog box
-      ;;https://emacs.stackexchange.com/questions/28906/how-to-switch-off-the-sounds
-      ring-bell-function 'ignore
-      delete-by-moving-to-trash t
-      read-buffer-completion-ignore-case t
-      fill-column 80
-      explicit-shell-file-name "/bin/bash"
-      ;; resuse help buffer
-      display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)
+      initial-scratch-message nil)
+
+(setq coding-system-for-read 'utf-8-unix
+      coding-system-for-write 'utf-8-unix)
+
+(setq custom-file (locate-user-emacs-file "custom-vars.el")) ;; move customization to file
+(setq visible-bell nil)
+(setq history-length 25) ;; command history
+(setq use-dialog-box nil) ;; supress dialog box
+;;https://emacs.stackexchange.com/questions/28906/how-to-switch-off-the-sounds
+(setq ring-bell-function 'ignore)
+(setq delete-by-moving-to-trash t)
+(setq read-buffer-completion-ignore-case t)
+(setq fill-column 80)
+(setq explicit-shell-file-name "/bin/bash")
+;; resuse help buffer
+(setq display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)
                              ("\*Warning\*" display-buffer-reuse-window)
-                             ("\*Compile-Log\*" display-buffer-reuse-window))
-      system-time-locale "C"
-      eol-mnemonic-unix "-")
+                             ("\*Compile-Log\*" display-buffer-reuse-window)
+                             ("\*compilation\*" display-buffer-reuse-window)
+                             ))
+(setq system-time-locale "C")
+(setq eol-mnemonic-unix "-")
 
 (setq-default tab-width 4
-              show-trailing-whitespace t
-              help-window-select t ;; focus help window
-              tab-always-indent 'complete ;; coding system
-              buffer-file-coding-system 'utf-8-unix) ;; coding system
+              show-trailing-whitespace t)
+(setq-default help-window-select t) ;; focus help window
+(setq-default tab-always-indent 'complete) ;; coding system
+(setq-default buffer-file-coding-system 'utf-8-unix) ;; coding system
 
 (set-default-coding-systems 'utf-8)
 (set-language-environment "UTF-8")
@@ -94,7 +97,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;eshell aliases
+;; eshell aliases
 (defalias 'l 'eshell/ls)
 (defalias 'll (lambda () (eshell/ls "-l" )))
 (defalias 'la (lambda () (eshell/ls "-la")))
@@ -127,3 +130,5 @@
   (run-hooks 'after-load-theme-hook))
 
 (add-hook 'after-load-theme-hook 'fris/remove-box-attr-from-modeline)
+
+(add-hook 'rust-mode-hook 'eglot)

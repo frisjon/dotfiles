@@ -150,9 +150,9 @@
               display-time-default-load-average nil
               display-time-load-average "")
 
-
 ;; ido
 (ido-mode t)
+(ido-everywhere t)
 
 ;; hideshow
 (setq

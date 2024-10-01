@@ -280,6 +280,3 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (if (boundp 'help-mode-map)
 	(define-key help-mode-map "q" (lambda () (interactive) (quit-window 1))))
 
-
-
-
