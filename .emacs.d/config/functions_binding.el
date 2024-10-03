@@ -218,6 +218,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (global-set-key (kbd "M-}") 'ibuffer)
 (eval-after-load 'dired
   '(define-key dired-mode-map (kbd "M-}") 'ibuffer))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "M-}") 'ibuffer))
 
 (global-set-key (kbd "C-c n") 'fris/xah-new-empty-buffer)
 (global-set-key (kbd "C-x k") 'fris/kill-this-buffer)

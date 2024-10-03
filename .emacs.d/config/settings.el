@@ -130,5 +130,3 @@
   (run-hooks 'after-load-theme-hook))
 
 (add-hook 'after-load-theme-hook 'fris/remove-box-attr-from-modeline)
-
-(add-hook 'rust-mode-hook 'eglot)

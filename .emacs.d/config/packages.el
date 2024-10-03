@@ -116,6 +116,9 @@
 ;;                 eshell-mode-hook))
 ;;  (add-hook mode #'(lambda () (display-line-numbers-mode -1))))
 
+;; for long line files
+(global-so-long-mode 1)
+
 ;; hl-line
 (global-hl-line-mode t)
 
