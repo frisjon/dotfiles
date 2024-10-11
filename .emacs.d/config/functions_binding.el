@@ -282,3 +282,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (if (boundp 'help-mode-map)
 	(define-key help-mode-map "q" (lambda () (interactive) (quit-window 1))))
 
+(defadvice quit-window (before quit-window-always-kill)
+  "When running `quit-window', always kill the buffer."
+  (ad-set-arg 0 t))
+(ad-activate 'quit-window)

@@ -130,3 +130,6 @@
   (run-hooks 'after-load-theme-hook))
 
 (add-hook 'after-load-theme-hook 'fris/remove-box-attr-from-modeline)
+
+(pixel-scroll-precision-mode t)
+(setq-default scroll-preserve-screen-position t)

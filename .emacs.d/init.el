@@ -1,4 +1,6 @@
 ;; -*- lexical-binding: t; -*-
+(load-file "~/.emacs.d/lisp/emacs-load-time.el")
+(require 'emacs-load-time)
 (package-initialize)
 
 ;; Initialize use-package on non-Linux platforms

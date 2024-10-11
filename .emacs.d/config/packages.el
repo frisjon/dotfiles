@@ -1,7 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 ;; tramp
-(setq tramp-default-method "plinkx")
-(with-eval-after-load "tramp"
+(use-package tramp
+  :defer 5
+  :config
+  (setq tramp-default-method "plinkx")
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'tramp-remote-path "/home/mk/.cargo/bin"))
 
