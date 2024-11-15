@@ -129,13 +129,14 @@
 (use-package display-line-numbers
   :config
   (global-display-line-numbers-mode t)
-  (dolist (mode '(org-mode-hook
-                  dired-mode-hook
-                  term-mode-hook
-                  buffer-list-update-hook
-                  help-mode-hook
-                  eshell-mode-hook))
-    (add-hook mode #'(lambda () (display-line-numbers-mode -1)))))
+  ;;(dolist (mode '(org-mode-hook
+                  ;;dired-mode-hook
+                  ;;term-mode-hook
+                  ;;buffer-list-update-hook
+                  ;;help-mode-hook
+                  ;;eshell-mode-hook))
+    ;;(add-hook mode #'(lambda () (display-line-numbers-mode -1))))
+  )
 
 ;; for long line files
 (global-so-long-mode 1)

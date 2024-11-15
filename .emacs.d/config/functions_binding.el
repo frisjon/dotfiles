@@ -269,6 +269,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (global-set-key (kbd "C-c C-k") 'hs-hide-all)
 (global-set-key (kbd "C-c C-j") 'hs-show-all)
 
+(global-set-key (kbd "C-S-s") 'highlight-regexp)
+
 ;; unbindings
 (global-unset-key (kbd "<insertchar>"))
 (global-unset-key (kbd "<insert>"))
