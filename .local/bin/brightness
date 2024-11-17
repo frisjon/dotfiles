@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# script to change monitor brightness
+# it requires xrandr, bc, dunstify
+
+# MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1)
+# BRIGHTNESS=$(xrandr --verbose | grep "Brightness" | cut -d" " -f2 | sed -n "1 p")
+
+# for i in $MONITORS;do
+  case "$1" in
+    "-")brightnessctl set 5%-;;
+        # xrandr --output "$i" --brightness "$(echo "$BRIGHTNESS"-0.05 | bc)";;
+    "+")brightnessctl set +5%;;
+        # xrandr --output "$i" --brightness "$(echo "$BRIGHTNESS"+0.05 | bc)";;
+    "t")brightnessctl set 50%;;
+        # xrandr --output "$i" --brightness 1;;
+    # "get")echo "$(echo "$BRIGHTNESS"*100 | bc) %";;
+    # *)
+    #   if [ "$(echo "$1" | grep ^[0-9]+$)" ];then
+    #     xrandr --output "$i" --brightness "$(echo "scale = 3; $1/100" | bc)"
+    #   else
+    #     echo "$(echo "$BRIGHTNESS"*100 | bc)%"
+    #   fi
+    #   ;;
+  esac
+# done
+
+~/.local/bin/notif 4
+#BRIGHTNESS=$(xrandr --verbose | grep "Brightness" | cut -d" " -f2 | sed -n "1 p")
+#TEXT=$(bc <<< "$BRIGHTNESS*100")
+#dunstify -t 500 -p -r 1006 "$TEXT%"
+unset BRIGHTNESS
+unset TEXT
+unset MONITORS

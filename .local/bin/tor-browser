@@ -1,0 +1,2 @@
+#!/bin/bash
+exec ~/Documents/src/tor_browser/Browser/start-tor-browser

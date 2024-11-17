@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# this scripts is executed on the window manager startup. it executes some
+# programs
+
+mypath=~/.local/bin
+
+# wallpaper
+#xsetroot -solid '#1b1b1b'
+~/.fehbg
+
+# kbd layout
+$mypath/layout
+
+# xresources
+# urxvt theme
+#$mypath/xcv dracula
+
+# emacs
+if ! pgrep -x "emacs" > /dev/null; then
+    emacs --daemon
+fi
+
+if ! pgrep -x "picom" > /dev/null; then
+    picom --daemon --config $HOME/.config/picom.conf &
+fi
+
+# dwm bar
+#if ! pgrep -x "dwm-bar.sh" > /dev/null; then
+#    $mypath/dwm-bar.sh &
+#fi
+
+# bspwm bar
+if ! pgrep -x "bspwm-bar.sh" > /dev/null; then
+    $mypath/bspwm-bar.sh &
+fi
+
+# battery-status
+if ! pgrep -x "battery-status" > /dev/null; then
+    $mypath/battery-status &
+fi
+
+# notification daemon
+if ! pgrep -x "dunst" > /dev/null; then
+  if pgrep -x "xfce4-notifyd" > /dev/null; then
+    kill $(pgrep -x "xfce4-notifyd")
+  fi
+  dunst &
+fi
+
+# monitor brightness
+#$mypath/brightness 75
+
+# monitor timeout
+#xautolock -time 10 -locker /usr/local/bin/slock

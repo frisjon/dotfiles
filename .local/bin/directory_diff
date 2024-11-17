@@ -1,0 +1,28 @@
+#/bin/bash
+
+if [[ ! -d $1 ]]; then
+  exit 1
+fi
+
+ls $1 > /tmp/dir_1
+ls $2 > /tmp/dir_2
+
+echo "The difference between both directories is:"
+diff /tmp/dir_1 /tmp/dir_2 | grep "<\|>" | sort > /tmp/dir_diff
+cat /tmp/dir_diff
+echo
+
+for file in $(ls $1);do
+  if [[ ! -f $2/$file ]];then
+    echo "File $file does not exist in the 2nd directory"
+  else
+    echo "Diff of file $file"
+    diff $1/$file $2/$file > /tmp/$file
+    sed -i -e 's/^/  /g' /tmp/$file
+    cat /tmp/$file
+    rm -f /tmp/$file
+    echo
+  fi
+done
+
+rm -f /tmp/dir_1 /tmp/dir_2 /tmp/dir_diff

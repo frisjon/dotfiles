@@ -1,0 +1,13 @@
+#!/bin/sh
+
+BATTERY_CONNECTION="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "power supply" | cut -c25-)"
+BATTERY=""
+case $BATTERY_CONNECTION in
+  no) BATTERY="no bat";;
+  *)  BATTERY_TT="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "time to " | cut -c26-)"
+      BATTERY_STATE="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | cut -c26-)"
+      BATTERY_PERC="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage" | cut -c26-)"
+      BATTERY=$BATTERY" $BATTERY_STATE | $BATTERY_TT | $BATTERY_PERC"
+;;
+esac
+echo "$BATTERY"

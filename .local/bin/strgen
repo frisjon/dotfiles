@@ -1,0 +1,27 @@
+#!/usr/bin/python
+
+# this script generates several strings randomly
+
+from random import randint
+import sys
+
+bad=[39,44,46,47,58,59,92,96]
+
+def strgen(length):
+  s = ''
+  for i in range(length):
+    num = randint(48,122)
+    #num = randint(35,125)
+    while (57 <= num and num <= 64) or (91 <= num and num <= 97):num = randint(48,122)
+      #while (num in bad):num = randint(35,125)
+    s += chr(num)
+  return s
+
+length = 64
+number = 32
+if len(sys.argv) > 1:
+  length = int(sys.argv[1])
+  try: number = int(sys.argv[2])
+  except: pass
+
+for i in range(number): print(strgen(length))

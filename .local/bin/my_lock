@@ -1,0 +1,12 @@
+#!/bin/sh
+# /usr/bin/blurlock
+
+#import -window root /tmp/screenshot.png
+#convert /tmp/screenshot.png -ordered-dither h4x4o /tmp/screenshotblur.png
+#rm /tmp/screenshot.png
+#i3lock -i /tmp/screenshotblur.png
+#sleep 1
+
+i3lock -i ~/Pictures/wall/gnu_dark_s.png
+
+exit 0

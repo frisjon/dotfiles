@@ -1,0 +1,93 @@
+#!/bin/sh
+
+check_battery()
+{
+  BATTERY_CONNECTION="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "power supply" | cut -c25-)"
+  BATTERY=""
+  case $BATTERY_CONNECTION in
+    no) BATTERY=$BATTERY"no bat";;
+    *)  BATTERY_TT="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "time to " | cut -c26-)"
+        # BATTERY_STATE="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | cut -c26-)"
+
+        case "$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | cut -c26-)" in
+          discharging)BATTERY_STATE="∅";;
+          charging)BATTERY_STATE="🗲";;
+          *)BATTERY_STATE="";;
+        esac
+
+        BATTERY_PERC="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage" | cut -c26-)"
+        BATTERY=$BATTERY" $BATTERY_STATE  │ $BATTERY_TT  │ $BATTERY_PERC"
+        ;;
+  esac
+  echo "$BATTERY"
+}
+
+check_time()
+{
+  date "+%A %d %B, %H:%M"
+}
+
+check_sound()
+{
+  #SOUND=""
+  SOUND_="$(amixer sget Master | sed -En "s/.*\[(.*)\]$/\1/p" | head -1)"
+  case $SOUND_ in
+    *on*)  SOUND="🔊 ";;
+    *off*) SOUND="🔈 ";;
+    *)     SOUND="err ";;
+  esac
+  SOUND="$SOUND$(amixer sget Master | sed -En "s/.*\[(.*\%)\].*/\1/p" | head -1)"
+  echo "$SOUND"
+}
+
+check_brightness()
+{
+  BRIGHTNESS="🌣 $(brightnessctl | grep Current | cut -d'(' -f2 | cut -d')' -f1)"
+  #_BRIGHTNESS="$(xrandr --verbose | grep "Brightness" | cut -d" " -f2 | sed -n "1 p")"
+  #_PERCENTAGE="$(echo "$_BRIGHTNESS"*100 | bc)"
+  #BRIGHTNESS=$_BRIGHTNESS"[$_PERCENTAGE%]"
+  echo "$BRIGHTNESS"
+}
+
+check_workspaces()
+{
+  WORKSPACES=""
+  ALL="$(bspc query -D --names | sed ':a;N;$!ba;s/\n/ /g')"
+  OCCUPIED="$(bspc query -D -d .occupied --names | sed ':a;N;$!ba;s/\n/ /g')"
+  FOCUSED="$(bspc query -D -d focused --names)"
+  for i in $ALL;do
+    if [ "$FOCUSED" = "$i" ];then
+      WORKSPACES=$WORKSPACES"[$i] "
+    else
+      case "$OCCUPIED" in
+        *"$i"*)WORKSPACES=$WORKSPACES"($i) ";;
+        *)WORKSPACES=$WORKSPACES" $i  ";;
+      esac
+    fi
+  done
+  echo "$WORKSPACES"
+}
+
+case $@ in
+  1)
+    WORKSPACES=$(check_workspaces)
+    dunstify "$WORKSPACES" -r 1001
+    echo "$WORKSPACES"
+    ;;
+  2)
+    TIME=$(check_time)
+    dunstify "$TIME" -r 1002
+    echo "$TIME"
+    ;;
+  3)
+    BATTERY=$(check_battery)
+    dunstify "$BATTERY" -r 1003
+    echo "$BATTERY │ $BRIGHTNESS"
+    ;;
+  4)
+    SOUND=$(check_sound)
+    BRIGHTNESS=$(check_brightness)
+    dunstify "$SOUND │ $BRIGHTNESS" -r 1004
+    echo "$SOUND"
+    ;;
+esac

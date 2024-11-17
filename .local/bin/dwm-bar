@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# this script updates the 'root window parameter "name"' with
+# information about time, battery status and sound levels.
+# it is used for the dwm windowm manager
+
+BATTERY=""
+TIME=""
+SOUND=""
+
+function check_battery()
+{
+  BATTERY_CONNECTION=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "power supply" | cut -c25-)
+  BATTERY_STATUS=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | cut -c26-)
+  BATTERY=""
+  case $BATTERY_STATUS in
+    "*charging*")
+      BATTERY="chrg"
+      ;;
+  esac
+  case $BATTERY_CONNECTION in
+    no) BATTERY+="no bat";;
+    *)  BATTERY_TT=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "time to empty" | cut -c26-)
+        BATTERY_PERC=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage" | cut -c26-)
+        if [ $(echo $BATTERY_PERC | sed 's/%//') -lt 11 ];then
+          #notify-send -u critical -t 5000 "low battery"
+          dunstify -u critical -t 5000 "low battery"
+        fi
+        BATTERY+="$BATTERY_TT | $BATTERY_PERC"
+        ;;
+  esac
+}
+
+function check_time()
+{
+  TIME=$(date "+%A %d %B, %H:%M")
+}
+
+function check_sound()
+{
+  SOUND_=$(amixer sget Master | grep -o '\[.\+\]')
+  case $SOUND_ in
+    *on*)  SOUND="=< ";;
+    *off*) SOUND="=/< ";;
+    *)     SOUND="error ";;
+  esac
+  SOUND+=$(echo $SOUND_ | grep -o '[0-9]\{1,3\}%')
+}
+
+while true;do
+  check_battery
+  check_time
+  check_sound
+  TEXT="$BATTERY | $TIME"
+  xsetroot -name " $TEXT "
+  sleep 1m;
+done

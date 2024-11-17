@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# this script allows to change volume levels and sends a notification
+# with the new values
+
+TEXT="sound "
+
+case "$1" in
+  "-") amixer -q sset Master 5%- unmute
+       TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f6 | sed 's/\(\[\|\]\)//g') ;;
+  "+") amixer -q sset Master 5%+ unmute
+       TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f6 | sed 's/\(\[\|\]\)//g') ;;
+  "0") amixer -q sset Master toggle
+       TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f8 | sed 's/\(\[\|\]\)//g') ;;
+  *) TEXT="Invalid Option";;
+esac
+
+~/.local/bin/notif 4
+#dunstify "$TEXT" -t 2000 -p -r 1005

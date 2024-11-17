@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case $1 in
+  -a )
+    du -shc .[!.]* ./* | sort -rh
+    exit 0
+    ;;
+esac
+
+du -shc ./* | sort -rh

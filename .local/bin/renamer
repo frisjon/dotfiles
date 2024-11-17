@@ -1,0 +1,65 @@
+#!/usr/bin/python3
+
+# this script renames files in a directory tree. it takes as input a regular
+# expression and a string for which to replace said expression. it makes these
+# changes recursively inside the directory tree. if a rename colision occurs, it
+# informs through stdout and does not rename the file.
+#
+# if file names are passed as parameters, it applies the renaming to those
+# files. if a dir name is passed nothing happens
+
+import os
+import re
+import sys
+
+rin = input('replace: ')
+if rin == '': exit(0)
+rout = input('with: ')
+dryrun = False
+
+def name(s):
+  return re.sub(rin, rout, s)
+
+def walkme(root):
+  if root:
+    for r, dirs, files in os.walk(root):
+      for d in dirs:
+        s = os.path.join(r, d)
+        # uncomment 'walkme(s)' to enable recursion
+        walkme(s)
+        new_name = name(d)
+        new_new_name = os.path.join(r, new_name)
+        if not os.path.isdir(new_new_name) and not dryrun:
+          os.rename(s, new_new_name)
+        elif new_name != new_new_name:
+          print('Not renaming *'+d+'*, it already exists')
+        else:
+          pass
+          #print(new_name)
+      for f in files:
+        t = os.path.join(r, f)
+        new_name = name(f)
+        new_new_name = os.path.join(r, new_name)
+        if not os.path.isfile(new_new_name) and not dryrun:
+          try:
+            os.rename(t, new_new_name)
+          except FileNotFoundError:
+            print('file *'+f+'* not found')
+        elif new_name != new_new_name:
+          print('not renaming *'+f+'* because it already exists')
+        else:
+          pass
+          #print(new_name)
+
+if len(sys.argv)>1:
+  for i in range(1,len(sys.argv)):
+    f = sys.argv[i]
+    if os.path.isfile(f):
+      new_name = name(f)
+      if os.path.isfile(new_name):
+        #os.rename(f, new_name)
+        print('is already a file', new_name)
+    else:
+      print('{} is not a file'.format(f))
+else:
+  walkme('.')

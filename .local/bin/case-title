@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+# this script renames all entries in a directory and puts them in
+# title case
+
+import os
+
+for i in os.listdir('.'):
+    os.rename(i,i.title())

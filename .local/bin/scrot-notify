@@ -1,0 +1,12 @@
+#!/usr/bin/sh
+
+# this script uses `xfce4-screenshooter' and then sends a notification
+NAME=$(date '+%Y%m%d-%H%M%S')
+if [[ $(which scrot) != *"not found"* ]];then
+  scrot -q 100  -m -z '%Y%m%d_%H%M.png' -e 'mv $f ~/Pictures/scrots/'
+fi
+if [[ $(which xfce4-screenshooter) != *"not found"* ]];then
+  xfce4-screenshooter -f -s ~/Pictures/scrots/$NAME.png
+fi
+dunstify "Screenshot taken
+$NAME"

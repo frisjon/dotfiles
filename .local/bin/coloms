@@ -1,0 +1,38 @@
+#!/bin/sh
+
+if [ -x "$(command -v tput)" ]; then
+    bold="$(tput bold)"
+    bk="$(tput setaf 0)"
+    re="$(tput setaf 1)"
+    gr="$(tput setaf 2)"
+    ye="$(tput setaf 3)"
+    be="$(tput setaf 4)"
+    ma="$(tput setaf 5)"
+    cy="$(tput setaf 6)"
+    wh="$(tput setaf 7)"
+    brbk="$(tput setaf 8)"
+    brre="$(tput setaf 9)"
+    brgr="$(tput setaf 10)"
+    brye="$(tput setaf 11)"
+    brbe="$(tput setaf 12)"
+    brma="$(tput setaf 13)"
+    brcy="$(tput setaf 14)"
+    brwh="$(tput setaf 15)"
+    reset="$(tput sgr0)"
+    bgbk="$(tput setab 0)"
+    bgre="$(tput setab 1)"
+    bggr="$(tput setab 2)"
+    bgye="$(tput setab 3)"
+    bgbe="$(tput setab 4)"
+    bgma="$(tput setab 5)"
+    bgcy="$(tput setab 6)"
+    bgwh="$(tput setab 15)"
+fi
+
+cat <<  EOF
+
+${bk}████${brbk}▄ ${re}████${brre}▄ ${gr}████${brgr}▄ ${ye}████${brye}▄ ${be}████${brbe}▄ ${ma}████${brma}▄ ${cy}████${brcy}▄ ${wh}████${brwh}▄
+${bk}████${brbk}█ ${re}████${brre}█ ${gr}████${brgr}█ ${ye}████${brye}█ ${be}████${brbe}█ ${ma}████${brma}█ ${cy}████${brcy}█ ${wh}████${brwh}█
+${bk}████${brbk}█ ${re}████${brre}█ ${gr}████${brgr}█ ${ye}████${brye}█ ${be}████${brbe}█ ${ma}████${brma}█ ${cy}████${brcy}█ ${wh}████${brwh}█
+${brbk} ▀▀▀▀ ${brre} ▀▀▀▀ ${brgr} ▀▀▀▀ ${brye} ▀▀▀▀ ${brbe} ▀▀▀▀ ${brma} ▀▀▀▀ ${brcy} ▀▀▀▀ ${brwh} ▀▀▀▀ 
+EOF

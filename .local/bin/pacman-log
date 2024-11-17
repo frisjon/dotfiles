@@ -1,0 +1,20 @@
+#!/bin/sh
+# https://wiki.archlinux.org/index.php/Pacman#Hooks
+# https://jlk.fjfi.cvut.cz/arch/manpages/man/alpm-hooks.5
+# ---
+# $ cat /usr/share/libalpm/hooks/pacman-log.hook
+# [Trigger]
+# Operation = Install
+# Operation = Upgrade
+# Operation = Remove
+# Type = Package
+# Target = *
+# [Action]
+# When = PostTransaction
+# Exec = /home/mk/.local/bin/pacman-log
+
+exit 0
+
+grep "installed\|removed\|PACMAN] Running" /var/log/pacman.log 2>&1 /tmp/tmp-pacman.log
+grep -Fxv -f /home/mk/Documents/pacman.log /tmp/tmp-pacman.log >> /home/mk/Documents/pacman.log
+rm /tmp/tmp-pacman.log

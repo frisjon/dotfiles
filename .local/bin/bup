@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# this script looks up for ceratin files to add|update to a git
+# repository
+
+DATE=$(date +%Y%m%d-%H%M)
+
+FILES="$HOME/.Xresources
+       $HOME/.bashrc
+       $HOME/.aliases
+       $HOME/.zshrc
+       $HOME/.vimrc
+       $HOME/.Xmodmap
+       $HOME/.editorconfig
+       $HOME/.config/i3/config
+       $HOME/.config/i3status/config
+       $HOME/.config/bspwm/bspwmrc
+       $HOME/.config/sxhkd/sxhkdrc
+       $HOME/.config/conky/conky.conf
+       $HOME/.config/polybar/config
+       $HOME/.config/nvim/init.vim
+       $HOME/.config/dunst/dunstrc
+       $HOME/.dwm/autostart.sh
+       $HOME/.emacs.d/init.el
+       $HOME/.emacs.d/mk.org
+       $HOME/.emacs.d/*.org
+       $HOME/.doom.d/*
+       $HOME/.local/bin/*
+       $HOME/.asoundrc
+       "
+
+DST="$HOME/src/dotfiles"
+CHANGES=""
+
+# Add files to tar ball
+for file in ${FILES}; do
+  if [ ! -f $file ];then
+    echo "File $file not found"
+  else
+    if [ ! -f $DST$file ];then
+      DIR_PATH=$(echo $DST$file | sed 's#[^/]*$##')
+      echo "Creating directory $DIR_PATH"
+      mkdir -p $DIR_PATH
+    fi
+    cp $file $DST$file
+    NAME=$(echo $file | sed -e 's/\/home\/mk\///')
+    git -C $DST add home/mk/$NAME &> /dev/null
+    STATUS=$(git -C $DST commit -m "Update $NAME")
+    if [[ -z $(echo $STATUS | grep "nothing to commit") ]]
+    then
+      CHANGES+="Update $NAME\n"
+    fi
+  fi
+done
+
+if [[ ! -z $CHANGES ]];then
+  echo -e $CHANGES
+  echo "do you wish to push changes"
+  select yn in "yes" "no";do
+    case $yn in
+      yes) git -C $DST push; break;;
+      *)   echo "not pushing any changes"; break;;
+    esac
+  done
+else
+  echo "no changes were made"
+fi
+echo "done"

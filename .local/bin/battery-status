@@ -1,0 +1,14 @@
+#!/bin/sh
+
+while true; do
+    BATTERY_PERC="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage" | cut -c26- | sed -n 's/%//p')"
+    BATTERY_STATUS="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | cut -c26-)"
+    if [ "$BATTERY_STATUS" = "charging" ]; then
+    echo 1
+    else
+        if [ "$BATTERY_PERC" -le 15 ]; then
+          dunstify -p -r 999 -u CRITICAL "Low Battery ($BATTERY_PERC%)"
+        fi
+    fi
+    sleep 1m;
+done

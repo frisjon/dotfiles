@@ -1,0 +1,1 @@
+for package in $(pacman -Qq);do [[ ! -z $(pacman -Qi $package | grep -i "installed as a") ]] && [[ ! -z $(pacman -Qi $package | grep -i "required by" | cut -d':' -f2 | grep -i "none") ]] && echo $package;done
