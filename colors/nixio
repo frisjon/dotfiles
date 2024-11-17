@@ -1,0 +1,36 @@
+// NIXIO BY ETI @RIZON
+#define FOREGROUND   #FFFFFF
+#define BACKGROUND   #051519
+#define CURSOR       #FFFFFF
+
+// BLACK
+#define COLOR0       #051519
+#define COLOR8       #323B3E
+
+// RED
+#define COLOR1       #F8818E
+#define COLOR9       #FB3D66
+
+// GREEN
+#define COLOR2       #84969A
+#define COLOR10      #22292A
+
+// YELLOW
+#define COLOR3       #97A6AA
+#define COLOR11      #3E494C
+
+// BLUE
+#define COLOR4       #5E6F73
+#define COLOR12      #A2B0B3
+
+// MAGENTA
+#define COLOR5       #677A7E
+#define COLOR13      #E0E5E6
+
+// CYAN
+#define COLOR6       #7B8E93
+#define COLOR14      #556468
+
+// WHITE
+#define COLOR7       #B3BEC1
+#define COLOR15      #F7F8F8
