@@ -22,7 +22,7 @@ while getopts 'fbh' opt;do
 done
 shift "$(($OPTIND-1))"
 
-IGNORE="\./st\|\./dwm\|\./dmenu\|/.git\|/.gitignore\|readme\|\./xkb\|packages.txt\|setup.sh"
+IGNORE="\./st\|\./dwm\|\./dmenu\|/.git\|/.gitignore\|readme\|\./xkb\|packages.txt\|setup.sh\|colors\|customo.ahk\|todo.md"
 direcs=$(find -type d | grep -iv $IGNORE | cut -c3-)
 for d in $direcs;do
   [ ! -d $HOME/$d ] && mkdir -p $HOME/$d && echo Create dir $HOME/$d
