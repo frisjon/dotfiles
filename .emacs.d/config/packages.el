@@ -274,15 +274,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package edwina
-  :ensure t
-  :init
-  (setq display-buffer-base-action '(display-buffer-below-selected))
-  :config
-  (edwina-setup-dwm-keys)
-  (edwina-mode 1)
-  (defun edwina-mode-line-indicator ()
-    "redefining this func to return empty string" ""))
+;;(use-package edwina
+;;  :ensure t
+;;  :init
+;;  (setq display-buffer-base-action '(display-buffer-below-selected))
+;;  :config
+;;  (edwina-setup-dwm-keys)
+;;  (edwina-mode 1)
+;;  (defun edwina-mode-line-indicator ()
+;;    "redefining this func to return empty string" ""))
 
 (use-package which-key
   :ensure t
