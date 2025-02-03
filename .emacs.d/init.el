@@ -20,7 +20,8 @@
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (load-file "~/.emacs.d/config/settings.el")
-(load-file "~/.emacs.d/config/functions_binding.el")
+(load-file "~/.emacs.d/config/functions.el")
+(load-file "~/.emacs.d/config/bindings.el")
 (load-file "~/.emacs.d/config/packages.el")
 (load-file "~/.emacs.d/config/modeline2.el")
 
