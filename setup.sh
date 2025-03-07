@@ -16,19 +16,21 @@ while getopts 'fbh' opt;do
     ;;
     ?|h) echo "Usage: $(basename $0) [-f]"
          echo " -f    force"
+         echo " -b    build dwm, st, and dmenu"
          exit 1
     ;;
   esac
 done
 shift "$(($OPTIND-1))"
 
-IGNORE="\./st\|\./dwm\|\./dmenu\|/.git\|/.gitignore\|readme\|\./xkb\|packages.txt\|setup.sh\|colors\|customo.ahk\|todo.md"
-direcs=$(find -type d | grep -iv $IGNORE | cut -c3-)
+IGNORE_D="\./st\|\./dwm\|\./dmenu\|/.git\|\./xkb\|colors"
+direcs=$(find -type d | grep -iv $IGNORE_D | cut -c3-)
 for d in $direcs;do
-  [ ! -d $HOME/$d ] && mkdir -p $HOME/$d && echo Create dir $HOME/$d
+  [ ! -d $HOME/$d ] && mkdir -p $HOME/$d
 done
 
-files=$(find . -type f | grep -iv $IGNORE | cut -c3-)
+IGNORE_F="/.gitignore\|packages.txt\|setup.sh\|customo.ahk\|todo.md\|readme.md"
+files=$(find . -type f | grep -iv $IGNORE_F | grep -iv $IGNORE_D | cut -c3-)
 for f in $files;do
-  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f && [ $? -eq "0" ] && echo "$f OK"
+  ln -s $INTERACTIVE $(pwd)/$f $HOME/$f && [ $? -eq "0" ]
 done
