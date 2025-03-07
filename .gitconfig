@@ -6,3 +6,5 @@
 [alias]
 	st = status
 	co = commit
+[core]
+  filemode = false
