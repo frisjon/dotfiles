@@ -15,6 +15,12 @@
   (setq lazy-highlight-cleanup nil
         isearch-wrap-pause 'no))
 
+;; fido
+(use-package icomplete
+  :defer 1
+  :config
+  (fido-vertical-mode))
+
 ;; ls-lisp
 (use-package ls-lisp
   :config
@@ -285,7 +291,6 @@
 ;;    "redefining this func to return empty string" ""))
 
 (use-package which-key
-  :ensure t
   :init
   (setq-default which-key-show-early-on-C-h t)
   :config
@@ -308,12 +313,6 @@
   :hook
   (after-init . global-company-mode))
 
-(use-package move-text
-  :ensure t
-  :defer 2
-  :config
-  (move-text-default-bindings))
-
 (use-package crux
   :ensure t
   :defer 1
@@ -331,12 +330,16 @@
   :config
   (editorconfig-mode 1))
 
-(use-package vertico
-  :ensure t
-  :defer 1
-  :config
-  (vertico-mode))
+;; vertico
+;; broke when upgrading from 29.x to 30.1 (probably just needed reinstalling)
+;; replaced with fido-vertical-mode (2025-03-07)
+;;(use-package vertico
+;;  :ensure t
+;;  :defer 1
+;;  :config
+;;  (vertico-mode))
 
-(use-package rust-mode
-  :ensure t
-  :defer 2)
+;; rust mode
+;;(use-package rust-mode
+;;  :ensure t
+;;  :defer 2)

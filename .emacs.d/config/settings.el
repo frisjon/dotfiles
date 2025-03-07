@@ -115,8 +115,8 @@
 (add-to-list 'default-frame-alist '(height . 24))
 (add-to-list 'default-frame-alist '(width . 80))
 ;;(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-(add-to-list 'exec-path (expand-file-name "/plinkx:local_wsl:~/.cargo/bin/"))
-(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
+;;(add-to-list 'exec-path (expand-file-name "/plinkx:local_wsl:~/.cargo/bin/"))
+;;(add-to-list 'exec-path (expand-file-name "~/.cargo/bin/"))
 
 ;;https://emacs.stackexchange.com/questions/29096/how-to-sort-directories-first-in-dired
 (add-hook 'emacs-startup-hook 'fris/emacs-startup-time)
