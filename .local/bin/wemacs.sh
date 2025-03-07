@@ -18,7 +18,7 @@ _diff_and_copy_file_from_to () {
   /usr/bin/diff $2/$1 $3/$1 &> /dev/null
   if [ ! $? -eq 0 ] || [ ! -f $3/$1 ]; then
     /usr/bin/cp -i $2/$1 $3/$1
-  echo -e "$from $1" '\t'"->" "$to $1"
+    echo -e "$from $1" '\t'"->" "$to $1"
   fi
 }
 
