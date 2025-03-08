@@ -3,6 +3,7 @@
 # this script updates the 'root window parameter "name"' with
 # information about time, battery status and sound levels.
 # it is used for the dwm windowm manager
+# requires xsetroot (in arch, xorg-xsetroot)
 
 BATTERY=""
 TIME=""
