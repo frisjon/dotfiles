@@ -154,7 +154,4 @@ my_pwd() {
 }
 
 # set keyboard layout
-[[ -z !(which setxkbmap) ]] && setxkbmap customo
-
-[[ -f $HOME/.local/bin/check.sh ]] && $HOME/.local/bin/check.sh
-[[ -f $HOME/.cargo/env ]] && . "$HOME/.cargo/env"
+[[ -z $(which setxkbmap) ]] && setxkbmap customo
