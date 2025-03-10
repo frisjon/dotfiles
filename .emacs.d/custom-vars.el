@@ -6,7 +6,8 @@
  '(custom-safe-themes
    '("835d934a930142d408a50b27ed371ba3a9c5a30286297743b0d488e94b225c5f"
      default))
- '(package-selected-packages '(company compat crux editorconfig multiple-cursors)))
+ '(package-selected-packages
+   '(company compat crux editorconfig move-text multiple-cursors)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

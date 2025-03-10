@@ -330,6 +330,11 @@
   :config
   (editorconfig-mode 1))
 
+(use-package move-text
+  :ensure t
+  :config
+  (move-text-default-bindings))
+
 ;; vertico
 ;; broke when upgrading from 29.x to 30.1 (probably just needed reinstalling)
 ;; replaced with fido-vertical-mode (2025-03-07)
