@@ -1,8 +1,11 @@
 # wm independent hotkeys
 
 # terminal emulator
-super + {a, Return}
+super + Return
 	st
+
+super + a
+    st -c st_float
 
 # program launcher
 super + d
@@ -86,8 +89,8 @@ super + ctrl + {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+#super + ctrl + {1-9}
+#	bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
 super + ctrl + space
