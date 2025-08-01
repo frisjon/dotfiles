@@ -7,5 +7,5 @@ H2="%H:%M:%S"
 
 while true;do
   xsetroot -name "$(date "+$D1 | $H1")"
-  sleep 2
+  sleep 1m
 done

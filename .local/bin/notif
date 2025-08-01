@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#set -x
+
 check_battery()
 {
   BATTERY_CONNECTION="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "power supply" | cut -c25-)"
@@ -30,6 +32,8 @@ check_time()
 check_sound()
 {
   #SOUND=""
+  RES=$(which amixer 2> /dev/null)
+  if [ $? -eq 0 ]; then
   SOUND_="$(amixer sget Master | sed -En "s/.*\[(.*)\]$/\1/p" | head -1)"
   case $SOUND_ in
     *on*)  SOUND="🔊 ";;
@@ -37,6 +41,9 @@ check_sound()
     *)     SOUND="err ";;
   esac
   SOUND="$SOUND$(amixer sget Master | sed -En "s/.*\[(.*\%)\].*/\1/p" | head -1)"
+  elif [ $? -eq 1 ]; then
+    SOUND="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i volume | cut -d':' -f2)"
+  fi
   echo "$SOUND"
 }
 
