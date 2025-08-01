@@ -38,7 +38,7 @@ alias pp='popd'
 alias ..='cd ..'
 
 # rm
-#alias del='trash-put'
-alias del='gio trash'
-alias trash-restore='gio trash --restore'
+alias del='trash-put'
+#alias del='gio trash'
+#alias trash-restore='gio trash --restore'
 alias rm='rm -i'
