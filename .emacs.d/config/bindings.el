@@ -71,6 +71,12 @@
 (global-set-key (kbd "C-c C-l") 'hs-toggle-hiding)
 (global-set-key (kbd "C-c C-k") 'hs-hide-all)
 (global-set-key (kbd "C-c C-j") 'hs-show-all)
+(eval-after-load 'c-mode '(define-key c-mode-map (kbd "C-c C-l") 'hs-toggle-hiding))
+(eval-after-load 'c-mode '(define-key c-mode-map (kbd "C-c C-k") 'hs-hide-all))
+(eval-after-load 'c-mode '(define-key c-mode-map (kbd "C-c C-j") 'hs-show-all))
+;;(define-key c-mode-map (kbd "C-c C-l") 'hs-toggle-hiding)
+;;(define-key c-mode-map (kbd "C-c C-k") 'hs-hide-all)
+;;(define-key c-mode-map (kbd "C-c C-j") 'hs-show-all)
 
 (global-set-key (kbd "C-S-s") 'highlight-regexp)
 
