@@ -42,7 +42,7 @@ _diff_and_copy () {
 }
 
 case $1 in
-  "d2w")
+  "d2w"|"-d2w"|"--d2w")
     echo "Dotfiles to Windows"
     read -p "Are you sure? y/[n] " opt1
     case $opt1 in
@@ -58,13 +58,12 @@ case $1 in
     ;;
     n|N|*) echo "skipping...";;
     esac
-
   ;;
-  "w2d")
+  "w2d"|"-w2d"|"--w2d")
     echo "Windows to Dotfiles"
     read -p "Are you sure? y/[n] " opt1
     case $opt1 in
-      y|Y) 
+      y|Y)
         _diff_and_copy_file_from_to init.el $EMACS_DIR $DOTFILES_DIR
         _diff_and_copy_file_from_to custom-vars.el $EMACS_DIR $DOTFILES_DIR
         for dir in $SUBDIR_LIST;do
@@ -78,7 +77,7 @@ case $1 in
     esac
 
   ;;
-  "diff")
+  "diff"|"-diff"|"--diff"|"-d")
     echo "diff Windows Dotfiles"
     for dir in $SUBDIR_LIST;do
       _diff_only "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
@@ -87,9 +86,9 @@ case $1 in
   *)
     echo no option
     echo choose from:
-    echo " - diff"
-    echo " - w2d"
-    echo " - d2w"
+    echo "   diff, --diff, -d	diff config files between windows and dotfiles"
+    echo "   w2d,  --w2d     	move windows config files to dotfiles"
+    echo "   d2w,  --d2w     	move dotfiles config files to windows"
     ;;
 esac
 
