@@ -350,3 +350,11 @@
 ;;(use-package rust-mode
 ;;  :ensure t
 ;;  :defer 2)
+
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-enable-undo-in-region nil
+        undo-tree-auto-save-history nil)
+  )
