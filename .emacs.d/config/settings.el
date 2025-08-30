@@ -133,3 +133,5 @@
 
 (pixel-scroll-precision-mode t)
 (setq-default scroll-preserve-screen-position t)
+
+(add-hook 'prog-mode #'hs-minor-mode)

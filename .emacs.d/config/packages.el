@@ -179,12 +179,12 @@
   :config
   (fringe-mode '(10 . 0)))
 
-(use-package time
-  :config
-  (display-time-mode t)
-  (setq-default display-time-format "%a %d %b %H:%M"
-                display-time-default-load-average nil
-                display-time-load-average ""))
+;;(use-package time
+;;  :config
+;;  (display-time-mode t)
+;;  (setq-default display-time-format "%a %d %b %H:%M"
+;;                display-time-default-load-average nil
+;;                display-time-load-average ""))
 
 (use-package ido
   :config
@@ -246,9 +246,11 @@
                 (name 16 -1) " " filename))
         ibuffer-default-sorting-mode 'major-mode))
 
-(load-file "~/.emacs.d/lisp/hideshowvis.el")
-(require 'hideshowvis)
-(hideshowvis-minor-mode)
+;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
+;;(use-package hideshowvis
+;;  :defer 5
+;;  :config
+;;  (hideshowvis-minor-mode))
 
 (load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
 (selection-highlight-mode)
@@ -348,3 +350,11 @@
 ;;(use-package rust-mode
 ;;  :ensure t
 ;;  :defer 2)
+
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-enable-undo-in-region nil
+        undo-tree-auto-save-history nil)
+  )
