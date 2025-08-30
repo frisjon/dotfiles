@@ -6,25 +6,23 @@
 TEXT="sound "
 RES=$(which amixer 2> /dev/null)
 if [ $? -eq 0 ];then
-echo asd
-case "$1" in
-  "-") amixer -q sset Master 5%- unmute
-       TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f6 | sed 's/\(\[\|\]\)//g') ;;
-  "+") amixer -q sset Master 5%+ unmute
-       TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f6 | sed 's/\(\[\|\]\)//g') ;;
-  "0") amixer -q sset Master toggle
-       TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f8 | sed 's/\(\[\|\]\)//g') ;;
-  *) TEXT="Invalid Option";;
-esac
-elif [[ $? -eq 0 ]];then
-case "$1" in 
-  "-") wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-;;
-  "+") wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+;;
-  "t") wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle;;
-  *) ;;
-esac
-TEXT=$TEXT"as"
+    case "$1" in
+        "-") amixer -q sset Master 5%- unmute
+             TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f6 | sed 's/\(\[\|\]\)//g') ;;
+        "+") amixer -q sset Master 5%+ unmute
+             TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f6 | sed 's/\(\[\|\]\)//g') ;;
+        "0") amixer -q sset Master toggle
+             TEXT=$TEXT$(amixer sget Master | tail -1 | cut -d' ' -f8 | sed 's/\(\[\|\]\)//g') ;;
+        *) TEXT="Invalid Option";;
+    esac
+elif [ $? -eq 1 ];then
+    case "$1" in
+        "-") wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-;;
+        "+") wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+;;
+        "t") wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle;;
+        *) ;;
+    esac
+    TEXT=$TEXT"as"
 fi
 
-#~/.local/bin/notif 4
-#dunstify "$TEXT" -t 2000 -p -r 1005
+~/.local/bin/notif 4

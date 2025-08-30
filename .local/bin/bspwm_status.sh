@@ -8,7 +8,11 @@ OUT=""
 
 for i in $DESKTOPS; do
     if [ $i -eq $FOCUSED ]; then
-        OUT="$OUT<$i>"
+        if [ ! -z "$(echo $OCCUPIED | grep $i)" ]; then
+            OUT="$OUT>$i*"
+        else
+            OUT="$OUT>$i "
+        fi
     elif [ ! -z "$(echo $OCCUPIED | grep $i)" ]; then
         OUT="$OUT $i*"
     else

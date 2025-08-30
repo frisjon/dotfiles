@@ -13,7 +13,7 @@ check_battery()
 
         case "$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | cut -c26-)" in
           discharging)BATTERY_STATE="∅";;
-          charging)BATTERY_STATE="🗲";;
+          charging)BATTERY_STATE="=D-";;
           *)BATTERY_STATE="";;
         esac
 
@@ -36,20 +36,20 @@ check_sound()
   if [ $? -eq 0 ]; then
   SOUND_="$(amixer sget Master | sed -En "s/.*\[(.*)\]$/\1/p" | head -1)"
   case $SOUND_ in
-    *on*)  SOUND="🔊 ";;
-    *off*) SOUND="🔈 ";;
+    *on*)  SOUND="ok ";;
+    *off*) SOUND="∅ ";;
     *)     SOUND="err ";;
   esac
   SOUND="$SOUND$(amixer sget Master | sed -En "s/.*\[(.*\%)\].*/\1/p" | head -1)"
   elif [ $? -eq 1 ]; then
-    SOUND="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i volume | cut -d':' -f2)"
+    SOUND="$SOUND$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i volume | cut -d':' -f2)"
   fi
   echo "$SOUND"
 }
 
 check_brightness()
 {
-  BRIGHTNESS="🌣 $(brightnessctl | grep Current | cut -d'(' -f2 | cut -d')' -f1)"
+  BRIGHTNESS=">o< $(brightnessctl | grep Current | cut -d'(' -f2 | cut -d')' -f1)"
   #_BRIGHTNESS="$(xrandr --verbose | grep "Brightness" | cut -d" " -f2 | sed -n "1 p")"
   #_PERCENTAGE="$(echo "$_BRIGHTNESS"*100 | bc)"
   #BRIGHTNESS=$_BRIGHTNESS"[$_PERCENTAGE%]"
