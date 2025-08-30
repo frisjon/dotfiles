@@ -114,8 +114,14 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-{F1,XF86AudioPrev}
+{super + F1,XF86AudioPrev}
     $HOME/.local/bin/bspwm_status.sh
 
-{F2}
+super + F2
     $HOME/.local/bin/dunst_clock.sh
+
+{XF86AudioRaiseVolume, XF86AudioLowerVolume}
+    $HOME/.local/bin/volume {+, -}
+
+{XF86MonBrightnessUp, XF86MonBrightnessDown}
+    $HOME/.local/bin/brightness {+,-}
