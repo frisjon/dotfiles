@@ -1,0 +1,102 @@
+* connecting with wpa_cli
+This connection method allows scanning for available networks, making use of wpa_cli, a command line tool which can be used to configure wpa_supplicant. See =wpa_cli(8)= for details.
+
+In order to use =wpa_cli=, a control interface must be specified for =wpa_supplicant=, and it must be given the rights to update the configuration. Do this by creating a minimal configuration file:
+
+#+begin_src /etc/wpa_supplicant/wpa_supplicant.conf
+ctrl_interface=/run/wpa_supplicant
+update_config=1
+#+end_src
+
+#+begin_warning
+Setting update_config to 1 allows wpa_supplicant to overwrite the configuration file. When overwriting, wpa_supplicant will reset file permissions according to your default umask. It might accidentally make the file readable to everyone thus exposing your passwords, if your system is multiuser.
+#+end_warning
+
+Now start =wpa_supplicant= with:
+
+#+begin_src
+# wpa_supplicant -B -i *interface* -c /etc/wpa_supplicant/wpa_supplicant.conf
+#+end_src
+
+Run
+
+#+begin_src
+# wpa_cli
+#+end_src
+
+This will present an interactive prompt (>), which has tab completion and descriptions of completed commands. There is also a help command. 
+
+Use the =scan= and =scan_results= commands to see the available networks
+
+#+begin_src
+> scan
+OK
+<3>CTRL-EVENT-SCAN-RESULTS
+> scan_results
+bssid / frequency / signal level / flags / ssid
+00:00:00:00:00:00 2462 -49 [WPA2-PSK-CCMP][ESS] MYSSID
+11:11:11:11:11:11 2437 -64 [WPA2-PSK-CCMP][ESS] ANOTHERSSID
+#+end_src
+
+To associate with =MYSSID=, add the network, set the credentials and enable it:
+
+#+begin_src
+> add_network
+0
+> set_network 0 ssid "MYSSID"
+> set_network 0 psk "passphrase"
+> enable_network 0
+<2>CTRL-EVENT-CONNECTED - Connection to 00:00:00:00:00:00 completed (reauth) [id=0 id_str=]
+#+end_src
+
+If the =SSID= does not have password authentication, you must explicitly configure the network as keyless by replacing the command =set_network 0 psk "passphrase"= with =set_network 0 key_mgmt NONE=.
+
+#+begin_note
+- Multiple network configurations can be added. Each network is indexed numerically, so the first network will have index 0.
+- If no connection can be established, some information will be printed, and periodic attempts will be made. As part of the periodic attempts, a user prompt will also be given periodically. Issuing the =disable_network 0= command will stop the periodic attempts and return to a steady user prompt.
+- If a passphrase is given to =set_network=, the PSK will be computed from the quoted "passphrase" string. Alternatively, you can use the wpa_passphrase command and enter the PSK directly by passing it to =psk= without quotes.
+#+end_note
+
+Finally save this network in the configuration file and quit wpa_cli:
+
+#+begin_src
+> save_config
+OK
+> quit
+#+end_src
+
+Once association is complete, you must obtain an IP address.
+
+#+begin_src
+ip address
+#+end_src
+
+* Connecting with wpa_passphrase
+
+This connection method allows quickly connecting to a network whose SSID is already known, making use of wpa_passphrase, a command line tool which generates the minimal configuration needed by wpa_supplicant. For example:
+
+#+begin_src
+$ wpa_passphrase MYSSID passphrase
+
+network={
+    ssid="MYSSID"
+    #psk="passphrase"
+    psk=59e0d07fa4c7741797a4e394f38a5c321e3bed51d54ad5fcbd3f84bc7415d73d
+}
+#+end_src
+
+This means that wpa_supplicant can be associated with wpa_passphrase and started with:
+
+#+begin_src sh
+# wpa_supplicant -B -i interface -c <(wpa_passphrase MYSSID passphrase)
+#+end_src
+
+#+begin_note
+- The previous command requires a root shell.
+- Use quotes, if the input contains spaces. For example: ="secret passphrase"=.
+- Some unusually complex passphrases may require input from a file, e.g.
+  =wpa_passphrase MYSSID < passphrase.txt=, or here strings, e.g. =wpa_passphrase MYSSID <<< "passphrase"=.
+- Alternatively, when using special characters in the passphrase, rather than escaping them, simply invoke =wpa_passphrase= without specifying the passphrase. It will then prompt for it to be entered in the standard input where users can paste it even if it contains special characters.
+#+end_note
+
+Finally, you should obtain an IP address.
