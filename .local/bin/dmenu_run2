@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#dmenu.background: #2E3440 
+#dmenu.font: SourceCodePro:size=12 
+#dmenu.foreground: #D8DEE9 
+#dmenu.selbackground: #D8DEE9 
+#dmenu.selforeground: #2E3440 
+#dwm.dmenufont: SourceCodePro:size=14
+
+NB=$(xrdb -query | grep dmenu | grep -i background | head -1 | cut -d':' -f2 | cut -c2-)
+SB=$(xrdb -query | grep dmenu | grep -i background | tail -1 | cut -d':' -f2 | cut -c2-)
+NF=$(xrdb -query | grep dmenu | grep -i foreground | head -1 | cut -d':' -f2 | cut -c2-)
+SF=$(xrdb -query | grep dmenu | grep -i foreground | tail -1 | cut -d':' -f2 | cut -c2-)
+
+echo $NB $NF $SB $SF
+dmenu_run -fn $FN -nb $NB -nf $NF -sb $SB -sf $SF -m 0
