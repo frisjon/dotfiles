@@ -8,7 +8,7 @@ alias lt='ls -lt'
 alias vim='nvim'
 alias n='nvim'
 
-alias feh='feh -g 800x600 --scale-down'
+alias feh='feh -Tdefault'
 
 # Color support
 if [ -x /usr/bin/dircolors ]; then
