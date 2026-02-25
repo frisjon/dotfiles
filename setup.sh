@@ -29,7 +29,7 @@ for d in $direcs;do
   [ ! -d $HOME/$d ] && mkdir -p $HOME/$d
 done
 
-IGNORE_F="/.gitignore\|packages.txt\|setup.sh\|customo.ahk\|todo.md\|readme.md"
+IGNORE_F="/.gitignore\|packages.txt\|setup.sh\|customo.ahk\|todo.md\|readme.md\|notes.org"
 files=$(find . -type f | grep -iv $IGNORE_F | grep -iv $IGNORE_D | cut -c3-)
 for f in $files;do
   ln -s $INTERACTIVE $(pwd)/$f $HOME/$f && [ $? -eq "0" ]
