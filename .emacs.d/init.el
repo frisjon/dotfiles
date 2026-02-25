@@ -36,10 +36,6 @@
       inhibit-startup-message t
       initial-scratch-message nil)
 
-(use-package display-fill-column-indicator
-  :config
-  (display-fill-column-indicator-mode))
-
 (use-package files
   :config
   (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosave/" t))
@@ -151,6 +147,8 @@
   "Run `after-load-theme-hook'."
   (run-hooks 'after-load-theme-hook))
 
+(set-face-attribute 'mode-line-highlight nil :box nil :background "indian red" :foreground "white")
+
 (defun fris/remove-box-attr-from-modeline ()
   "remove box attribute from modeline"
   (interactive)
@@ -163,7 +161,6 @@
   :config
   (pixel-scroll-precision-mode t))
 
-(add-hook 'prog-mode #'hs-minor-mode) ;; ñ
 ;; ==============================================================================
 
 ;; Functions
@@ -615,17 +612,10 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
   (scroll-bar-mode -1))
 
 (use-package display-line-numbers
-  :config
-  (global-display-line-numbers-mode t)
-  (defun fris/disable-display-line-numbers-mode ()
-    (interactive)
-    (display-line-numbers-mode -1))
-  :hook ((org-mode . fris/disable-display-line-numbers-mode)
-         (dired-mode . fris/disable-display-line-numbers-mode)
-         (term-mode . fris/disable-display-line-numbers-mode)
-         (buffer-list-update . fris/disable-display-line-numbers-mode)
-         (help-mode . fris/disable-display-line-numbers-mode)
-         (eshell-mode . fris/disable-display-line-numbers-mode)))
+  :custom
+  (display-line-numbers-width-start t)
+  :hook
+  ((prog-mode . display-line-numbers-mode)))
 
 ;; so-long
 (use-package so-long
@@ -680,10 +670,9 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
   (ido-mode t)
   (ido-everywhere t))
 
-(use-package prog-mode
+(use-package display-fill-column-indicator
   :hook
-  ((prog-mode . hs-minor-mode)
-   (prog-mode . display-line-numbers-mode)))
+  ((prog-mode . display-fill-column-indicator-mode)))
 
 (use-package hideshow
   :bind
@@ -702,15 +691,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
               ;;(bibtex-mode ("@\\S(*\\(\\s(\\)" 1))
               (java-mode "{" "}" "/[*/]" nil nil)
               (js-mode "{" "}" "/[*/]" nil))))
-  (hs-minor-mode)
-  (dolist
-      (prog-modes '(c-mode-common-hook
-                    emacs-lisp-mode-hook
-                    rust-mode-hook
-                    c++-mode-hook
-                    js-mode-hook
-                    java-mode-hook))
-    (add-hook prog-modes 'hs-minor-mode)))
+  :hook
+  (prog-mode . hs-minor-mode))
 
 (use-package ibuffer
   :bind
@@ -867,9 +849,9 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
    '("%e"
      mode-line-front-space
      mode-line-mule-info
-     mode-line-client
+     ;;mode-line-client
      mode-line-modified
-     mode-line-remote
+     ;;mode-line-remote
      " "
      (:eval
       (if (mode-line-window-selected-p)
