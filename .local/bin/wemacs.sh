@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOTFILES_DIR=~/dotfiles/.emacs.d
-[ -f ~/.my_secret_for_anonymity ] && source ~/.my_secret_for_anonymity
+[ -f ~/.my_secret ] && source ~/.my_secret
 #EMACS_DIR=C:/Users/$MY_SECRET_DNI/AppData/Roaming/.emacs.d
 EMACS_DIR=/mnt/c/Users/$MY_SECRET_DNI/AppData/Roaming/.emacs.d
 SUBDIR_LIST="config lisp themes"
