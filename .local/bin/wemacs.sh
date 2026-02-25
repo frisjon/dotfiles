@@ -1,7 +1,9 @@
 #!/bin/bash
 
 DOTFILES_DIR=~/dotfiles/.emacs.d
-EMACS_DIR=$(wslpath "$(wslvar USERPROFILE)")/AppData/Roaming/.emacs.d
+[ -f ~/.my_secret_for_anonymity ] && source ~/.my_secret_for_anonymity
+#EMACS_DIR=C:/Users/$MY_SECRET_DNI/AppData/Roaming/.emacs.d
+EMACS_DIR=/mnt/c/Users/$MY_SECRET_DNI/AppData/Roaming/.emacs.d
 SUBDIR_LIST="config lisp themes"
 
 _diff_only () {
@@ -79,9 +81,24 @@ case $1 in
   ;;
   "diff"|"-diff"|"--diff"|"-d")
     echo "diff Windows Dotfiles"
-    for dir in $SUBDIR_LIST;do
-      _diff_only "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
-    done
+    if [[ ! -z $2 ]];then
+      for dir in $SUBDIR_LIST;do
+        if [[ -f $DOTFILES_DIR/$dir/$2 && -f $EMACS_DIR/$dir/$2 ]];then
+          _diff_only "$DOTFILES_DIR/$dir/$2" "$EMACS_DIR/$dir/$2"
+          exit 0
+        fi
+      done
+      if [[ -f $DOTFILES_DIR/$2 && -f $EMACS_DIR/$2 ]];then
+        _diff_only "$DOTFILES_DIR/$2" "$EMACS_DIR/$2"
+        exit 0
+      fi
+      echo "file '$2' not found in [. $SUBDIR_LIST]"
+      exit 1
+    else
+      for dir in $SUBDIR_LIST;do
+        _diff_only "$DOTFILES_DIR/$dir" "$EMACS_DIR/$dir"
+      done
+    fi
   ;;
   *)
     echo no option
