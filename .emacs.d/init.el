@@ -445,8 +445,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
    ("C-d" . 'duplicate-line)))
 
 (use-package bookmark
-:bind
-("C-c b" . 'bookmark-bmenu-list))
+  :bind
+  ("C-c b" . 'bookmark-bmenu-list))
 
 (use-package whitespace
   :bind
@@ -671,6 +671,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
   (ido-everywhere t))
 
 (use-package display-fill-column-indicator
+  :config
+  (setq fill-column 80)
   :hook
   ((prog-mode . display-fill-column-indicator-mode)))
 
@@ -696,8 +698,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 
 (use-package ibuffer
   :bind
-  (("M-}" . 'ibuffer)
-   ("C-x C-b" . 'ibuffer))
+  ("M-}" . 'ibuffer)
   ;; https://www.emacswiki.org/emacs/IbufferMode#h5o-1
   ;; Use human readable Size column instead of original one
   :config
@@ -733,7 +734,9 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 ;;  (hideshowvis-minor-mode))
 
 (load-file "~/.emacs.d/lisp/selection-highlight-mode.el")
-(selection-highlight-mode)
+(use-package selection-highlight-mode
+  :config
+  (selection-highlight-mode))
 
 (load-file "~/.emacs.d/lisp/ibuffer-vc.el")
 (setq ibuffer-formats
@@ -749,7 +752,6 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
               vc-relative-file))
       ibuffer-vc-skip-if-remote nil)
 
-;;(load-file "~/.emacs.d/lisp/zen-mode.el")
 ;;(require 'column-marker)
 
 ;; themes
@@ -760,17 +762,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 ;;(load-file "~/.emacs.d/themes/tsoding-theme.el")
 ;;(load-theme 'tsoding)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;(use-package edwina
-;;  :ensure t
-;;  :init
-;;  (setq display-buffer-base-action '(display-buffer-below-selected))
-;;  :config
-;;  (edwina-setup-dwm-keys)
-;;  (edwina-mode 1)
-;;  (defun edwina-mode-line-indicator ()
-;;    "redefining this func to return empty string" ""))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package which-key
   :init
@@ -819,27 +811,11 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
   :config
   (move-text-default-bindings))
 
-;; vertico
-;; broke when upgrading from 29.x to 30.1 (probably just needed reinstalling)
-;; replaced with fido-vertical-mode (2025-03-07)
-;;(use-package vertico
-;;  :ensure t
-;;  :defer 1
-;;  :config
-;;  (vertico-mode))
-
 ;; rust mode
 ;;(use-package rust-mode
 ;;  :ensure t
 ;;  :defer 2)
 
-;;(use-package undo-tree
-;;  :ensure t
-;;  :config
-;;  (global-undo-tree-mode)
-;;  (setq undo-tree-enable-undo-in-region nil
-;;        undo-tree-auto-save-history nil)
-;;  )
 ;; ==============================================================================
 
 ;; Modeline2 --------------------------------------------------------------------
@@ -869,8 +845,9 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
      (vc-mode vc-mode)
      " "
      (:eval
-      (propertize (replace-regexp-in-string "-mode" "" (concat " " (symbol-name major-mode) " "))
-                  'face '(:weight bold)))
+      (propertize (replace-regexp-in-string
+                   "-mode" "" (concat " " (symbol-name major-mode) " "))
+                  'face '(:weight bold) 'mouse-face 'mode-line-highlight))
      mode-line-misc-info)))
 
 ;; remove box attribute from modeline
