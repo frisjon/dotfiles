@@ -31,6 +31,21 @@
 
 (push "~/.emacs.d/lisp" load-path)
 
+;; https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+
+(setq redisplay-skip-fontification-on-input t)
+
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+;; https://emacsredux.com/blog/2026/03/15/isearch-lazy-count/
+(setopt isearch-lazy-count t)
+(setopt lazy-count-prefix-format nil)
+(setopt lazy-count-suffix-format " [%s/%s]")
+
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message t
       inhibit-startup-message t
@@ -196,6 +211,13 @@ Version: 2017-11-01 2022-04-05"
   (interactive)
   (let ((xbuf (generate-new-buffer "untitled")))
     (switch-to-buffer xbuf)
+    (funcall initial-major-mode)
+    xbuf))
+
+(defun fris/xah-new-empty-buffer-other-window ()
+  (interactive)
+  (let ((xbuf (generate-new-buffer "untitled")))
+    (switch-to-buffer-other-window xbuf)
     (funcall initial-major-mode)
     xbuf))
 
@@ -369,7 +391,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 ;;(global-set-key (kbd "M-Q") 'fris/edwina-kill-buffer-and-window)
 ;;(global-set-key (kbd "M-a") 'fris/edwina-new-empty-buffer-in-window)
 ;;(global-set-key (kbd "M-S-a") 'fris/xah-new-empty-buffer)
-(global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-a") 'fris/xah-new-empty-buffer)
+(global-set-key (kbd "M-A") 'fris/xah-new-empty-buffer-other-window)
 ;;(global-set-key (kbd "M-t") 'fris/edwina-open-shell-in-new-window)
 ;;(global-unset-key (kbd "M-S-<return>"))
 ;;(global-set-key (kbd "M-S-<return>") 'fris/edwina-open-ibuffer-in-new-window)
@@ -485,7 +508,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 
 (use-package rotate
   :bind
-  ("C-c r" . 'rotate-window)
+  ("M-r" . 'rotate-window)
   :config
   (setq rotate-functions '(rotate:main-vertical)))
 
@@ -572,6 +595,10 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 <p class=\"creator\">%c</p>")))
   (org-element-cache-reset))
 
+(use-package minibuffer
+  :config
+  (minibuffer-regexp-mode 1))
+
 (use-package tab-bar
   :config
   (setq-default tab-bar-close-button-show nil
@@ -584,10 +611,11 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (use-package window
   :config
   ;; resuse help buffer
-  (setq display-buffer-alist '(("\*Help\*" display-buffer-reuse-window)
-                               ("\*Warning\*" display-buffer-reuse-window)
-                               ("\*Compile-Log\*" display-buffer-reuse-window)
-                               ("\*compilation\*" display-buffer-reuse-window)))
+  (setq display-buffer-alist
+        '(("\*Help\*" display-buffer-reuse-window)
+          ("\*Warning\*" display-buffer-reuse-window)
+          ("\*Compile-Log\*" display-buffer-reuse-window)
+          ("\*compilation\*" display-buffer-reuse-window)))
   (setq-default pop-up-windows nil
                 scroll-preserve-screen-position t)
   ;;(advice-add 'other-window :before
@@ -596,7 +624,8 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
   ;;              (when (one-window-p) (split-window-sensibly))))
   :bind
   (("C-<tab>" . 'other-window)
-   ("C-S-<tab>" . 'fris/other-window-1)))
+   ("C-S-<tab>" . 'fris/other-window-1)
+   ("M-k" . 'delete-window)))
 
 (use-package menu-bar
   :config
@@ -699,6 +728,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 (use-package ibuffer
   :bind
   ("M-}" . 'ibuffer)
+  ("M-]" . 'ibuffer-other-window)
   ;; https://www.emacswiki.org/emacs/IbufferMode#h5o-1
   ;; Use human readable Size column instead of original one
   :config
