@@ -179,6 +179,20 @@
 ;; ==============================================================================
 
 ;; Functions
+(defun fris/org-wrap-with-block (start end name)
+  (interactive "r\nsBlock name: ")
+  (save-excursion
+    (goto-char end)
+    (insert (format "\n#+end_%s\n" name))
+    (goto-char start)
+    (insert (format "#+begin_%s\n" name))))
+
+(defun fris/sec-to-timestamp (sec)
+  (let ((h (floor (/ sec 3600)))
+        (m (floor (/ (% (round sec) 3600) 60)))
+        (s (floor (% (% (round sec) 3600) 60))))
+    (format "%02d:%02d:%02d" h m s)))
+
 (defun fris/emacs-startup-time ()
   "Profile emacs startup"
   (message "*** Emacs loaded in %s seconds with %d garbage collections."
@@ -351,6 +365,22 @@ Version 2016-06-19"
       nil
     t)
   )
+
+(defun fris/rubirize (start end)
+  (interactive "r")
+  (let* ((pepo (buffer-substring-no-properties start end))
+         (pepe (split-string pepo ","))
+         (a (split-string (car pepe) "|"))
+         (b (split-string (cadr pepe) "|")))
+    (replace-string-in-region pepo (apply #'concat (cl-mapcar (lambda (x y) (format "{{{ruby(%s,%s)}}}" x y)) a b)) start end)))
+
+(defun fris/japanize (start end)
+  (interactive "r")
+  (replace-regexp-in-region "aa" "ā" start end)
+  (replace-regexp-in-region "ee" "ē" start end)
+  (replace-regexp-in-region "ii" "ī" start end)
+  (replace-regexp-in-region "oo" "ō" start end)
+  (replace-regexp-in-region "uu" "ū" start end))
 
 (defun ajv/human-readable-file-sizes-to-bytes (string)
   "Convert a human-readable file size into bytes.
@@ -576,8 +606,6 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 
 (use-package org
   :config
-  (defun fris/my-org-export-as-hack (orig-func &rest args)
-    "https://emacs.stackexchange.com/questions/64702/org-html-export-with-no-additional-divs#answer-64719"
     (let* ((result (apply orig-func args))
            (backend (nth 0 args))
            (corrections-dictionary
@@ -603,7 +631,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
                    (cdr regex-replacement-pair)
                    string))
          corrections-dictionary
-         result))))
+         result)))
   (advice-add 'org-export-as :around #'fris/my-org-export-as-hack)
   (setq-default org-support-shift-select t)
   (setq org-publish-project-alist
