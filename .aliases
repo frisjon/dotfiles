@@ -5,8 +5,8 @@ alias ll='ls -l'
 alias la='ls -la'
 alias lt='ls -lt'
 
-alias vim='nvim'
-alias n='nvim'
+alias vim='vim'
+alias n='vim'
 
 alias feh='feh -Tdefault'
 
