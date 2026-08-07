@@ -155,9 +155,11 @@ my_pwd() {
 
 # set keyboard layout
 [[ -z $(which setxkbmap) ]] && setxkbmap customo
-. "/home/mk/.deno/env"
-. "$HOME/.cargo/env"
 
-source $HOME/.local/bin/penv
+[[ -f $HOME/.deno/env ]] && source  "$HOME/.deno/env"
+[[ -f $HOME/.cargo/env ]] && source "$HOME/.cargo/env"
+
+[[ -f $HOME/.local/bin/penv ]] && source $HOME/.local/bin/penv
+
 complete -F _penv_auto_complete penv
 
