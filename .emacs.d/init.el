@@ -606,34 +606,37 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
 
 (use-package org
   :config
+  (defun fris/my-org-export-as-hack (orig-func &rest args)
+    "https://emacs.stackexchange.com/questions/64702/org-html-export-with-no-additional-divs#answer-64719"
     (let* ((result (apply orig-func args))
-           (backend (nth 0 args))
-           (corrections-dictionary
-            '(("class=\"done DONE\"" . "class=\"done\"")
-              ("\n" . "")
-              ("<span class=\"____\">古典音楽</span>" .
-               "<span class=\"koten_ongaku\">古典音楽</span>")
-              ("<span class=\"____\">古典舞踊</span>" .
-               "<span class=\"koten_buyo\">古典舞踊</span>")
-              ("&#xa0;" . "")
-              ("<div [a-z0-9\"= -]+></div>" . "")
-              ("<span class=\"___\">女踊り</span>" . "<span class=\"onna_odori\">女踊り</span>")
-              ("<span class=\"____\">二才踊り</span>" . "<span class=\"nisai_odori\">二才踊り</span>")
-              ("<span class=\"____\">打組踊り</span>" . "<span class=\"uchigumi_odori\">打組踊り</span>")
-              ("<span class=\"____\">老人踊り</span>" . "<span class=\"rojin_odori\">老人踊り</span>")
-              ("<span class=\"____\">若衆踊り</span>" . "<span class=\"wakashu_odori\">若衆踊り</span>"))))
-      (when (eq backend 'html)
-        ;; use `replace-regexp-in-string' to process exported result
-        (seq-reduce
-         (lambda (string regex-replacement-pair)
-           (replace-regexp-in-string
-                   (car regex-replacement-pair)
-                   (cdr regex-replacement-pair)
-                   string))
-         corrections-dictionary
-         result)))
+         (backend (nth 0 args))
+         (corrections-dictionary
+          '(("class=\"done DONE\"" . "class=\"done\"")
+            ("\n" . "")
+            ("<span class=\"____\">古典音楽</span>" .
+             "<span class=\"koten_ongaku\">古典音楽</span>")
+            ("<span class=\"____\">古典舞踊</span>" .
+             "<span class=\"koten_buyo\">古典舞踊</span>")
+            ("&#xa0;" . "")
+            ("<div [a-z0-9\"= -]+></div>" . "")
+            ("<span class=\"___\">女踊り</span>" . "<span class=\"onna_odori\">女踊り</span>")
+            ("<span class=\"____\">二才踊り</span>" . "<span class=\"nisai_odori\">二才踊り</span>")
+            ("<span class=\"____\">打組踊り</span>" . "<span class=\"uchigumi_odori\">打組踊り</span>")
+            ("<span class=\"____\">老人踊り</span>" . "<span class=\"rojin_odori\">老人踊り</span>")
+            ("<span class=\"____\">若衆踊り</span>" . "<span class=\"wakashu_odori\">若衆踊り</span>"))))
+    (when (eq backend 'html)
+      ;; use `replace-regexp-in-string' to process exported result
+      (seq-reduce
+       (lambda (string regex-replacement-pair)
+         (replace-regexp-in-string
+          (car regex-replacement-pair)
+          (cdr regex-replacement-pair)
+          string))
+       corrections-dictionary
+       result))))
   (advice-add 'org-export-as :around #'fris/my-org-export-as-hack)
   (setq-default org-support-shift-select t)
+  (setq org-link-descriptive nil)
   (setq org-publish-project-alist
         '(("orgblog_test"
            :base-directory "/plinkx:local_wsl:~/orgblog_test/"
@@ -650,7 +653,10 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
         '(("en" "<p class=\"author\">Author: %a (%e)</p>
 <p class=\"date\">Date: %d</p>
 <p class=\"creator\">%c</p>")))
-  (org-element-cache-reset))
+  (org-element-cache-reset)
+  (defun fris/org-turn-off-link-descriptive() (interactive) (setq org-link-descriptive nil))
+  :hook
+  (org-mode . fris/org-turn-off-link-descriptive))
 
 (use-package minibuffer
   :config
