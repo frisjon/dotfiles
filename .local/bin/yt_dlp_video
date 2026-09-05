@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yt-dlp -S res:1080,fps -o "%(playlist_index)s_%(playlist_title)s_%(title).50s.%(ext)s" $1
+yt-dlp --download-archive ~/Documents/yt_dlp_video_archive.txt -S res:1080,fps -o "%(playlist_index)s_%(playlist_title)s_%(title).50s.%(ext)s" $1
