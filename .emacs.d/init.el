@@ -634,6 +634,7 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
          result)))
   (advice-add 'org-export-as :around #'fris/my-org-export-as-hack)
   (setq-default org-support-shift-select t)
+  (setq org-link-descriptive nil)
   (setq org-publish-project-alist
         '(("orgblog_test"
            :base-directory "/plinkx:local_wsl:~/orgblog_test/"
