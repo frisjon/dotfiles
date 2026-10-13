@@ -1,4 +1,4 @@
-;;; rotate.el --- Rotate the layout of emacs
+;;; rotate.el --- Rotate the layout of emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2013  daichirata
 

@@ -118,7 +118,7 @@ Returns the new overlays"
       (let (overlays
             (searching? t))
         (while searching?
-          (if-let ((new-overlay (selection-highlight-mode--highlight-next-match str end)))
+          (if-let* ((new-overlay (selection-highlight-mode--highlight-next-match str end)))
               (push new-overlay overlays)
             (setq searching? nil)))
         overlays))))
@@ -188,7 +188,7 @@ Keys off WINDOW."
 ;;;###autoload
 (defun selection-highlight-mode-post-command-hook ()
   "Highlight all live windows to match the current selection."
-  (if-let ((selection (selection-highlight-mode-get-selection)))
+  (if-let* ((selection (selection-highlight-mode-get-selection)))
       (when (not (eq selection-highlight-mode--active-search selection))
         (setq selection-highlight-mode--active-search selection)
         (selection-highlight-mode--clear-all-windows)

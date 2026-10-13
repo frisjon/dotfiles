@@ -179,6 +179,10 @@
 ;; ==============================================================================
 
 ;; Functions
+(defun fris/region-length (beg end)
+  (interactive "r")
+  (message (number-to-string (- end beg))))
+
 (defun fris/org-wrap-with-block (start end name)
   (interactive "r\nsBlock name: ")
   (save-excursion
@@ -613,17 +617,22 @@ https://www.emacswiki.org/emacs/IbufferMode#h5o-1"
          (corrections-dictionary
           '(("class=\"done DONE\"" . "class=\"done\"")
             ("\n" . "")
-            ("<span class=\"____\">古典音楽</span>" .
+            ("<span class=\"_+\">古典音楽</span>" .
              "<span class=\"koten_ongaku\">古典音楽</span>")
-            ("<span class=\"____\">古典舞踊</span>" .
+            ("<span class=\"_+\">古典舞踊</span>" .
              "<span class=\"koten_buyo\">古典舞踊</span>")
             ("&#xa0;" . "")
             ("<div [a-z0-9\"= -]+></div>" . "")
-            ("<span class=\"___\">女踊り</span>" . "<span class=\"onna_odori\">女踊り</span>")
-            ("<span class=\"____\">二才踊り</span>" . "<span class=\"nisai_odori\">二才踊り</span>")
-            ("<span class=\"____\">打組踊り</span>" . "<span class=\"uchigumi_odori\">打組踊り</span>")
-            ("<span class=\"____\">老人踊り</span>" . "<span class=\"rojin_odori\">老人踊り</span>")
-            ("<span class=\"____\">若衆踊り</span>" . "<span class=\"wakashu_odori\">若衆踊り</span>"))))
+            (" +\" +" . "\"")
+            ("<span class=\"_+\">女踊り</span>" . "<span class=\"onna_odori\">女踊り</span>")
+            ("<span class=\"_+\">二才踊り</span>" . "<span class=\"nisei_odori\">二才踊り</span>")
+            ("<span class=\"_+\">打組踊り</span>" . "<span class=\"uchigumi_odori\">打組踊り</span>")
+            ("<span class=\"_+\">老人踊り</span>" . "<span class=\"rojin_odori\">老人踊り</span>")
+            ("<span class=\"_+\">御前風五節</span>" . "<span class=\"gozenfu_ichibushi\">御前風五節</span>")
+            ("<span class=\"___\">ちらし</span>" . "<span class=\"chirashi\">ちらし</span>")
+            ("<span class=\"tag\">.*</span></a></li>" . "</a></li>")
+            ("<button id=\"back_btn\" onclick=\"history.back()\">Back</button></a></li>" . "</a></li>")
+            ("<span class=\"_+\">若衆踊り</span>" . "<span class=\"wakashu_odori\">若衆踊り</span>"))))
     (when (eq backend 'html)
       ;; use `replace-regexp-in-string' to process exported result
       (seq-reduce
